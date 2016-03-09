@@ -1,27 +1,29 @@
 1. Fáza
 
 Stories:
-Ľahký level => 2 hodiny 
-Pohyb postavy => 2 hodiny 
-Kolízia => 4 hodiny
-Grafika postavy => 2 hodiny  
-Save/Load => 2 hodiny
-Stena => 2 hodiny
-Grafika steny => 1 hodina
-Posúvanie objektov => 1 hodina
-Balvan => 1 hodina
-Grafika balvanu => 1 hodina
-Reštart => 1 hodina
-Spawn => 1 hodina
-Exit => 1 hodina
-Grafika exitu => 1 hodina
+Ľahký level => 2 hodiny 	Janka a Timo
+Postava a pohyb => 3 hodiny 	Adam a Matúš
+Kolízia => 4 hodiny 		Adam a Matúš
+Grafika postavy => 2 hodiny 	Janka a Timo  
+Save/Load => 2 hodiny 		Adam a Matúš
+Stena => 2 hodiny 		Šandyna a Laco???
+Grafika steny => 1 hodina	Šandyna a Laco???
+Posúvanie objektov => 1 hodina 	Adam a Matúš
+Balvan => 1 hodina 		Šandyna a Laco???
+Grafika balvanu => 1 hodina 	Šandyna a Laco???
+Reštart => 1 hodina 		Šandyna a Laco???
+Spawn => 1 hodina 		Šandyna a Laco???
+Exit => 1 hodina 		Šandyna a Laco???
+Grafika exitu => 1 hodina 	Šandyna a Laco???
 
 Technické úlohy:
-Návrh hierarchie tried => 4 hodiny
-Návrh objektov => 2 hodiny
-Refaktorizácia => 3 hodiny
-Testovanie => 6 hodín
+Návrh hierarchie tried => 4 hodiny Janka a Timo
+Návrh objektov => 2 hodiny Janka a Timo
+Refaktorizácia => 3 hodiny všetci - každý pár cca 1 hodinu
+Testovanie => 6 hodín všetci - každý pár cca 2 hodiny
 
 
-Celkom = 37 hodín
+Celkom = 38 hodín
+
+
 
