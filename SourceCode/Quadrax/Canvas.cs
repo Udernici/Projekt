@@ -29,37 +29,38 @@ namespace Quadrax
 
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             //Redraw();
+            AddObject(new Boulder(30, 30, true, 20));
         }
 
         public void AddObject(GameObject o)
         {
             objects.Add(o);
-            canvas.Refresh();
+            Invalidate();
         }
 
         public void RemoveObject(GameObject o)
         {
             objects.Remove(o);
-            canvas.Refresh();
+            Invalidate();
         }
 
         public void Redraw()
         {
             //add graphic logic
-            
-           // pictureBox1.BackColor = Color.Black;
-            Rectangle r = new Rectangle(50, 50, 50, 50);
-            g.DrawRectangle(Pens.Black, r);
-            /* foreach (GameObject gobj in objects)
+
+            // pictureBox1.BackColor = Color.Black;
+            g.Clear(Color.White);
+            foreach (GameObject gobj in objects)
              {
-                 gobj.Draw();
-             }*/
+                 gobj.Draw(g);
+             }
+
         }
 
         public void Clear()
         {
             objects.Clear();
-            canvas.Refresh();
+            Invalidate();
         }
 
         private void InitializeComponent()
@@ -70,10 +71,9 @@ namespace Quadrax
             // canvas
             // 
             this.canvas.Location = new System.Drawing.Point(24, 12);
-            this.canvas.Name = "pictureBox1";
+            this.canvas.Name = "canvas";
             this.canvas.Size = new System.Drawing.Size(824, 485);
             this.canvas.TabIndex = 0;
-            this.canvas.TabStop = false;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             // 
             // MyCanvas
@@ -82,6 +82,7 @@ namespace Quadrax
             this.Controls.Add(this.canvas);
             this.Name = "MyCanvas";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -89,7 +90,16 @@ namespace Quadrax
         private void MyCanvas_Paint(object sender, PaintEventArgs e)
         {
             Redraw();
-            canvas.Refresh();
+        }
+
+        private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.A)
+            {
+                objects[0].X += -10;
+                Redraw();
+                e.Handled = true;
+            }
         }
     }
 }

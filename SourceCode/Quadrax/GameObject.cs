@@ -34,10 +34,7 @@ namespace Quadrax
             return strength >= weight;
         }
 
-        public void Draw()
-        {
-
-        }
+        public abstract void Draw(System.Drawing.Graphics g);
 
     }
 }
