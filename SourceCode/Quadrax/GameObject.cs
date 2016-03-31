@@ -34,6 +34,11 @@ namespace Quadrax
             return strength >= weight;
         }
 
+        public void Draw()
+        {
+
+        }
+
     }
 }
 
