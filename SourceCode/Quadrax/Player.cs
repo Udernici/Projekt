@@ -29,8 +29,8 @@ namespace Quadrax
                 Image image = Image.FromFile(adresa);
                 frames.Images.Add(image);
             }
-
         }
+        
         public int getX()
         {
             return X;
@@ -77,7 +77,7 @@ namespace Quadrax
             }
             else
             {
-                frames.Draw(g, new Point(X, Y), indexObrazku);
+                frames.Draw(g, new Point(X, Y), indexObrazku % frames.Images.Count);
 
                 // Call Application.DoEvents to force a repaint of the form.
                 Application.DoEvents();
