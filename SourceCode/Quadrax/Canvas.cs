@@ -12,7 +12,7 @@ namespace Quadrax
 {
     partial class MyCanvas : Form
     {
-        Player p1 = new Player(0, 0, 10,new string[6] { "PlayerL.png", "PlayerR.png", "PlayerL.png", "PlayerR.png", "PlayerL.png", "PlayerR.png" });
+        Player p1 = new Player(0, 0, 10, new string[] { "PlayerR1.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR4.png"});
         List<GameObject> objects = new List<GameObject>();
         Panel canvas;
         Graphics g;
@@ -53,7 +53,7 @@ namespace Quadrax
 
             // pictureBox1.BackColor = Color.Black;
             g.Clear(Color.White);
-            p1.Vykresli(g);
+            p1.Draw(g);
             foreach (GameObject gobj in objects)
              {
                  gobj.Draw(g);
@@ -98,7 +98,7 @@ namespace Quadrax
 
         private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
         {
-                p1.Pohyb(e, g, 10);
+                p1.Move(e, g, 10);
                 Redraw();
                 e.Handled = true;
         }
@@ -115,9 +115,8 @@ namespace Quadrax
 
             foreach (var item in level.OBJEKTY.BALVAN)
             {
-                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //arrayGameObjects.Add(tmp);
+                Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                objects.Add(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
             {
@@ -158,25 +157,25 @@ namespace Quadrax
             foreach (GameObject item in objects)
             {
                 //TODO implementovat ked budeme mat objekty
-                //if (item.GetType() == typeof(Balvan))
-                //{
-                //    LEVELOBJEKTYBALVAN tmp = new LEVELOBJEKTYBALVAN();
-                //    tmp.SOLID = item.isSolid();
-                //    tmp.WEIGHT = item.getWeight();
-                //    tmp.SURADNICE.X = item.X;
-                //    tmp.SURADNICE.Y = item.Y;
-                //    balvany.Add(tmp);
-                //}
+                if (item.GetType() == typeof(Boulder))
+                {
+                    LEVELOBJEKTYBALVAN tmp = new LEVELOBJEKTYBALVAN();
+                    tmp.SOLID = item.isSolid();
+                    tmp.WEIGHT = item.getWeight();
+                    tmp.SURADNICE.X = item.X;
+                    tmp.SURADNICE.Y = item.Y;
+                    balvany.Add(tmp);
+                }
 
             }
         }
         public bool pohyb(KeyEventArgs key, Player currentCharacter, GameObject[] array)
         {
-            switch (key.KeyCode)
+            foreach (var obj in array)
             {
-                case Keys.Up:
-                    foreach (var obj in array)
-                    {
+                switch (key.KeyCode)
+                {
+                    case Keys.Up:
                         if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTOBJEKTU / 2) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY() + VELKOSTKROKU) / VELKOSTOBJEKTU)
                         {
                             //if (obj.gettype() == typeof(rebrik))
@@ -187,12 +186,8 @@ namespace Quadrax
                             //    return false;
                             return false;
                         }
-
-                    }
-                    break;
-                case Keys.Down:
-                    foreach (var obj in array)
-                    {
+                        break;
+                    case Keys.Down:
                         if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTOBJEKTU / 2) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY() + VELKOSTKROKU) / VELKOSTOBJEKTU)
                         {
                             //if (obj.gettype() == typeof(rebrik))
@@ -203,11 +198,8 @@ namespace Quadrax
                             //    return false;
                             return false;
                         }
-                    }
-                    break;
-                case Keys.Left:
-                    foreach (var obj in array)
-                    {
+                        break;
+                    case Keys.Left:
                         if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTKROKU) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY()) / VELKOSTOBJEKTU)
                         {
                             //if (obj.gettype() == typeof(stena))
@@ -220,28 +212,26 @@ namespace Quadrax
                             //    return false;
                             return false;
                         }
-                    }
-                    break;
-                case Keys.Right:
-                    foreach (var obj in array)
-                    {
+                        break;
+                    case Keys.Right:
                         if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() + VELKOSTKROKU) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY()) / VELKOSTOBJEKTU)
                         {
-                            //if (obj.gettype() == typeof(rebrik))
+                            //if (obj.gettype() == typeof(stena))
                             //{
-                            //    return true;
+                            //    return false;
                             //}
+                            // ak je balvan a ma vacsiu hmotnost ako charakter silu tiez false, inak pozreme ci mozme, ak ani balvan ani stena true
+
                             //else
                             //    return false;
                             return false;
                         }
-
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
-            return false;
+            return true;
         }
     }
 
