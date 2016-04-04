@@ -5,18 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Quadrax
 {
     partial class MyCanvas : Form
     {
-        Player p1 = new Player(0, 0, 10);
-        Player p2 = new Player(10, 10, 20);
-        
+        Player p1 = new Player(0, 0, 10,new string[6] { "PlayerL.png", "PlayerR.png", "PlayerL.png", "PlayerR.png", "PlayerL.png", "PlayerR.png" });
         List<GameObject> objects = new List<GameObject>();
         Panel canvas;
         Graphics g;
         Timer gameTimer = new Timer();
+        int VELKOSTOBJEKTU = 64;
+        int VELKOSTKROKU = 5;
+        LEVEL level;
 
         public MyCanvas()
         {
@@ -50,6 +53,7 @@ namespace Quadrax
 
             // pictureBox1.BackColor = Color.Black;
             g.Clear(Color.White);
+            p1.Vykresli(g);
             foreach (GameObject gobj in objects)
              {
                  gobj.Draw(g);
@@ -94,12 +98,152 @@ namespace Quadrax
 
         private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.A)
-            {
-                objects[0].X += -10;
+                p1.Pohyb(e, g, 10);
                 Redraw();
                 e.Handled = true;
+        }
+
+
+        public void Load(string adresa)
+        {
+
+            XmlSerializer ser = new XmlSerializer(typeof(LEVEL));
+            using (XmlReader reader = XmlReader.Create(adresa))
+            {
+                level = (LEVEL)ser.Deserialize(reader);
+            }
+
+            foreach (var item in level.OBJEKTY.BALVAN)
+            {
+                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //arrayGameObjects.Add(tmp);
+            }
+            foreach (var item in level.OBJEKTY.PICHLIACE)
+            {
+                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //arrayGameObjects.Add(tmp);
+            }
+            foreach (var item in level.OBJEKTY.PREPINAC)
+            {
+                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //arrayGameObjects.Add(tmp);
+            }
+            foreach (var item in level.OBJEKTY.REBRIK)
+            {
+                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //arrayGameObjects.Add(tmp);
+            }
+            foreach (var item in level.OBJEKTY.STENA)
+            {
+                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //arrayGameObjects.Add(tmp);
+            }
+            foreach (var item in level.OBJEKTY.VYCHOD)
+            {
+                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //arrayGameObjects.Add(tmp);
+            }
+
+
+        }
+        public void Save()
+        {
+            List<LEVELOBJEKTYBALVAN> balvany = new List<LEVELOBJEKTYBALVAN>();
+            foreach (GameObject item in objects)
+            {
+                //TODO implementovat ked budeme mat objekty
+                //if (item.GetType() == typeof(Balvan))
+                //{
+                //    LEVELOBJEKTYBALVAN tmp = new LEVELOBJEKTYBALVAN();
+                //    tmp.SOLID = item.isSolid();
+                //    tmp.WEIGHT = item.getWeight();
+                //    tmp.SURADNICE.X = item.X;
+                //    tmp.SURADNICE.Y = item.Y;
+                //    balvany.Add(tmp);
+                //}
+
             }
         }
+        public bool pohyb(KeyEventArgs key, Player currentCharacter, GameObject[] array)
+        {
+            switch (key.KeyCode)
+            {
+                case Keys.Up:
+                    foreach (var obj in array)
+                    {
+                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTOBJEKTU / 2) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY() + VELKOSTKROKU) / VELKOSTOBJEKTU)
+                        {
+                            //if (obj.gettype() == typeof(rebrik))
+                            //{
+                            //    return true;
+                            //}
+                            //else
+                            //    return false;
+                            return false;
+                        }
+
+                    }
+                    break;
+                case Keys.Down:
+                    foreach (var obj in array)
+                    {
+                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTOBJEKTU / 2) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY() + VELKOSTKROKU) / VELKOSTOBJEKTU)
+                        {
+                            //if (obj.gettype() == typeof(rebrik))
+                            //{
+                            //    return true;
+                            //}
+                            //else
+                            //    return false;
+                            return false;
+                        }
+                    }
+                    break;
+                case Keys.Left:
+                    foreach (var obj in array)
+                    {
+                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTKROKU) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY()) / VELKOSTOBJEKTU)
+                        {
+                            //if (obj.gettype() == typeof(stena))
+                            //{
+                            //    return false;
+                            //}
+                            // ak je balvan a ma vacsiu hmotnost ako charakter silu tiez false, inak pozreme ci mozme, ak ani balvan ani stena true
+
+                            //else
+                            //    return false;
+                            return false;
+                        }
+                    }
+                    break;
+                case Keys.Right:
+                    foreach (var obj in array)
+                    {
+                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() + VELKOSTKROKU) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY()) / VELKOSTOBJEKTU)
+                        {
+                            //if (obj.gettype() == typeof(rebrik))
+                            //{
+                            //    return true;
+                            //}
+                            //else
+                            //    return false;
+                            return false;
+                        }
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
     }
+
+
 }
