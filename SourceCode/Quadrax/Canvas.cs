@@ -17,7 +17,7 @@ namespace Quadrax
         Player p1;
         List<GameObject> objects = new List<GameObject>();
 
-        Image BACKGROUND;
+        Image BACKGROUND = Properties.Resources.Bg;
 
         Panel canvas;
         Graphics g;
@@ -39,13 +39,7 @@ namespace Quadrax
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             //Redraw();
             Load("level.xml");
-            string path = Directory.GetCurrentDirectory();
-            string directoryName = Path.GetDirectoryName(path);
-            directoryName = Path.GetDirectoryName(directoryName);
-            directoryName += @"\Graphics\";
-            var playerPictures = Directory.GetFiles(directoryName + @"PlayerAnimation\Player1\", "*.png", SearchOption.AllDirectories);
-            p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU, playerPictures);
-            BACKGROUND = Image.FromFile(directoryName + "Bg.jpg");
+            p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU);
         }
 
         public void AddObject(GameObject o)
@@ -65,9 +59,10 @@ namespace Quadrax
             //add graphic logic
 
             // pictureBox1.BackColor = Color.Black;
-            canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
             //toto fixnut
             g.Clear(Color.White);
+            canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
+            g.DrawImage(canvas.BackgroundImage,0,0);
             p1.Draw(g);
             foreach (GameObject gobj in objects)
              {
@@ -130,6 +125,9 @@ namespace Quadrax
             {
                 level = (LEVEL)ser.Deserialize(reader);
             }
+
+            p1.X = level.SPAWN.X;
+            p1.Y = level.SPAWN.Y;
 
             foreach (var item in level.OBJEKTY.BALVAN)
             {

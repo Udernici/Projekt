@@ -21,14 +21,13 @@ namespace Quadrax
         int indexObrazku = 0;
         bool active = false;
         int POCETOBRAZKOV = 3;
-        int IMAGESIZE = 0;
 
         public int X { get { return this.x; } set { this.x = value; } }
         public int Y { get { return this.y; } set { this.y = value; } }
 
         public int Strength { get { return this.strength; } set { this.strength = value; } }
 
-        public Player(int x, int y, int strength, int imageSize, string[] adresy)
+        public Player(int x, int y, int strength, int imageSize)
         {
             X = x;
             Y = y;
@@ -38,37 +37,26 @@ namespace Quadrax
             up.ImageSize = new Size(imageSize, imageSize);
             down.ImageSize = new Size(imageSize, imageSize);
 
-            for (int i = 0; i < adresy.Length; i++)
-            {
-                if (i < POCETOBRAZKOV)
-                {
-                    AddImage(adresy[i], left);
-                }
-                else if (i < POCETOBRAZKOV * 2)
-                {
-                    AddImage(adresy[i], right);
-                }
-                else if (i < POCETOBRAZKOV * 3)
-                {
-                    AddImage(adresy[i], up);
-                }
-                else if (i < POCETOBRAZKOV * 4)
-                {
-                    AddImage(adresy[i], down);
-                }
-                else
-                {
-                    AddImage(adresy[i], towards);
-                }
-            }
+            //left
+            Image image = Properties.Resources.PlayerL1;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerL2;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerL3;
+            left.Images.Add(image);
+            //right
+            image = Properties.Resources.PlayerR1;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerR2;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerR3;
+            left.Images.Add(image);
+            //towards
+            towards.Images.Add(image);
         }
 
-        private void AddImage(string adresa, ImageList list)
-        {
-            string g = (System.IO.Directory.GetCurrentDirectory());
-            Image image = Image.FromFile(adresa);
-            list.Images.Add(image);
-        }
+
+        
         public void Move(KeyEventArgs key, Graphics g, int step)
         {
             switch (key.KeyCode)
