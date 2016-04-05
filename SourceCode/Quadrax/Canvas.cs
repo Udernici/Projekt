@@ -12,12 +12,12 @@ namespace Quadrax
 {
     partial class MyCanvas : Form
     {
-        Player p1 = new Player(0, 0, 10, new string[] { "PlayerR1.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR4.png"});
+        Player p1 = new Player(0, 0, 60, new string[] { "PlayerR1.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR3.png"});
         List<GameObject> objects = new List<GameObject>();
         Panel canvas;
         Graphics g;
         Timer gameTimer = new Timer();
-        int VELKOSTOBJEKTU = 64;
+        int VELKOSTOBJEKTU = 20;
         int VELKOSTKROKU = 5;
         LEVEL level;
 
@@ -32,7 +32,7 @@ namespace Quadrax
 
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             //Redraw();
-            AddObject(new Boulder(30, 30, true, 20));
+            Load("level.xml");
         }
 
         public void AddObject(GameObject o)
@@ -98,9 +98,12 @@ namespace Quadrax
 
         private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
         {
-                p1.Move(e, g, 10);
+            if (pohyb(e, p1, objects.ToArray()))
+            {
+                p1.Move(e, g, VELKOSTKROKU);
                 Redraw();
                 e.Handled = true;
+            }
         }
 
 
@@ -116,6 +119,8 @@ namespace Quadrax
             foreach (var item in level.OBJEKTY.BALVAN)
             {
                 Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                objects.Add(tmp);
+                tmp = new Boulder(450, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
                 objects.Add(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
@@ -171,69 +176,127 @@ namespace Quadrax
         }
         public bool pohyb(KeyEventArgs key, Player currentCharacter, GameObject[] array)
         {
+            switch (key.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    break;
+                default:
+                    return false;
+            }
             foreach (var obj in array)
             {
-                switch (key.KeyCode)
+                if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.X : currentCharacter.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
                 {
-                    case Keys.Up:
-                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTOBJEKTU / 2) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY() + VELKOSTKROKU) / VELKOSTOBJEKTU)
+                    if (!obj.isSolid() || Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.Y : currentCharacter.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    {
+                        switch (key.KeyCode)
                         {
-                            //if (obj.gettype() == typeof(rebrik))
-                            //{
-                            //    return true;
-                            //}
-                            //else
-                            //    return false;
-                            return false;
-                        }
-                        break;
-                    case Keys.Down:
-                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTOBJEKTU / 2) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY() + VELKOSTKROKU) / VELKOSTOBJEKTU)
-                        {
-                            //if (obj.gettype() == typeof(rebrik))
-                            //{
-                            //    return true;
-                            //}
-                            //else
-                            //    return false;
-                            return false;
-                        }
-                        break;
-                    case Keys.Left:
-                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() - VELKOSTKROKU) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY()) / VELKOSTOBJEKTU)
-                        {
-                            //if (obj.gettype() == typeof(stena))
-                            //{
-                            //    return false;
-                            //}
-                            // ak je balvan a ma vacsiu hmotnost ako charakter silu tiez false, inak pozreme ci mozme, ak ani balvan ani stena true
+                            case Keys.Up:
+                            case Keys.Down:
+                                //if (obj.GetType() == typeof(rebrik))
+                                //{
+                                //    return true;
+                                //}
+                                return false;
+                            case Keys.Left:
+                            case Keys.Right:
+                                if (obj.GetType() == typeof(Boulder))
+                                {
+                                    //ma hrac dostatocnu silu na pohnutie kamenom?
+                                    if (obj.canPush(currentCharacter.Strength))
+                                    {
+                                        if (pohybBouldra(key, obj, array))
+                                        {
+                                            obj.X += key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                                        }
+                                        return false;
+                                    }
+                                    else
+                                    {
+                                        return false;
+                                    }
+                                }
+                                break;
 
-                            //else
-                            //    return false;
-                            return false;
+                            default:
+                                break;
                         }
-                        break;
-                    case Keys.Right:
-                        if (obj.X / VELKOSTOBJEKTU == (currentCharacter.getX() + VELKOSTKROKU) / VELKOSTOBJEKTU && obj.Y / VELKOSTOBJEKTU == (currentCharacter.getY()) / VELKOSTOBJEKTU)
-                        {
-                            //if (obj.gettype() == typeof(stena))
-                            //{
-                            //    return false;
-                            //}
-                            // ak je balvan a ma vacsiu hmotnost ako charakter silu tiez false, inak pozreme ci mozme, ak ani balvan ani stena true
-
-                            //else
-                            //    return false;
-                            return false;
-                        }
-                        break;
-                    default:
-                        break;
+                    }
                 }
             }
             return true;
         }
+        public bool pohybBouldra(KeyEventArgs key, GameObject currentObject, GameObject[] array)
+        {
+            switch (key.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    break;
+                default:
+                    return false;
+            }
+            foreach (var obj in array)
+            {
+                if (obj.Equals(currentObject))
+                {
+                    continue;
+                }
+                if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentObject.X : currentObject.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
+                {
+                    if (!obj.isSolid() || Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentObject.Y : currentObject.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    {
+                        switch (key.KeyCode)
+                        {
+                            case Keys.Up:
+                            case Keys.Down:
+                                //if (obj.GetType() == typeof(rebrik))
+                                //{
+                                //    return true;
+                                //}
+                                return false;
+                            case Keys.Left:
+                            case Keys.Right:
+                                if (obj.GetType() == typeof(Boulder))
+                                {
+                                    return false;
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        //skontroluje ci je v rovnakom riadku alebo stlpci
+        public bool SameRowOrColumn(int ch, int obj)
+        {
+            if (((ch >= obj) && (ch <= obj + VELKOSTOBJEKTU)) ||
+                ((ch + VELKOSTOBJEKTU >= obj) && (ch + VELKOSTOBJEKTU <= obj + VELKOSTOBJEKTU)))
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        //skontroluje ci by stupil na dany objekt
+        public bool Overlap(int ch, int obj, int vk)
+        {
+            if (((ch + vk >= obj) && (ch + vk <= obj + VELKOSTOBJEKTU)) ||
+                ((ch + vk + VELKOSTOBJEKTU >= obj) && (ch + vk + VELKOSTOBJEKTU <= obj + VELKOSTOBJEKTU)))
+            {
+                return true;
+            }
+            return false;
+        }
     }
-
-
 }

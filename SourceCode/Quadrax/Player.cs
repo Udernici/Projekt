@@ -10,8 +10,8 @@ namespace Quadrax
 {
     class Player
     {
-        int sila = -9999;
-        private int X, Y = -9999;
+        int strength = -9999;
+        int x, y = -9999;
         ImageList left = new ImageList();
         ImageList right = new ImageList();
         ImageList up = new ImageList();
@@ -22,19 +22,16 @@ namespace Quadrax
         bool active = false;
         int POCETOBRAZKOV = 2;
 
-        public int getX()
-        {
-            return X;
-        }
-        public int getY()
-        {
-            return Y;
-        }
-        public Player(int x, int y, int sila, string[] adresy)
+        public int X { get { return this.x; } set { this.x = value; } }
+        public int Y { get { return this.y; } set { this.y = value; } }
+
+        public int Strength { get { return this.strength; } set { this.strength = value; } }
+
+        public Player(int x, int y, int strength, string[] adresy)
         {
             X = x;
             Y = y;
-            this.sila = sila;
+            this.strength = strength;
             for (int i = 0; i < adresy.Length; i++)
             {
                 if (i < POCETOBRAZKOV)
