@@ -32,37 +32,26 @@ namespace Quadrax
             X = x;
             Y = y;
             this.strength = strength;
-            for (int i = 0; i < adresy.Length; i++)
-            {
-                if (i < POCETOBRAZKOV)
-                {
-                    AddImage(adresy[i], left);
-                }
-                else if (i < POCETOBRAZKOV * 2)
-                {
-                    AddImage(adresy[i], right);
-                }
-                else if (i < POCETOBRAZKOV * 3)
-                {
-                    AddImage(adresy[i], up);
-                }
-                else if (i < POCETOBRAZKOV * 4)
-                {
-                    AddImage(adresy[i], down);
-                }
-                else
-                {
-                    AddImage(adresy[i], towards);
-                }
-            }
+            //left
+            Image image = Properties.Resources.PlayerL1;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerL2;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerL3;
+            left.Images.Add(image);
+            //right
+            image = Properties.Resources.PlayerR1;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerR2;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerR3;
+            left.Images.Add(image);
+            //towards
+            towards.Images.Add(image);
         }
 
-        private void AddImage(string adresa, ImageList list)
-        {
-            string g = (System.IO.Directory.GetCurrentDirectory());
-            Image image = Image.FromFile(adresa);
-            list.Images.Add(image);
-        }
+
+        
         public void Move(KeyEventArgs key, Graphics g, int step)
         {
             switch (key.KeyCode)

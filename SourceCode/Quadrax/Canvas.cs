@@ -14,10 +14,10 @@ namespace Quadrax
 {
     partial class MyCanvas : Form
     {
-        Player p1 = new Player(0, 0, 60, new string[] { "PlayerR1.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR3.png"});
+        Player p1 = new Player(0, 0, 60, null);
         List<GameObject> objects = new List<GameObject>();
 
-        Image BACKGROUND = Image.FromFile("Bg.jpg");
+        Image BACKGROUND = Properties.Resources.Bg;
 
         Panel canvas;
         Graphics g;
@@ -58,9 +58,10 @@ namespace Quadrax
             //add graphic logic
 
             // pictureBox1.BackColor = Color.Black;
-            canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
             //toto fixnut
             g.Clear(Color.White);
+            canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
+            g.DrawImage(canvas.BackgroundImage,0,0);
             p1.Draw(g);
             foreach (GameObject gobj in objects)
              {
@@ -123,6 +124,9 @@ namespace Quadrax
             {
                 level = (LEVEL)ser.Deserialize(reader);
             }
+
+            p1.X = level.SPAWN.X;
+            p1.Y = level.SPAWN.Y;
 
             foreach (var item in level.OBJEKTY.BALVAN)
             {

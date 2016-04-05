@@ -83,7 +83,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="level.xml" />
+    <None Include="Graphics\PlayerAnimation\Player2L1.png" />
+    <None Include="Graphics\PlayerAnimation\Player2L2.png" />
+    <None Include="Graphics\PlayerAnimation\Player2L3.png" />
+    <None Include="Graphics\PlayerAnimation\Player2R1.png" />
+    <None Include="Graphics\PlayerAnimation\Player2R2.png" />
+    <None Include="Graphics\PlayerAnimation\Player2R3.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerL1.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerL2.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerL3.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerR1.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerR2.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerR3.png" />
+    <None Include="Graphics\PlayerAnimation\PlayerR4.png" />
+    <None Include="Graphics\Bg.jpg" />
+    <Resource Include="level.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\level.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
