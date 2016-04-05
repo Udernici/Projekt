@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,10 +16,14 @@ namespace Quadrax
     {
         Player p1 = new Player(0, 0, 60, new string[] { "PlayerR1.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR3.png"});
         List<GameObject> objects = new List<GameObject>();
+
+        Image BACKGROUND = Image.FromFile("Bg.jpg");
+
         Panel canvas;
         Graphics g;
         Timer gameTimer = new Timer();
-        int VELKOSTOBJEKTU = 20;
+
+        int VELKOSTOBJEKTU = 300;
         int VELKOSTKROKU = 5;
         LEVEL level;
 
@@ -52,13 +58,14 @@ namespace Quadrax
             //add graphic logic
 
             // pictureBox1.BackColor = Color.Black;
+            canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
+            //toto fixnut
             g.Clear(Color.White);
             p1.Draw(g);
             foreach (GameObject gobj in objects)
              {
                  gobj.Draw(g);
              }
-
         }
 
         public void Clear()
@@ -74,9 +81,10 @@ namespace Quadrax
             // 
             // canvas
             // 
-            this.canvas.Location = new System.Drawing.Point(24, 12);
+            this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.canvas.Location = new System.Drawing.Point(0, 0);
             this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(824, 485);
+            this.canvas.Size = new System.Drawing.Size(870, 509);
             this.canvas.TabIndex = 0;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             // 
