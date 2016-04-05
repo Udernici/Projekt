@@ -25,6 +25,7 @@ namespace Quadrax
         int VELKOSTCHARAKTERU = 50;
         int VELKOSTOBJEKTU = 20;
         int VELKOSTKROKU = 5;
+        private Button restartButton;
         LEVEL level;
 
         public MyCanvas()
@@ -79,16 +80,30 @@ namespace Quadrax
         private void InitializeComponent()
         {
             this.canvas = new System.Windows.Forms.Panel();
+            this.restartButton = new System.Windows.Forms.Button();
+            this.canvas.SuspendLayout();
             this.SuspendLayout();
             // 
             // canvas
             // 
+            this.canvas.Controls.Add(this.restartButton);
             this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.canvas.Location = new System.Drawing.Point(0, 0);
             this.canvas.Name = "canvas";
             this.canvas.Size = new System.Drawing.Size(870, 509);
             this.canvas.TabIndex = 0;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
+            // 
+            // restartButton
+            // 
+            this.restartButton.Location = new System.Drawing.Point(768, 36);
+            this.restartButton.Name = "restartButton";
+            this.restartButton.Size = new System.Drawing.Size(75, 23);
+            this.restartButton.TabIndex = 0;
+            this.restartButton.Text = "Restart";
+            this.restartButton.UseVisualStyleBackColor = true;
+            this.restartButton.Visible = false;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_click);
             // 
             // MyCanvas
             // 
@@ -97,6 +112,7 @@ namespace Quadrax
             this.Name = "MyCanvas";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyDown);
+            this.canvas.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -315,6 +331,15 @@ namespace Quadrax
                 return true;
             }
             return false;
+        }
+
+        private void restartButton_click(object sender, EventArgs e)
+        {
+//            Load("adresa");
+        }
+        public void setRestartButton(int x,int y) {
+            restartButton.Location=new Point(x,y);
+            restartButton.Visible = true;
         }
     }
 }
