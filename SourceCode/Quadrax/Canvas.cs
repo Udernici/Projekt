@@ -14,16 +14,16 @@ namespace Quadrax
 {
     partial class MyCanvas : Form
     {
-        Player p1 = new Player(0, 0, 60, new string[] { "PlayerR1.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR2.png", "PlayerR3.png", "PlayerR3.png"});
+        Player p1;
         List<GameObject> objects = new List<GameObject>();
 
-        Image BACKGROUND = Image.FromFile("Bg.jpg");
+        Image BACKGROUND;
 
         Panel canvas;
         Graphics g;
         Timer gameTimer = new Timer();
-
-        int VELKOSTOBJEKTU = 300;
+        int VELKOSTCHARAKTERU = 50;
+        int VELKOSTOBJEKTU = 20;
         int VELKOSTKROKU = 5;
         LEVEL level;
 
@@ -39,6 +39,13 @@ namespace Quadrax
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             //Redraw();
             Load("level.xml");
+            string path = Directory.GetCurrentDirectory();
+            string directoryName = Path.GetDirectoryName(path);
+            directoryName = Path.GetDirectoryName(directoryName);
+            directoryName += @"\Graphics\";
+            var playerPictures = Directory.GetFiles(directoryName + @"PlayerAnimation\Player1\", "*.png", SearchOption.AllDirectories);
+            p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU, playerPictures);
+            BACKGROUND = Image.FromFile(directoryName + "Bg.jpg");
         }
 
         public void AddObject(GameObject o)
@@ -128,8 +135,8 @@ namespace Quadrax
             {
                 Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
                 objects.Add(tmp);
-                tmp = new Boulder(450, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                objects.Add(tmp);
+                //tmp = new Boulder(450, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                //objects.Add(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
             {
@@ -219,6 +226,7 @@ namespace Quadrax
                                         if (pohybBouldra(key, obj, array))
                                         {
                                             obj.X += key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                                            return true;
                                         }
                                         return false;
                                     }
@@ -288,8 +296,10 @@ namespace Quadrax
         //skontroluje ci je v rovnakom riadku alebo stlpci
         public bool SameRowOrColumn(int ch, int obj)
         {
-            if (((ch >= obj) && (ch <= obj + VELKOSTOBJEKTU)) ||
-                ((ch + VELKOSTOBJEKTU >= obj) && (ch + VELKOSTOBJEKTU <= obj + VELKOSTOBJEKTU)))
+            if (((ch >= obj && ch <= obj + VELKOSTOBJEKTU) ||
+                (ch + VELKOSTOBJEKTU >= obj && ch + VELKOSTOBJEKTU <= obj + VELKOSTOBJEKTU)) || 
+               ((obj >= ch && obj <= ch + VELKOSTCHARAKTERU)||
+                (obj + VELKOSTOBJEKTU >= ch && obj + VELKOSTOBJEKTU <= ch + VELKOSTCHARAKTERU)))
             {
                 return true;
             }
@@ -299,8 +309,10 @@ namespace Quadrax
         //skontroluje ci by stupil na dany objekt
         public bool Overlap(int ch, int obj, int vk)
         {
-            if (((ch + vk >= obj) && (ch + vk <= obj + VELKOSTOBJEKTU)) ||
-                ((ch + vk + VELKOSTOBJEKTU >= obj) && (ch + vk + VELKOSTOBJEKTU <= obj + VELKOSTOBJEKTU)))
+            if (((ch + vk >= obj && ch + vk <= obj + VELKOSTOBJEKTU) ||
+                (ch + vk + VELKOSTOBJEKTU >= obj && ch + vk + VELKOSTOBJEKTU <= obj + VELKOSTOBJEKTU))||
+               ((obj >= ch + vk && obj <= ch + VELKOSTCHARAKTERU + vk) ||
+                (obj + VELKOSTOBJEKTU >= ch + vk && obj + VELKOSTOBJEKTU <= ch + vk + VELKOSTCHARAKTERU)))
             {
                 return true;
             }

@@ -20,18 +20,24 @@ namespace Quadrax
         char direction = 'q';
         int indexObrazku = 0;
         bool active = false;
-        int POCETOBRAZKOV = 2;
+        int POCETOBRAZKOV = 3;
+        int IMAGESIZE = 0;
 
         public int X { get { return this.x; } set { this.x = value; } }
         public int Y { get { return this.y; } set { this.y = value; } }
 
         public int Strength { get { return this.strength; } set { this.strength = value; } }
 
-        public Player(int x, int y, int strength, string[] adresy)
+        public Player(int x, int y, int strength, int imageSize, string[] adresy)
         {
             X = x;
             Y = y;
             this.strength = strength;
+            left.ImageSize = new Size(imageSize, imageSize);
+            right.ImageSize = new Size(imageSize, imageSize);
+            up.ImageSize = new Size(imageSize, imageSize);
+            down.ImageSize = new Size(imageSize, imageSize);
+
             for (int i = 0; i < adresy.Length; i++)
             {
                 if (i < POCETOBRAZKOV)
