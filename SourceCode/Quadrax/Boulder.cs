@@ -18,7 +18,7 @@ namespace Quadrax
 
         public override void Draw(Graphics g)
         {
-            g.DrawRectangle(Pens.Black, new Rectangle(X, Y, 20, 20));
+            g.DrawRectangle(Pens.Black, new Rectangle(this.X, this.Y, 20, 20));
         }
 
     }

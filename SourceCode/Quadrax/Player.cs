@@ -10,94 +10,115 @@ namespace Quadrax
 {
     class Player
     {
-        int sila = -9999;
-        private int X, Y = -9999;
-        ImageList frames = new ImageList();
+        int strength = -9999;
+        int x, y = -9999;
+        ImageList left = new ImageList();
+        ImageList right = new ImageList();
+        ImageList up = new ImageList();
+        ImageList down = new ImageList();
+        ImageList towards = new ImageList();
+        char direction = 'q';
         int indexObrazku = 0;
-        bool active = true;
-        int MINOBRAZOK = 1;
-        int POCETOBRAZKOV = 5;
+        bool active = false;
+        int POCETOBRAZKOV = 3;
 
-        public Player(int x, int y, int sila, string[] adresy)
+        public int X { get { return this.x; } set { this.x = value; } }
+        public int Y { get { return this.y; } set { this.y = value; } }
+
+        public int Strength { get { return this.strength; } set { this.strength = value; } }
+
+        public Player(int x, int y, int strength, int imageSize)
         {
             X = x;
             Y = y;
-            this.sila = sila;
-            foreach (string adresa in adresy)
-            {
-                string g = (System.IO.Directory.GetCurrentDirectory());
-                Image image = Image.FromFile(adresa);
-                frames.Images.Add(image);
-            }
+            this.strength = strength;
+            left.ImageSize = new Size(imageSize, imageSize);
+            right.ImageSize = new Size(imageSize, imageSize);
+            up.ImageSize = new Size(imageSize, imageSize);
+            down.ImageSize = new Size(imageSize, imageSize);
 
+            //left
+            Image image = Properties.Resources.PlayerL1;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerL2;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerL3;
+            left.Images.Add(image);
+            //right
+            image = Properties.Resources.PlayerR1;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerR2;
+            left.Images.Add(image);
+            image = Properties.Resources.PlayerR3;
+            left.Images.Add(image);
+            //towards
+            towards.Images.Add(image);
         }
-        public int getX()
-        {
-            return X;
-        }
-        public int getY()
-        {
-            return Y;
-        }
-        public void Pohyb(KeyEventArgs key, Graphics g, int krok)
+
+
+        
+        public void Move(KeyEventArgs key, Graphics g, int step)
         {
             switch (key.KeyCode)
             {
                 case Keys.Up:
-                    Y -= krok;
-                    posunFrame(0);
+                    Y -= step;
+                    direction = 'U';
                     break;
                 case Keys.Down:
-                    posunFrame(1);
-                    Y += krok;
+                    Y += step;
+                    direction = 'D';
                     break;
                 case Keys.Left:
-                    posunFrame(2);
-                    X -= krok;
+                    X -= step;
+                    direction = 'L';
                     break;
                 case Keys.Right:
-                    posunFrame(3);
-                    X += krok;
+                    X += step;
+                    direction = 'R';
                     break;
                 default:
                     break;
             }
+
+            indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
         }
 
 
-        public void Vykresli(Graphics g)
+        public void Draw(Graphics g)
         {
-            if (!active)
+            try
             {
-                frames.Draw(g, new Point(X, Y), 0);
+                if (!active)
+                {
+                    switch (direction)
+                    {
+                        case 'U':
+                            up.Draw(g, new Point(X, Y), indexObrazku);
+                            break;
+                        case 'D':
+                            down.Draw(g, new Point(X, Y), indexObrazku);
+                            break;
+                        case 'L':
+                            left.Draw(g, new Point(X, Y), indexObrazku);
+                            break;
+                        case 'R':
+                            right.Draw(g, new Point(X, Y), indexObrazku);
+                            break;
+                    }
+                }
+                else
+                {
+                    towards.Draw(g, new Point(X, Y), 0);
+                }
 
                 // Call Application.DoEvents to force a repaint of the form.
                 Application.DoEvents();
-
             }
-            else
+            catch
             {
-                frames.Draw(g, new Point(X, Y), indexObrazku);
-
-                // Call Application.DoEvents to force a repaint of the form.
-                Application.DoEvents();
-            }
-
-
-
-        }
-
-        private void posunFrame(int smerCislo)
-        {
-            if (indexObrazku >= 1 + MINOBRAZOK * smerCislo && indexObrazku < 1 + MINOBRAZOK * smerCislo + POCETOBRAZKOV)
-            {
-                indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV + 1 + MINOBRAZOK * smerCislo;
-            }
-            else
-            {
-                indexObrazku = 1 + MINOBRAZOK * smerCislo;
+                MessageBox.Show("Nemam obrazok.");
             }
         }
-
     }
 }

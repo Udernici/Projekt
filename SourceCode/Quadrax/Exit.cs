@@ -18,8 +18,8 @@ namespace Quadrax
             this.player2 = player2;
         }
         public bool Escaped() {
-            return (player1.getX() > X && player1.getX() < X + 20 && player1.getY() > Y-20 && player1.getY() < Y + 20 &&
-                    player2.getX() > X && player2.getX() < X + 20 && player2.getY() > Y-20 && player2.getY() < Y + 20);
+            return (player1.X > X && player1.X < X + 20 && player1.Y > Y-20 && player1.Y < Y + 20 &&
+                    player2.X > X && player2.X < X + 20 && player2.Y > Y-20 && player2.Y < Y + 20);
         }
 
         public override void Draw(Graphics g)
