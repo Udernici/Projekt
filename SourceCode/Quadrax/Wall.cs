@@ -13,7 +13,7 @@ namespace Quadrax
         //constructor
         public Wall(int x, int y, int width, int height, bool solid, int weight) : base(x, y, solid, weight)
         {
-            Bricks = new Brick[width][];
+            /*Bricks = new Brick[width][];
             for (int i = 0; i < width; i++)
             {
                 Bricks[i] = new Brick[height];
@@ -25,7 +25,7 @@ namespace Quadrax
                         Y = j
                     };
                 }
-            }
+            }*/
 
         }
 
@@ -48,13 +48,13 @@ namespace Quadrax
                         }
 
                     }*/
-            for (int i = 0; i < Bricks.Length; i++)
+            /*for (int i = 0; i < Bricks.Length; i++)
             {
                 for (int j = 0; j < Bricks[i].Length; j++)
                 {
                      g.DrawRectangle(Pens.Black, new Rectangle(X + i * 20, Y + j * 20, 20, 20));
                 }
-            }
+            }*/
         }
     }
 }

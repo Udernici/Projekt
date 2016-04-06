@@ -46,11 +46,11 @@ namespace Quadrax
             left.Images.Add(image);
             //right
             image = Properties.Resources.PlayerR1;
-            left.Images.Add(image);
+            right.Images.Add(image);
             image = Properties.Resources.PlayerR2;
-            left.Images.Add(image);
+            right.Images.Add(image);
             image = Properties.Resources.PlayerR3;
-            left.Images.Add(image);
+            right.Images.Add(image);
             //towards
             towards.Images.Add(image);
         }
@@ -62,12 +62,12 @@ namespace Quadrax
             switch (key.KeyCode)
             {
                 case Keys.Up:
-                    Y -= step;
-                    direction = 'U';
+                    //Y -= step;
+                    //direction = 'U';
                     break;
                 case Keys.Down:
-                    Y += step;
-                    direction = 'D';
+                    //Y += step;
+                    //direction = 'D';
                     break;
                 case Keys.Left:
                     X -= step;
@@ -94,10 +94,10 @@ namespace Quadrax
                     switch (direction)
                     {
                         case 'U':
-                            up.Draw(g, new Point(X, Y), indexObrazku);
+                            //up.Draw(g, new Point(X, Y), indexObrazku);
                             break;
                         case 'D':
-                            down.Draw(g, new Point(X, Y), indexObrazku);
+                            //down.Draw(g, new Point(X, Y), indexObrazku);
                             break;
                         case 'L':
                             left.Draw(g, new Point(X, Y), indexObrazku);

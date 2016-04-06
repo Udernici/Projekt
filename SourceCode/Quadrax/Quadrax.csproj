@@ -102,9 +102,7 @@
     <None Include="Graphics\Bg.jpg" />
     <Resource Include="level.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="bin\Debug\level.xml" />
   </ItemGroup>
@@ -128,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\bricks\wall_05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
