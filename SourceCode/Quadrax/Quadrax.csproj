@@ -108,6 +108,27 @@
   <ItemGroup>
     <None Include="bin\Debug\level.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\boulder_01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\bricks\wall_01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\bricks\wall_02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\bricks\wall_03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\bricks\wall_04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\bricks\wall_05.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
