@@ -35,7 +35,7 @@
 		<STENA>
 			<SURADNICE>
 				<X>10</X>
-				<Y>10</Y>
+				<Y>150</Y>
 			</SURADNICE>
 			<SOLID>true</SOLID>
 			<WEIGHT>60</WEIGHT>

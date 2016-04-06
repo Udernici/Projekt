@@ -17,7 +17,7 @@ namespace Quadrax
         Player p1;
         List<GameObject> objects = new List<GameObject>();
 
-        Image BACKGROUND = Properties.Resources.Bg;
+        Image BACKGROUND = Properties.Resources.bg1;
 
         Panel canvas;
         Graphics g;
@@ -35,12 +35,10 @@ namespace Quadrax
             this.Height = 600;
             this.Width = 800;
             g = canvas.CreateGraphics();
-            //AddObject(new Boulder(10, 10, true, 10));
-
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
-            //Redraw();
             p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU);
             Load("level.xml");
+            Redraw();
         }
 
         public void AddObject(GameObject o)
@@ -61,9 +59,8 @@ namespace Quadrax
 
             // pictureBox1.BackColor = Color.Black;
             //toto fixnut
-            g.Clear(Color.White);
             canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
-            g.DrawImage(canvas.BackgroundImage,0,0);
+            g.DrawImage(canvas.BackgroundImage,0,0,this.Width,this.Height);
             p1.Draw(g);
             foreach (GameObject gobj in objects)
              {
@@ -71,11 +68,6 @@ namespace Quadrax
              }
         }
 
-        public void Clear()
-        {
-            objects.Clear();
-            Invalidate();
-        }
 
         private void InitializeComponent()
         {
@@ -86,11 +78,12 @@ namespace Quadrax
             // 
             // canvas
             // 
+            this.canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.canvas.Controls.Add(this.restartButton);
             this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.canvas.Location = new System.Drawing.Point(0, 0);
             this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(870, 509);
+            this.canvas.Size = new System.Drawing.Size(737, 430);
             this.canvas.TabIndex = 0;
             this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             // 
@@ -107,7 +100,7 @@ namespace Quadrax
             // 
             // MyCanvas
             // 
-            this.ClientSize = new System.Drawing.Size(870, 509);
+            this.ClientSize = new System.Drawing.Size(737, 430);
             this.Controls.Add(this.canvas);
             this.Name = "MyCanvas";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
@@ -119,7 +112,6 @@ namespace Quadrax
 
         private void MyCanvas_Paint(object sender, PaintEventArgs e)
         {
-            Redraw();
         }
 
         private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
@@ -135,7 +127,6 @@ namespace Quadrax
 
         public void Load(string adresa)
         {
-
             XmlSerializer ser = new XmlSerializer(typeof(LEVEL));
             using (XmlReader reader = XmlReader.Create(adresa))
             {
@@ -149,8 +140,6 @@ namespace Quadrax
             {
                 Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
                 objects.Add(tmp);
-                //tmp = new Boulder(450, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //objects.Add(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
             {
@@ -173,14 +162,13 @@ namespace Quadrax
             foreach (var item in level.OBJEKTY.STENA)
             {
                 //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //arrayGameObjects.Add(tmp);
+                Brick tmp = new Brick(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                objects.Add(tmp);
             }
             foreach (var item in level.OBJEKTY.VYCHOD)
             {
-                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //arrayGameObjects.Add(tmp);
+                Exit ex = new Exit(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                objects.Add(ex);
             }
 
 
@@ -219,7 +207,7 @@ namespace Quadrax
             {
                 if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.X : currentCharacter.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
                 {
-                    if (!obj.isSolid() || Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.Y : currentCharacter.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    if (Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.Y : currentCharacter.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
                         switch (key.KeyCode)
                         {
@@ -232,7 +220,7 @@ namespace Quadrax
                                 return false;
                             case Keys.Left:
                             case Keys.Right:
-                                if (obj.GetType() == typeof(Boulder))
+                                if (obj.GetType() == typeof(Boulder)||obj.GetType()==typeof(Brick))
                                 {
                                     //ma hrac dostatocnu silu na pohnutie kamenom?
                                     if (obj.canPush(currentCharacter.Strength))
@@ -249,6 +237,18 @@ namespace Quadrax
                                         return false;
                                     }
                                 }
+                                else if (obj.GetType() == typeof(Exit))
+                                {
+                                    var x = (Exit)obj;
+                                    MessageBox.Show("Vyhral si!");
+                                    Application.Exit();
+
+                                    //if (x.Escaped(p1))
+                                    //{
+                                    //}
+                                }
+
+
                                 break;
 
                             default:
@@ -339,7 +339,7 @@ namespace Quadrax
         }
         public void setRestartButton(int x,int y) {
             restartButton.Location=new Point(x,y);
-            restartButton.Visible = true;
+            restartButton.Visible = false;
         }
     }
 }
