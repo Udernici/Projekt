@@ -27,6 +27,7 @@ namespace Quadrax
         int VELKOSTKROKU = 5;
         private Button restartButton;
         LEVEL level;
+        Player activeCharacter;
 
         public MyCanvas()
         {
@@ -37,7 +38,8 @@ namespace Quadrax
             g = canvas.CreateGraphics();
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU);
-            Load("level.xml");
+            activeCharacter = p1;
+            Load(Properties.Resources.level);
             Redraw();
         }
 
@@ -116,7 +118,7 @@ namespace Quadrax
 
         private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (pohyb(e, p1, objects.ToArray()))
+            if (pohyb(e))
             {
                 p1.Move(e, g, VELKOSTKROKU);
                 Redraw();
@@ -125,14 +127,14 @@ namespace Quadrax
         }
 
 
-        public void Load(string adresa)
+        public void Load(string content)
         {
             XmlSerializer ser = new XmlSerializer(typeof(LEVEL));
-            using (XmlReader reader = XmlReader.Create(adresa))
+            using (TextReader reader = new StringReader(content))
             {
                 level = (LEVEL)ser.Deserialize(reader);
             }
-
+            
             p1.X = level.SPAWN.X;
             p1.Y = level.SPAWN.Y;
 
@@ -191,7 +193,7 @@ namespace Quadrax
 
             }
         }
-        public bool pohyb(KeyEventArgs key, Player currentCharacter, GameObject[] array)
+        public bool pohyb(KeyEventArgs key)
         {
             switch (key.KeyCode)
             {
@@ -203,63 +205,49 @@ namespace Quadrax
                 default:
                     return false;
             }
-            foreach (var obj in array)
+            foreach (var obj in objects)
             {
-                if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.X : currentCharacter.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
+                if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? activeCharacter.X : activeCharacter.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
                 {
-                    if (Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentCharacter.Y : currentCharacter.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    if (Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? activeCharacter.Y : activeCharacter.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
-                        switch (key.KeyCode)
-                        {
-                            case Keys.Up:
-                            case Keys.Down:
-                                //if (obj.GetType() == typeof(rebrik))
-                                //{
-                                //    return true;
-                                //}
-                                return false;
-                            case Keys.Left:
-                            case Keys.Right:
-                                if (obj.GetType() == typeof(Boulder)||obj.GetType()==typeof(Brick))
-                                {
-                                    //ma hrac dostatocnu silu na pohnutie kamenom?
-                                    if (obj.canPush(currentCharacter.Strength))
-                                    {
-                                        if (pohybBouldra(key, obj, array))
-                                        {
-                                            obj.X += key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
-                                            return true;
-                                        }
-                                        return false;
-                                    }
-                                    else
-                                    {
-                                        return false;
-                                    }
-                                }
-                                else if (obj.GetType() == typeof(Exit))
-                                {
-                                    var x = (Exit)obj;
-                                    MessageBox.Show("Vyhral si!");
-                                    Application.Exit();
-
-                                    //if (x.Escaped(p1))
-                                    //{
-                                    //}
-                                }
-
-
-                                break;
-
-                            default:
-                                break;
+                        bool res = resolveAdjacent(obj,key);
+                        if(!res){
+                            return false;
                         }
                     }
                 }
             }
             return true;
         }
-        public bool pohybBouldra(KeyEventArgs key, GameObject currentObject, GameObject[] array)
+
+        private bool resolveAdjacent(GameObject obj, KeyEventArgs key)
+        {
+            if (obj.GetType() == typeof(Boulder) || obj.GetType() == typeof(Brick))
+            {
+                //ma hrac dostatocnu silu na pohnutie kamenom?
+                if (obj.canPush(activeCharacter.Strength))
+                {
+                    if (pohybBouldra(key, obj))
+                    {
+                        obj.X += key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                    }
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (obj.GetType() == typeof(Exit))
+            {
+                var x = (Exit)obj;
+                MessageBox.Show("Vyhral si!");
+                Application.Exit();
+            }
+            return true;
+        }
+        public bool pohybBouldra(KeyEventArgs key, GameObject currentObject)
         {
             switch (key.KeyCode)
             {
@@ -271,7 +259,7 @@ namespace Quadrax
                 default:
                     return false;
             }
-            foreach (var obj in array)
+            foreach (var obj in objects)
             {
                 if (obj.Equals(currentObject))
                 {

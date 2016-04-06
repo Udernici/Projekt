@@ -101,6 +101,46 @@ namespace Quadrax.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;LEVEL&gt;
+        ///	&lt;ROZMERY&gt;
+        ///		&lt;SIRKA&gt;10&lt;/SIRKA&gt;
+        ///		&lt;VYSKA&gt;10&lt;/VYSKA&gt;
+        ///	&lt;/ROZMERY&gt;
+        ///	&lt;SPAWN&gt;
+        ///		&lt;X&gt;20&lt;/X&gt;
+        ///		&lt;Y&gt;430&lt;/Y&gt;
+        ///	&lt;/SPAWN&gt;
+        ///	&lt;OBJEKTY&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;550&lt;/X&gt;
+        ///        &lt;Y&gt;450&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///		&lt;REBRIK&gt;
+        ///			&lt;SURADNICE&gt;
+        ///				&lt;X&gt;10&lt;/X&gt;
+        ///				&lt;Y&gt;10&lt;/Y&gt;
+        ///			&lt;/SURADNICE&gt;
+        ///			&lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
+        ///		&lt;/REBRIK&gt;
+        ///		&lt;STENA&gt;
+        ///			&lt;SURADNICE&gt;
+        ///				&lt;X&gt;0&lt;/X&gt;
+        ///				&lt;Y&gt;450&lt;/Y&gt;
+        ///			&lt;/SURADNICE&gt;
+        ///			&lt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string level {
+            get {
+                return ResourceManager.GetString("level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Player2L1 {

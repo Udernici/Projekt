@@ -102,7 +102,9 @@
     <None Include="Graphics\Bg.jpg" />
     <Resource Include="level.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Graphics\level.xml" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\level.xml" />
   </ItemGroup>
