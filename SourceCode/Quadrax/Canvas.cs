@@ -39,8 +39,8 @@ namespace Quadrax
 
             typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             //Redraw();
-            Load("level.xml");
             p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU);
+            Load("level.xml");
         }
 
         public void AddObject(GameObject o)
