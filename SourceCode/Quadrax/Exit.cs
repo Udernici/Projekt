@@ -20,9 +20,8 @@ namespace Quadrax
                     //zatial zakomentovane, lebo nemame este druheho hraca
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw()
         {
-            g.DrawImage(image, X, Y);
         }
     }
 }

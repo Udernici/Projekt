@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace Quadrax
 {
-    class Player
+    class Player : PictureBox
     {
         int strength = -9999;
         int x, y = -9999;
-        ImageList left = new ImageList();
-        ImageList right = new ImageList();
+        List<Image> left = new List<Image>();
+        List<Image> right = new List<Image>();
         ImageList up = new ImageList();
         ImageList down = new ImageList();
         ImageList towards = new ImageList();
@@ -27,30 +27,28 @@ namespace Quadrax
 
         public int Strength { get { return this.strength; } set { this.strength = value; } }
 
-        public Player(int x, int y, int strength, int imageSize)
+        public Player(int x, int y, int strength, int imageSize) : base()
         {
             X = x;
             Y = y;
             this.strength = strength;
-            left.ImageSize = new Size(imageSize, imageSize);
-            right.ImageSize = new Size(imageSize, imageSize);
-            up.ImageSize = new Size(imageSize, imageSize);
-            down.ImageSize = new Size(imageSize, imageSize);
+            this.Size = new System.Drawing.Size(imageSize,imageSize);
 
             //left
             Image image = Properties.Resources.PlayerL1;
-            left.Images.Add(image);
+            //left.Images.Add(image);
+            left.Add(image);
             image = Properties.Resources.PlayerL2;
-            left.Images.Add(image);
+            left.Add(image);
             image = Properties.Resources.PlayerL3;
-            left.Images.Add(image);
+            left.Add(image);
             //right
             image = Properties.Resources.PlayerR1;
-            right.Images.Add(image);
+            right.Add(image);
             image = Properties.Resources.PlayerR2;
-            right.Images.Add(image);
+            right.Add(image);
             image = Properties.Resources.PlayerR3;
-            right.Images.Add(image);
+            right.Add(image);
             //towards
             towards.Images.Add(image);
         }
@@ -85,7 +83,7 @@ namespace Quadrax
         }
 
 
-        public void Draw(Graphics g)
+        public void Draw()
         {
             try
             {
@@ -100,16 +98,16 @@ namespace Quadrax
                             //down.Draw(g, new Point(X, Y), indexObrazku);
                             break;
                         case 'L':
-                            left.Draw(g, new Point(X, Y), indexObrazku);
+                            this.Image = left[indexObrazku];
                             break;
                         case 'R':
-                            right.Draw(g, new Point(X, Y), indexObrazku);
+                            this.Image = right[indexObrazku];
                             break;
                     }
                 }
                 else
                 {
-                    towards.Draw(g, new Point(X, Y), 0);
+                    //towards.Draw(g, new Point(X, Y), 0);
                 }
 
                 // Call Application.DoEvents to force a repaint of the form.

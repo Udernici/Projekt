@@ -9,16 +9,14 @@ namespace Quadrax
 {
     class Boulder : GameObject
     {
-        Image image;
         //constructor
         public Boulder(int x, int y, bool solid, int weight) : base(x, y, true, 20)
         {
-            image = Properties.Resources.boulder_01;
+            Image = Properties.Resources.boulder_01;
         }
 
-        public override void Draw(Graphics g)
+        public override void Draw()
         {
-            g.DrawImage(image, this.X, this.Y, 20, 20);
         }
 
     }

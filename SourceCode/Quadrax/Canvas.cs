@@ -18,96 +18,75 @@ namespace Quadrax
         List<GameObject> objects = new List<GameObject>();
 
         Image BACKGROUND = Properties.Resources.bg1;
-
-        Panel canvas;
-        Graphics g;
         Timer gameTimer = new Timer();
         int VELKOSTCHARAKTERU = 50;
         int VELKOSTOBJEKTU = 20;
         int VELKOSTKROKU = 5;
-        private Button restartButton;
         LEVEL level;
+        private Button restartButton;
         Player activeCharacter;
 
         public MyCanvas()
         {
             InitializeComponent();
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            BackgroundImage = BACKGROUND;
+            DoubleBuffered = true;
             this.Height = 600;
             this.Width = 800;
-            g = canvas.CreateGraphics();
-            typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
+            this.TransparencyKey = Color.Transparent;
+           // typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
             p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU);
             activeCharacter = p1;
             Load(Properties.Resources.level);
             Redraw();
+            Refresh();
         }
 
         public void AddObject(GameObject o)
         {
             objects.Add(o);
+            this.Controls.Add(o);
             Invalidate();
+            o.Invalidate();
         }
 
         public void RemoveObject(GameObject o)
         {
             objects.Remove(o);
+            this.Controls.Remove(o);
             Invalidate();
+            o.Invalidate();
         }
 
         public void Redraw()
         {
             //add graphic logic
-
-            // pictureBox1.BackColor = Color.Black;
-            //toto fixnut
-            canvas.BackgroundImage = this.BackgroundImage = BACKGROUND;
-            g.DrawImage(canvas.BackgroundImage,0,0,this.Width,this.Height);
-            p1.Draw(g);
-            foreach (GameObject gobj in objects)
-             {
-                 gobj.Draw(g);
-             }
+            p1.Draw();
         }
 
 
         private void InitializeComponent()
         {
-            this.canvas = new System.Windows.Forms.Panel();
             this.restartButton = new System.Windows.Forms.Button();
-            this.canvas.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // canvas
-            // 
-            this.canvas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.canvas.Controls.Add(this.restartButton);
-            this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.canvas.Location = new System.Drawing.Point(0, 0);
-            this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(737, 430);
-            this.canvas.TabIndex = 0;
-            this.canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             // 
             // restartButton
             // 
-            this.restartButton.Location = new System.Drawing.Point(768, 36);
+            this.restartButton.Location = new System.Drawing.Point(486, 12);
             this.restartButton.Name = "restartButton";
             this.restartButton.Size = new System.Drawing.Size(75, 23);
             this.restartButton.TabIndex = 0;
-            this.restartButton.Text = "Restart";
+            this.restartButton.Text = "button1";
             this.restartButton.UseVisualStyleBackColor = true;
-            this.restartButton.Visible = false;
-            this.restartButton.Click += new System.EventHandler(this.restartButton_click);
             // 
             // MyCanvas
             // 
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(737, 430);
-            this.Controls.Add(this.canvas);
+            this.Controls.Add(this.restartButton);
             this.Name = "MyCanvas";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyDown);
-            this.canvas.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -120,7 +99,7 @@ namespace Quadrax
         {
             if (pohyb(e))
             {
-                p1.Move(e, g, VELKOSTKROKU);
+               // p1.Move(e, g, VELKOSTKROKU);
                 Redraw();
                 e.Handled = true;
             }
@@ -141,7 +120,7 @@ namespace Quadrax
             foreach (var item in level.OBJEKTY.BALVAN)
             {
                 Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                objects.Add(tmp);
+                AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
             {
@@ -165,12 +144,12 @@ namespace Quadrax
             {
                 //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
                 Brick tmp = new Brick(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                objects.Add(tmp);
+                AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.VYCHOD)
             {
                 Exit ex = new Exit(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                objects.Add(ex);
+                AddObject(ex);
             }
 
 
@@ -329,5 +308,6 @@ namespace Quadrax
             restartButton.Location=new Point(x,y);
             restartButton.Visible = false;
         }
+
     }
 }

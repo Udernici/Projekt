@@ -30,31 +30,8 @@ namespace Quadrax
         }
 
 
-        public override void Draw(Graphics g)
+        public override void Draw()
         {
-            /*            Bricks.Select(column => column.Select(brick => new
-                        Rectangle(X + brick.X * 20, Y + brick.Y * 20, X + brick.X * 20 + 20, Y + brick.Y * 20 + 20)
-                        )).
-                        SelectMany(column => column.ToList())
-                        .ToList()
-                        .ForEach(
-                            rectangle=> g.DrawRectangle(Pens.Black,rectangle));*/
-
-            /*            foreach (var colum in Bricks)
-                        {
-                            foreach (var brick in colum) {
-                                g.DrawRectangle(Pens.Black, new Rectangle(X + brick.X * 20, Y +brick.Y*20, X + brick.X*20 +20, Y + brick.Y*20 +20));
-                            }
-                        }
-
-                    }*/
-            /*for (int i = 0; i < Bricks.Length; i++)
-            {
-                for (int j = 0; j < Bricks[i].Length; j++)
-                {
-                     g.DrawRectangle(Pens.Black, new Rectangle(X + i * 20, Y + j * 20, 20, 20));
-                }
-            }*/
         }
     }
 }

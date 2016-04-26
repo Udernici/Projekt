@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Quadrax
 {
-    abstract class GameObject : Object
+    abstract class GameObject : PictureBox
     {
         int x;
         int y;
         bool solid;
         int weight;
-        public GameObject(int x, int y, bool solid, int weight)
+        public GameObject(int x, int y, bool solid, int weight) : base()
         {
             this.x = x;
             this.y = y;
             this.solid = solid;
             this.weight = weight;
+            DoubleBuffered = true;
+            BackColor = Color.Transparent;
         }
 
         public int X { get { return this.x; } set { this.x = value; } }
@@ -38,7 +42,10 @@ namespace Quadrax
             return weight;
         }
 
-        public abstract void Draw(System.Drawing.Graphics g);
+        public virtual void Draw()
+        {
+
+        }
 
     }
 }
