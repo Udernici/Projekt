@@ -97,7 +97,6 @@ namespace Quadrax
             this.Name = "MyCanvas";
             this.Click += new System.EventHandler(this.MyCanvas_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyDown);
             this.ResumeLayout(false);
 
         }
@@ -105,18 +104,8 @@ namespace Quadrax
         private void MyCanvas_Paint(object sender, PaintEventArgs e)
         {
         }
-
-        private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
-        {
-            //MessageBox.Show("Called KeyDown");
-             if (pohyb(e))
-            {
-                p1.Move(e, VELKOSTKROKU);
-                Redraw();
-                e.Handled = true;
-            }
-        }
-        //z nejakeho dovodu nefungoval KeyDown na sipky -> fix
+        
+        //z nejakeho dovodu nefungoval KeyDown na sipky -> fix (nahrada za MyCanvas_KeyDown)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             List<Keys> movKeys = new List<Keys>() { Keys.Left, Keys.Right, Keys.Up, Keys.Down };
@@ -213,9 +202,9 @@ namespace Quadrax
             }
             foreach (var obj in objects)
             {
-                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? activeCharacter.X : activeCharacter.Y, key == Keys.Up || key == Keys.Down ? obj.X : obj.Y))
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.X : activeCharacter.Location.Y, key == Keys.Up || key == Keys.Down ? obj.X : obj.Y))
                 {
-                    if (Overlap(key == Keys.Up || key == Keys.Down ? activeCharacter.Y : activeCharacter.X, key == Keys.Up || key == Keys.Down ? obj.Y : obj.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    if (Overlap(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.Y : activeCharacter.Location.X, key == Keys.Up || key == Keys.Down ? obj.Y : obj.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
                         bool res = resolveAdjacent(obj, key);
                         if (!res)
@@ -227,34 +216,7 @@ namespace Quadrax
             }
             return true;
         }
-
-        public bool pohyb(KeyEventArgs key)
-        {
-            switch (key.KeyCode)
-            {
-                case Keys.Up:
-                case Keys.Down:
-                case Keys.Left:
-                case Keys.Right:
-                    break;
-                default:
-                    return false;
-            }
-            foreach (var obj in objects)
-            {
-                if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? activeCharacter.X : activeCharacter.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
-                {
-                    if (Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? activeCharacter.Y : activeCharacter.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
-                    {
-                        bool res = resolveAdjacent(obj,key);
-                        if(!res){
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
+        
 
         private bool resolveAdjacent(GameObject obj, Keys key)
         {
@@ -266,33 +228,6 @@ namespace Quadrax
                     if (pohybBouldra(key, obj))
                     {
                         obj.X += key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
-                    }
-                    return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else if (obj.GetType() == typeof(Exit))
-            {
-                var x = (Exit)obj;
-                MessageBox.Show("Vyhral si!");
-                Application.Exit();
-            }
-            return true;
-        }
-
-        private bool resolveAdjacent(GameObject obj, KeyEventArgs key)
-        {
-            if (obj.GetType() == typeof(Boulder) || obj.GetType() == typeof(Brick))
-            {
-                //ma hrac dostatocnu silu na pohnutie kamenom?
-                if (obj.canPush(activeCharacter.Strength))
-                {
-                    if (pohybBouldra(key, obj))
-                    {
-                        obj.X += key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
                     }
                     return false;
                 }
@@ -357,55 +292,7 @@ namespace Quadrax
             }
             return true;
         }
-
-        public bool pohybBouldra(KeyEventArgs key, GameObject currentObject)
-        {
-            switch (key.KeyCode)
-            {
-                case Keys.Up:
-                case Keys.Down:
-                case Keys.Left:
-                case Keys.Right:
-                    break;
-                default:
-                    return false;
-            }
-            foreach (var obj in objects)
-            {
-                if (obj.Equals(currentObject))
-                {
-                    continue;
-                }
-                if (SameRowOrColumn(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentObject.X : currentObject.Y, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.X : obj.Y))
-                {
-                    if (!obj.isSolid() || Overlap(key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? currentObject.Y : currentObject.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Down ? obj.Y : obj.X, key.KeyCode == Keys.Up || key.KeyCode == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
-                    {
-                        switch (key.KeyCode)
-                        {
-                            case Keys.Up:
-                            case Keys.Down:
-                                //if (obj.GetType() == typeof(rebrik))
-                                //{
-                                //    return true;
-                                //}
-                                return false;
-                            case Keys.Left:
-                            case Keys.Right:
-                                if (obj.GetType() == typeof(Boulder))
-                                {
-                                    return false;
-                                }
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-
+        
         //skontroluje ci je v rovnakom riadku alebo stlpci
         public bool SameRowOrColumn(int ch, int obj)
         {

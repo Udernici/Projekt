@@ -17,6 +17,7 @@ namespace Quadrax
 
         public override void Draw()
         {
+
         }
 
     }

@@ -56,7 +56,7 @@ namespace Quadrax
             //towards
             towards.Images.Add(image);
         }
-        #region Move
+
         public void Move(Keys key, int step)
         {
             switch (key)
@@ -83,35 +83,7 @@ namespace Quadrax
             indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
             this.Location = new Point(X, Y);
         }
-
-        public void Move(KeyEventArgs key, int step)
-        {
-            switch (key.KeyCode)
-            {
-                case Keys.Up:
-                    //Y -= step;
-                    //direction = 'U';
-                    break;
-                case Keys.Down:
-                    //Y += step;
-                    //direction = 'D';
-                    break;
-                case Keys.Left:
-                    X -= step;
-                    direction = 'L';
-                    break;
-                case Keys.Right:
-                    X += step;
-                    direction = 'R';
-                    break;
-                default:
-                    break;
-            }
-
-            indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
-            this.Location = new Point(X, Y);
-        }
-        #endregion
+        
         private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
