@@ -33,6 +33,10 @@ namespace Quadrax
             Y = y;
             this.strength = strength;
             this.Size = new System.Drawing.Size(imageSize,imageSize);
+            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            BackColor = Color.Transparent;
+            this.Image = Properties.Resources.PlayerL1;
+            this.Location = new Point(X, Y);
 
             //left
             Image image = Properties.Resources.PlayerL1;
@@ -52,10 +56,35 @@ namespace Quadrax
             //towards
             towards.Images.Add(image);
         }
+        #region Move
+        public void Move(Keys key, int step)
+        {
+            switch (key)
+            {
+                case Keys.Up:
+                    //Y -= step;
+                    //direction = 'U';
+                    break;
+                case Keys.Down:
+                    //Y += step;
+                    //direction = 'D';
+                    break;
+                case Keys.Left:
+                    X -= step;
+                    direction = 'L';
+                    break;
+                case Keys.Right:
+                    X += step;
+                    direction = 'R';
+                    break;
+                default:
+                    break;
+            }
+            indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
+            this.Location = new Point(X, Y);
+        }
 
-
-        
-        public void Move(KeyEventArgs key, Graphics g, int step)
+        public void Move(KeyEventArgs key, int step)
         {
             switch (key.KeyCode)
             {
@@ -80,8 +109,21 @@ namespace Quadrax
             }
 
             indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
+            this.Location = new Point(X, Y);
         }
+        #endregion
+        private void InitializeComponent()
+        {
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // Player
+            // 
+            this.Size = new System.Drawing.Size(100, 100);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            this.ResumeLayout(false);
 
+        }
 
         public void Draw()
         {
@@ -111,6 +153,7 @@ namespace Quadrax
                 }
 
                 // Call Application.DoEvents to force a repaint of the form.
+                this.Invalidate();
                 Application.DoEvents();
             }
             catch

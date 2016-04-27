@@ -20,8 +20,16 @@ namespace Quadrax
             this.y = y;
             this.solid = solid;
             this.weight = weight;
+            this.Location = new Point(x, y);
             DoubleBuffered = true;
             BackColor = Color.Transparent;
+            this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Click += GameObject_Click;
+        }
+
+        private void GameObject_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this.Location.ToString());
         }
 
         public int X { get { return this.x; } set { this.x = value; } }
@@ -44,7 +52,7 @@ namespace Quadrax
 
         public virtual void Draw()
         {
-
+            this.Invalidate();
         }
 
     }

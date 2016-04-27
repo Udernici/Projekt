@@ -9,10 +9,9 @@ namespace Quadrax
 {
     class Exit : GameObject
     {
-        public Image image = Properties.Resources.exit;
         public Exit(int x, int y, bool solid, int weight) : base(x, y, false, 0)
         {
-
+            this.Image = Properties.Resources.exit;
         }
         public bool Escaped(Player player1) {
             return (player1.X > X -20 && player1.X < X + 20 && player1.Y > Y - 20 && player1.Y < Y + 20);
@@ -22,6 +21,7 @@ namespace Quadrax
 
         public override void Draw()
         {
+            this.Invalidate();
         }
     }
 }

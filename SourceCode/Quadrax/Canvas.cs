@@ -22,9 +22,14 @@ namespace Quadrax
         int VELKOSTCHARAKTERU = 50;
         int VELKOSTOBJEKTU = 20;
         int VELKOSTKROKU = 5;
+
+        int p1SpawnX = 100;
+        int p1SpawnY = 430;
+
         LEVEL level;
         private Button restartButton;
         Player activeCharacter;
+        
 
         public MyCanvas()
         {
@@ -34,8 +39,10 @@ namespace Quadrax
             this.Height = 600;
             this.Width = 800;
             this.TransparencyKey = Color.Transparent;
+            this.KeyPreview = true; //KeyDown works thnx to this
+
            // typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
-            p1 = new Player(0, 0, 60, VELKOSTCHARAKTERU);
+            p1 = new Player(p1SpawnX, p1SpawnY, 20, VELKOSTCHARAKTERU);
             activeCharacter = p1;
             Load(Properties.Resources.level);
             Redraw();
@@ -62,6 +69,8 @@ namespace Quadrax
         {
             //add graphic logic
             p1.Draw();
+            this.Controls.Add(p1);
+            p1.Invalidate();
         }
 
 
@@ -72,19 +81,21 @@ namespace Quadrax
             // 
             // restartButton
             // 
-            this.restartButton.Location = new System.Drawing.Point(486, 12);
+            this.restartButton.Location = new System.Drawing.Point(696, 12);
             this.restartButton.Name = "restartButton";
-            this.restartButton.Size = new System.Drawing.Size(75, 23);
+            this.restartButton.Size = new System.Drawing.Size(39, 37);
             this.restartButton.TabIndex = 0;
-            this.restartButton.Text = "button1";
+            this.restartButton.Text = "R";
             this.restartButton.UseVisualStyleBackColor = true;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_click);
             // 
             // MyCanvas
             // 
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(737, 430);
+            this.ClientSize = new System.Drawing.Size(837, 430);
             this.Controls.Add(this.restartButton);
             this.Name = "MyCanvas";
+            this.Click += new System.EventHandler(this.MyCanvas_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyDown);
             this.ResumeLayout(false);
@@ -97,14 +108,29 @@ namespace Quadrax
 
         private void MyCanvas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (pohyb(e))
+            //MessageBox.Show("Called KeyDown");
+             if (pohyb(e))
             {
-               // p1.Move(e, g, VELKOSTKROKU);
+                p1.Move(e, VELKOSTKROKU);
                 Redraw();
                 e.Handled = true;
             }
         }
-
+        //z nejakeho dovodu nefungoval KeyDown na sipky -> fix
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            List<Keys> movKeys = new List<Keys>() { Keys.Left, Keys.Right, Keys.Up, Keys.Down };
+            if (movKeys.Contains(keyData))
+            {
+                if (pohyb(keyData))
+                {
+                    p1.Move(keyData, VELKOSTKROKU);
+                    Redraw();
+                    return true;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
         public void Load(string content)
         {
@@ -116,6 +142,7 @@ namespace Quadrax
             
             p1.X = level.SPAWN.X;
             p1.Y = level.SPAWN.Y;
+            p1.Location = new Point(p1.X, p1.Y);
 
             foreach (var item in level.OBJEKTY.BALVAN)
             {
@@ -172,6 +199,35 @@ namespace Quadrax
 
             }
         }
+        public bool pohyb(Keys key)
+        {
+            switch (key)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    break;
+                default:
+                    return false;
+            }
+            foreach (var obj in objects)
+            {
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? activeCharacter.X : activeCharacter.Y, key == Keys.Up || key == Keys.Down ? obj.X : obj.Y))
+                {
+                    if (Overlap(key == Keys.Up || key == Keys.Down ? activeCharacter.Y : activeCharacter.X, key == Keys.Up || key == Keys.Down ? obj.Y : obj.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    {
+                        bool res = resolveAdjacent(obj, key);
+                        if (!res)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public bool pohyb(KeyEventArgs key)
         {
             switch (key.KeyCode)
@@ -196,6 +252,33 @@ namespace Quadrax
                         }
                     }
                 }
+            }
+            return true;
+        }
+
+        private bool resolveAdjacent(GameObject obj, Keys key)
+        {
+            if (obj.GetType() == typeof(Boulder) || obj.GetType() == typeof(Brick))
+            {
+                //ma hrac dostatocnu silu na pohnutie kamenom?
+                if (obj.canPush(activeCharacter.Strength))
+                {
+                    if (pohybBouldra(key, obj))
+                    {
+                        obj.X += key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                    }
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if (obj.GetType() == typeof(Exit))
+            {
+                var x = (Exit)obj;
+                MessageBox.Show("Vyhral si!");
+                Application.Exit();
             }
             return true;
         }
@@ -226,6 +309,55 @@ namespace Quadrax
             }
             return true;
         }
+
+        public bool pohybBouldra(Keys key, GameObject currentObject)
+        {
+            switch (key)
+            {
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Left:
+                case Keys.Right:
+                    break;
+                default:
+                    return false;
+            }
+            foreach (var obj in objects)
+            {
+                if (obj.Equals(currentObject))
+                {
+                    continue;
+                }
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? currentObject.X : currentObject.Y, key == Keys.Up || key == Keys.Down ? obj.X : obj.Y))
+                {
+                    if (!obj.isSolid() || Overlap(key == Keys.Up || key == Keys.Down ? currentObject.Y : currentObject.X, key == Keys.Up || key == Keys.Down ? obj.Y : obj.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    {
+                        switch (key)
+                        {
+                            case Keys.Up:
+                            case Keys.Down:
+                                //if (obj.GetType() == typeof(rebrik))
+                                //{
+                                //    return true;
+                                //}
+                                return false;
+                            case Keys.Left:
+                            case Keys.Right:
+                                if (obj.GetType() == typeof(Boulder))
+                                {
+                                    return false;
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public bool pohybBouldra(KeyEventArgs key, GameObject currentObject)
         {
             switch (key.KeyCode)
@@ -302,12 +434,16 @@ namespace Quadrax
 
         private void restartButton_click(object sender, EventArgs e)
         {
-//            Load("adresa");
+            Load(Properties.Resources.level);
         }
         public void setRestartButton(int x,int y) {
             restartButton.Location=new Point(x,y);
             restartButton.Visible = false;
         }
 
+        private void MyCanvas_Click(object sender, EventArgs e)
+        {
+           // MessageBox.Show("Events? pls?");
+        }
     }
 }
