@@ -4,17 +4,17 @@
 		<VYSKA>10</VYSKA>
 	</ROZMERY>
 	<SPAWN>
-		<X>20</X>
+		<X>40</X>
 		<Y>430</Y>
 	</SPAWN>
 	<OBJEKTY>
     <BALVAN>
       <SURADNICE>
-        <X>550</X>
-        <Y>450</Y>
+        <X>250</X>
+        <Y>445</Y>
       </SURADNICE>
       <SOLID>true</SOLID>
-      <WEIGHT>60</WEIGHT>
+      <WEIGHT>15</WEIGHT>
     </BALVAN>
 		<REBRIK>
 			<SURADNICE>
@@ -35,7 +35,7 @@
     <STENA>
       <SURADNICE>
         <X>0</X>
-        <Y>420</Y>
+        <Y>430</Y>
       </SURADNICE>
       <SOLID>true</SOLID>
       <WEIGHT>9999</WEIGHT>

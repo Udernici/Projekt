@@ -16,8 +16,6 @@ namespace Quadrax
         int weight;
         public GameObject(int x, int y, bool solid, int weight) : base()
         {
-            this.x = x;
-            this.y = y;
             this.solid = solid;
             this.weight = weight;
             this.Location = new Point(x, y);
@@ -32,8 +30,6 @@ namespace Quadrax
             MessageBox.Show(this.Location.ToString());
         }
 
-        public int X { get { return this.x; } set { this.x = value; } }
-        public int Y { get { return this.y; } set { this.y = value; } }
 
         //is collidable
         public bool isSolid()

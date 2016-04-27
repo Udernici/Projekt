@@ -20,11 +20,8 @@ namespace Quadrax
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
         int VELKOSTCHARAKTERU = 50;
-        int VELKOSTOBJEKTU = 20;
+        int VELKOSTOBJEKTU = 30;
         int VELKOSTKROKU = 5;
-
-        int p1SpawnX = 100;
-        int p1SpawnY = 430;
 
         LEVEL level;
         private Button restartButton;
@@ -41,9 +38,6 @@ namespace Quadrax
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
 
-           // typeof(Panel).InvokeMember("DoubleBuffered", System.Reflection.BindingFlags.SetProperty | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, canvas, new object[] { true });
-            p1 = new Player(p1SpawnX, p1SpawnY, 20, VELKOSTCHARAKTERU);
-            activeCharacter = p1;
             Load(Properties.Resources.level);
             Redraw();
             Refresh();
@@ -81,11 +75,11 @@ namespace Quadrax
             // 
             // restartButton
             // 
-            this.restartButton.Location = new System.Drawing.Point(696, 12);
+            this.restartButton.Location = new System.Drawing.Point(625, 12);
             this.restartButton.Name = "restartButton";
-            this.restartButton.Size = new System.Drawing.Size(39, 37);
+            this.restartButton.Size = new System.Drawing.Size(129, 26);
             this.restartButton.TabIndex = 0;
-            this.restartButton.Text = "R";
+            this.restartButton.Text = "Restart Level";
             this.restartButton.UseVisualStyleBackColor = true;
             this.restartButton.Click += new System.EventHandler(this.restartButton_click);
             // 
@@ -128,14 +122,13 @@ namespace Quadrax
             {
                 level = (LEVEL)ser.Deserialize(reader);
             }
-            
-            p1.X = level.SPAWN.X;
-            p1.Y = level.SPAWN.Y;
-            p1.Location = new Point(p1.X, p1.Y);
+
+            p1 = new Player(level.SPAWN.X, level.SPAWN.Y, 20, VELKOSTCHARAKTERU);
+            activeCharacter = p1;
 
             foreach (var item in level.OBJEKTY.BALVAN)
             {
-                Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT,VELKOSTOBJEKTU);
                 AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
@@ -181,8 +174,8 @@ namespace Quadrax
                     LEVELOBJEKTYBALVAN tmp = new LEVELOBJEKTYBALVAN();
                     tmp.SOLID = item.isSolid();
                     tmp.WEIGHT = item.getWeight();
-                    tmp.SURADNICE.X = item.X;
-                    tmp.SURADNICE.Y = item.Y;
+                    tmp.SURADNICE.X = item.Location.X;
+                    tmp.SURADNICE.Y = item.Location.Y;
                     balvany.Add(tmp);
                 }
 
@@ -202,9 +195,9 @@ namespace Quadrax
             }
             foreach (var obj in objects)
             {
-                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.X : activeCharacter.Location.Y, key == Keys.Up || key == Keys.Down ? obj.X : obj.Y))
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.X : activeCharacter.Location.Y, key == Keys.Up || key == Keys.Down ? obj.Location.X : obj.Location.Y))
                 {
-                    if (Overlap(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.Y : activeCharacter.Location.X, key == Keys.Up || key == Keys.Down ? obj.Y : obj.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    if (Overlap(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.Y : activeCharacter.Location.X, key == Keys.Up || key == Keys.Down ? obj.Location.Y : obj.Location.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
                         bool res = resolveAdjacent(obj, key);
                         if (!res)
@@ -227,7 +220,10 @@ namespace Quadrax
                 {
                     if (pohybBouldra(key, obj))
                     {
-                        obj.X += key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                        int where = key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                        obj.Location = new Point(obj.Location.X +where, obj.Location.Y);
+                        obj.Invalidate();
+
                     }
                     return false;
                 }
@@ -263,18 +259,14 @@ namespace Quadrax
                 {
                     continue;
                 }
-                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? currentObject.X : currentObject.Y, key == Keys.Up || key == Keys.Down ? obj.X : obj.Y))
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? currentObject.Location.X : currentObject.Location.Y, key == Keys.Up || key == Keys.Down ? obj.Location.X : obj.Location.Y))
                 {
-                    if (!obj.isSolid() || Overlap(key == Keys.Up || key == Keys.Down ? currentObject.Y : currentObject.X, key == Keys.Up || key == Keys.Down ? obj.Y : obj.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    if (!obj.isSolid() || Overlap(key == Keys.Up || key == Keys.Down ? currentObject.Location.Y : currentObject.Location.X, key == Keys.Up || key == Keys.Down ? obj.Location.Y : obj.Location.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
                         switch (key)
                         {
                             case Keys.Up:
                             case Keys.Down:
-                                //if (obj.GetType() == typeof(rebrik))
-                                //{
-                                //    return true;
-                                //}
                                 return false;
                             case Keys.Left:
                             case Keys.Right:
@@ -321,7 +313,15 @@ namespace Quadrax
 
         private void restartButton_click(object sender, EventArgs e)
         {
+            this.Controls.Remove(p1);
+            while(objects.Count > 0)
+            {
+                RemoveObject(objects[0]);
+            }
             Load(Properties.Resources.level);
+            Redraw();
+            Invalidate();
+            Refresh();
         }
         public void setRestartButton(int x,int y) {
             restartButton.Location=new Point(x,y);
