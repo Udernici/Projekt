@@ -39,6 +39,13 @@ namespace Quadrax
             this.KeyPreview = true; //KeyDown works thnx to this
 
             Load(Properties.Resources.level);
+
+            //
+            //testing space
+            Lever tmp = new Lever(200, 450, true, 500);
+            AddObject(tmp);
+
+            //
             Redraw();
             Refresh();
         }
@@ -91,6 +98,7 @@ namespace Quadrax
             this.Name = "MyCanvas";
             this.Click += new System.EventHandler(this.MyCanvas_Click);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyUp);
             this.ResumeLayout(false);
 
         }
@@ -140,8 +148,8 @@ namespace Quadrax
             foreach (var item in level.OBJEKTY.PREPINAC)
             {
                 //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //arrayGameObjects.Add(tmp);
+                Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.REBRIK)
             {
@@ -221,7 +229,7 @@ namespace Quadrax
                     if (pohybBouldra(key, obj))
                     {
                         int where = key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
-                        obj.Location = new Point(obj.Location.X +where, obj.Location.Y);
+                        obj.Location = new Point(obj.Location.X + where, obj.Location.Y);
                         obj.Invalidate();
 
                     }
@@ -232,6 +240,16 @@ namespace Quadrax
                     return false;
                 }
             }
+            else if (obj.GetType() == typeof(Lever))
+            {
+               // MessageBox.Show("sad");
+                var x = (Lever)obj;
+                if (x.IsPlayerClose(p1))
+                {
+                    //MessageBox.Show("Close!");
+                }
+            }
+
             else if (obj.GetType() == typeof(Exit))
             {
                 var x = (Exit)obj;
@@ -331,6 +349,11 @@ namespace Quadrax
         private void MyCanvas_Click(object sender, EventArgs e)
         {
            // MessageBox.Show("Events? pls?");
+        }
+
+        private void MyCanvas_KeyUp(object sender, KeyEventArgs e)
+        {
+            p1.setStandingImage();
         }
     }
 }

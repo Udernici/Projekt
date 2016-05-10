@@ -63,6 +63,9 @@
     <Compile Include="GameObject.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Lever.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Player.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -146,6 +149,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\PlayerAnimation\Player2L4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\PlayerAnimation\Player2R4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\PlayerAnimation\PlayerL4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Lever_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Lever_2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

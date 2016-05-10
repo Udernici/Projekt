@@ -20,7 +20,7 @@ namespace Quadrax
         char direction = 'q';
         int indexObrazku = 0;
         bool active = false;
-        int POCETOBRAZKOV = 3;
+        int POCETOBRAZKOV = 4;
 
         public int X { get { return this.x; } set { this.x = value; } }
         public int Y { get { return this.y; } set { this.y = value; } }
@@ -37,6 +37,7 @@ namespace Quadrax
             BackColor = Color.Transparent;
             this.Image = Properties.Resources.PlayerL1;
             this.Location = new Point(X, Y);
+            this.Click += player_Click;
 
             //left
             Image image = Properties.Resources.PlayerL1;
@@ -46,6 +47,8 @@ namespace Quadrax
             left.Add(image);
             image = Properties.Resources.PlayerL3;
             left.Add(image);
+            image = Properties.Resources.PlayerL4;
+            left.Add(image);
             //right
             image = Properties.Resources.PlayerR1;
             right.Add(image);
@@ -53,8 +56,15 @@ namespace Quadrax
             right.Add(image);
             image = Properties.Resources.PlayerR3;
             right.Add(image);
+            image = Properties.Resources.PlayerR4;
+            right.Add(image);
             //towards
             towards.Images.Add(image);
+        }
+
+        private void player_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this.Location.ToString());
         }
 
         public void Move(Keys key, int step)
@@ -83,7 +93,12 @@ namespace Quadrax
             indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
             this.Location = new Point(X, Y);
         }
-        
+        public void setStandingImage()
+        {
+            indexObrazku = 0;
+            Draw();
+        }
+
         private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();

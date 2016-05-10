@@ -107,17 +107,17 @@ namespace Quadrax.Properties {
         ///		&lt;VYSKA&gt;10&lt;/VYSKA&gt;
         ///	&lt;/ROZMERY&gt;
         ///	&lt;SPAWN&gt;
-        ///		&lt;X&gt;20&lt;/X&gt;
+        ///		&lt;X&gt;40&lt;/X&gt;
         ///		&lt;Y&gt;430&lt;/Y&gt;
         ///	&lt;/SPAWN&gt;
         ///	&lt;OBJEKTY&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;550&lt;/X&gt;
-        ///        &lt;Y&gt;450&lt;/Y&gt;
+        ///        &lt;X&gt;250&lt;/X&gt;
+        ///        &lt;Y&gt;445&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///      &lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
+        ///      &lt;WEIGHT&gt;15&lt;/WEIGHT&gt;
         ///    &lt;/BALVAN&gt;
         ///		&lt;REBRIK&gt;
         ///			&lt;SURADNICE&gt;
@@ -137,6 +137,26 @@ namespace Quadrax.Properties {
         internal static string level {
             get {
                 return ResourceManager.GetString("level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Lever_1 {
+            get {
+                object obj = ResourceManager.GetObject("Lever_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Lever_2 {
+            get {
+                object obj = ResourceManager.GetObject("Lever_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -166,6 +186,16 @@ namespace Quadrax.Properties {
         internal static System.Drawing.Bitmap Player2L3 {
             get {
                 object obj = ResourceManager.GetObject("Player2L3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Player2L4 {
+            get {
+                object obj = ResourceManager.GetObject("Player2L4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +233,16 @@ namespace Quadrax.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Player2R4 {
+            get {
+                object obj = ResourceManager.GetObject("Player2R4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PlayerL1 {
             get {
                 object obj = ResourceManager.GetObject("PlayerL1", resourceCulture);
@@ -226,6 +266,16 @@ namespace Quadrax.Properties {
         internal static System.Drawing.Bitmap PlayerL3 {
             get {
                 object obj = ResourceManager.GetObject("PlayerL3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PlayerL4 {
+            get {
+                object obj = ResourceManager.GetObject("PlayerL4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
