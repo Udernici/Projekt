@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Quadrax
 {
-    class Player : PictureBox
+    public class Player : PictureBox
     {
         int strength = -9999;
         int x, y = -9999;

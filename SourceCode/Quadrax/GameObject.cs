@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Quadrax
 {
-    abstract class GameObject : PictureBox
+    public abstract class GameObject : PictureBox
     {
         int x;
         int y;

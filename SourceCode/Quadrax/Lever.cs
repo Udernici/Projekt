@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace Quadrax
 {
-    class Lever : GameObject
+    public class Lever : GameObject
     {
-        public Lever(int x, int y, bool solid, int weight):base(x, y, solid, weight)
+        GameObject boundObj;
+        List<GameObject> activeObjs = new List<GameObject>();
+        List<GameObject> disabledObj = new List<GameObject>();
+        bool on = true;
+        public Lever(int x, int y, bool solid, int weight, List<GameObject> act, List<GameObject> dis) :base(x, y, solid, weight)
         {
-            Image = Properties.Resources.Lever_1;
+            Image = on ? Properties.Resources.Lever_1 : Properties.Resources.Lever_2;
             this.Height = 25;
             this.Width = 25;
+            this.activeObjs = act;
+            this.disabledObj = dis;
         }
 
         public bool IsPlayerClose(Player p)
@@ -23,6 +29,26 @@ namespace Quadrax
                 return true;
             }
             return false;
+        }
+
+        public void ActivateLever(MyCanvas canvas)
+        {
+            List<GameObject> tmp = new List<GameObject>();
+            tmp.AddRange(disabledObj);
+            disabledObj.Clear();
+            disabledObj.AddRange(activeObjs);
+            activeObjs.Clear();
+            activeObjs.AddRange(tmp);
+            on = !on;
+            Image = on ? Properties.Resources.Lever_1 : Properties.Resources.Lever_2;
+            foreach (GameObject go in disabledObj)
+            {
+                canvas.RemoveObject(go);
+            }
+            foreach (GameObject go in activeObjs)
+            {
+                canvas.AddObject(go);
+            }
         }
 
         public override void Draw()

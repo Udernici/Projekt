@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace Quadrax
 {
-    partial class MyCanvas : Form
+    public partial class MyCanvas : Form
     {
         Player p1;
         List<GameObject> objects = new List<GameObject>();
@@ -42,7 +42,17 @@ namespace Quadrax
 
             //
             //testing space
-            Lever tmp = new Lever(200, 450, true, 500);
+
+            Brick b = new Brick(100, 100, true, 50);
+            AddObject(b);
+            List<GameObject> add = new List<GameObject>();
+            add.Add(b);
+
+            Brick k = new Brick(200, 100, true, 50);
+            List<GameObject> rem = new List<GameObject>();
+            rem.Add(k);
+
+            Lever tmp = new Lever(200, 450, true, 500, add, rem);
             AddObject(tmp);
 
             //
@@ -120,6 +130,25 @@ namespace Quadrax
                     return true;
                 }
             }
+            else if (keyData == Keys.E)
+            {
+                List<Lever> levers = new List<Lever>();
+                foreach (var l in objects)
+                {
+                    if (l.GetType() == typeof(Lever))
+                    {
+                        levers.Add((Lever)l);
+                    }
+                }
+                foreach (Lever l in levers) {
+                    if (l.IsPlayerClose(p1)) // || l.isPlayerClose(p2) )
+                    {
+                        l.ActivateLever(this);
+                    }
+                }
+
+
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
@@ -148,7 +177,7 @@ namespace Quadrax
             foreach (var item in level.OBJEKTY.PREPINAC)
             {
                 //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, new List<GameObject>(), new List<GameObject>());
                 AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.REBRIK)
@@ -238,15 +267,6 @@ namespace Quadrax
                 else
                 {
                     return false;
-                }
-            }
-            else if (obj.GetType() == typeof(Lever))
-            {
-               // MessageBox.Show("sad");
-                var x = (Lever)obj;
-                if (x.IsPlayerClose(p1))
-                {
-                    //MessageBox.Show("Close!");
                 }
             }
 
