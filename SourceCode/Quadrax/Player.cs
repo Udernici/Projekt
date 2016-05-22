@@ -67,30 +67,35 @@ namespace Quadrax
             MessageBox.Show(this.Location.ToString());
         }
 
-        public void Move(Keys key, int step)
+        public void Move(Keys key, int step, List<GameObject> ladders)
         {
-            switch (key)
+            if (key == Keys.Left || key == Keys.Right)
             {
-                case Keys.Up:
-                    //Y -= step;
-                    //direction = 'U';
-                    break;
-                case Keys.Down:
-                    //Y += step;
-                    //direction = 'D';
-                    break;
-                case Keys.Left:
-                    X -= step;
-                    direction = 'L';
-                    break;
-                case Keys.Right:
-                    X += step;
-                    direction = 'R';
-                    break;
-                default:
-                    break;
+                X = key == Keys.Left ? X - step : X + step;
+                direction = key == Keys.Left ? 'L' : 'R';
+                indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
             }
-            indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
+            else if (key == Keys.Up || key == Keys.Down)
+            {
+                //ak je na rebriku, moze sa hybat hore/dole
+                foreach (Ladder l in ladders)
+                {
+                    if (l.IsPlayerClose(this))
+                    {
+                        Y = key == Keys.Up ? Y - step : Y + step;
+                        //ak Y - step prekroci Y suradnicu rebriku, nastavi sa na Y suradnicu rebriku -> 
+                        //inak totiz dracik bugoval a nevedel zliest z rebriku
+                        if (l.Location.Y > Y)
+                        {
+                            Y = Location.Y;
+                        }
+                        direction = key == Keys.Up ? 'U' : 'D';
+                    }
+                }
+
+                //ak je pred nim len jeden brick/boulder vysky jedna, moze sa hybat hore/dole
+                //TODO
+            }
             this.Location = new Point(X, Y);
         }
         public void setStandingImage()

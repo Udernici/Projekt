@@ -23,6 +23,15 @@ namespace Quadrax
             AddObjects(canvasRef);
         }
 
+        public bool IsPlayerClose(Player p)
+        {
+            if (Enumerable.Range(Location.X - 70, Location.X + 70).Contains(p.X) && Enumerable.Range(Location.Y, Location.Y + Height).Contains(p.Y))
+            {
+                return true;
+            }
+            return false;
+        }
+
         internal void AddObjects(MyCanvas canvasRef)
         {
             foreach (LadderPiece p in ladderPieces)

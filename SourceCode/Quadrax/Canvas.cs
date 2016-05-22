@@ -16,6 +16,7 @@ namespace Quadrax
     {
         Player p1;
         List<GameObject> objects = new List<GameObject>();
+        List<GameObject> ladders;
 
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
@@ -43,7 +44,7 @@ namespace Quadrax
             //
             //testing space
 
-            Ladder l = new Ladder(400, 200, true, 999, 10, this);
+            Ladder l = new Ladder(200, 200, true, 999, 10, this);
             AddObject(l);
 
             Brick b = new Brick(100, 100, true, 50);
@@ -61,6 +62,9 @@ namespace Quadrax
             //
             Redraw();
             Refresh();
+
+            //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
+            ladders = GetObjectsOfType(typeof(Ladder));
         }
 
         public void AddObject(GameObject o)
@@ -128,31 +132,35 @@ namespace Quadrax
             {
                 if (pohyb(keyData))
                 {
-                    p1.Move(keyData, VELKOSTKROKU);
+                    p1.Move(keyData, VELKOSTKROKU, ladders);
                     Redraw();
                     return true;
                 }
             }
             else if (keyData == Keys.E)
             {
-                List<Lever> levers = new List<Lever>();
-                foreach (var l in objects)
-                {
-                    if (l.GetType() == typeof(Lever))
-                    {
-                        levers.Add((Lever)l);
-                    }
-                }
+                List<GameObject> levers = GetObjectsOfType(typeof(Lever));
                 foreach (Lever l in levers) {
-                    if (l.IsPlayerClose(p1)) // || l.isPlayerClose(p2) )
+                    if (l.IsPlayerClose(activeCharacter))
                     {
                         l.ActivateLever(this);
                     }
                 }
-
-
             }
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        public List<GameObject> GetObjectsOfType(Type type)
+        {
+            List<GameObject> res = new List<GameObject>();
+            foreach (var obj in objects)
+            {
+                if (obj.GetType() == type)
+                {
+                    res.Add(obj);
+                }
+            }
+            return res;
         }
 
         public void Load(string content)
