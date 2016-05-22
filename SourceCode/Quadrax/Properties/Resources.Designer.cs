@@ -101,6 +101,16 @@ namespace Quadrax.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ladder {
+            get {
+                object obj = ResourceManager.GetObject("ladder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;LEVEL&gt;
         ///	&lt;ROZMERY&gt;
         ///		&lt;SIRKA&gt;10&lt;/SIRKA&gt;
@@ -316,6 +326,16 @@ namespace Quadrax.Properties {
         internal static System.Drawing.Bitmap PlayerR4 {
             get {
                 object obj = ResourceManager.GetObject("PlayerR4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap thorns {
+            get {
+                object obj = ResourceManager.GetObject("thorns", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

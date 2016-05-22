@@ -43,6 +43,9 @@ namespace Quadrax
             //
             //testing space
 
+            Ladder l = new Ladder(400, 200, true, 999, 10, this);
+            AddObject(l);
+
             Brick b = new Brick(100, 100, true, 50);
             AddObject(b);
             List<GameObject> add = new List<GameObject>();
