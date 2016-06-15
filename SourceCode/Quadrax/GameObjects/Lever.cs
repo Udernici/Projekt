@@ -8,8 +8,8 @@ namespace Quadrax
 {
     public class Lever : GameObject
     {
-        List<GameObject> activeObjs = new List<GameObject>();
-        List<GameObject> disabledObj = new List<GameObject>();
+        public List<GameObject> activeObjs = new List<GameObject>();
+        public List<GameObject> disabledObj = new List<GameObject>();
         bool on = true;
         public Lever(int x, int y, bool solid, int weight, List<GameObject> act, List<GameObject> dis) :base(x, y, solid, weight)
         {

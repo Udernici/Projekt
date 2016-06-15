@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Quadrax
 {
-    class Brick : GameObject
+    public class Brick : GameObject
     {
         public Brick(int x,int y, bool solid, int weight):base(x, y, solid, weight)
         {

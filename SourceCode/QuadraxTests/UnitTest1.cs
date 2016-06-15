@@ -1,6 +1,7 @@
 ﻿using System;
 using Quadrax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace QuadraxTests
 {
@@ -49,5 +50,76 @@ namespace QuadraxTests
             Assert.IsFalse(prvy.Equals(c.activeCharacter));
         }
 
+        [TestMethod]
+        public void SwitchPlayer2()
+        {
+            MyCanvas c = new MyCanvas();
+            Player prvy = c.activeCharacter;
+            c.SwitchPlayer();
+            c.SwitchPlayer();
+            Assert.IsTrue(prvy.Equals(c.activeCharacter));
+        }
+
+        [TestMethod]
+        public void Solid()
+        {
+            Brick g = new Brick(10, 10, true, 10);
+            Assert.IsTrue(g.isSolid());
+        }
+
+        [TestMethod]
+        public void NotSolid()
+        {
+            Brick b = new Brick(10, 10, false, 10);
+            Assert.IsFalse(b.isSolid());
+        }
+
+        [TestMethod]
+        public void LeverSwitch()
+        {
+            MyCanvas mc = new MyCanvas();
+            List<GameObject> act = new List<GameObject>();
+            Brick b = new Brick(10, 10, false, 10);
+            act.Add(b);
+            List<GameObject> dsb = new List<GameObject>();
+
+            List<GameObject> test = new List<GameObject>();
+            test.AddRange(act);
+
+            Lever l = new Lever(10, 10, false, 10, act, dsb);
+            l.ActivateLever(mc);
+
+            Assert.IsTrue(l.disabledObj[0] == test[0]);
+        }
+
+        [TestMethod]
+        public void TestMoveLeft()
+        {
+            int povodneX = p1.X;
+            p1.Move(System.Windows.Forms.Keys.A, 10,new List<GameObject>());
+            Assert.IsTrue(povodneX == p1.X + 10);
+
+            povodneX = p1.X;
+            p1.Move(System.Windows.Forms.Keys.Left, 10, new List<GameObject>());
+            Assert.IsTrue(povodneX == p1.X + 10);
+        }
+
+        [TestMethod]
+        public void TestMoveRight()
+        {
+            int povodneX = p1.X;
+            p1.Move(System.Windows.Forms.Keys.D, 10, new List<GameObject>());
+            Assert.IsTrue(povodneX == p1.X - 10);
+
+            povodneX = p1.X;
+            p1.Move(System.Windows.Forms.Keys.Right, 10, new List<GameObject>());
+            Assert.IsTrue(povodneX == p1.X - 10);
+        }
+
+        [TestMethod]
+        public void TestTemplate()
+        {
+            Assert.IsTrue(true);
+        }
     }
 }

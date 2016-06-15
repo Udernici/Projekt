@@ -130,7 +130,7 @@ namespace Quadrax
         //z nejakeho dovodu nefungoval KeyDown na sipky -> fix (nahrada za MyCanvas_KeyDown)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            List<Keys> movKeys = new List<Keys>() { Keys.Left, Keys.Right, Keys.Up, Keys.Down };
+            List<Keys> movKeys = new List<Keys>() { Keys.Left, Keys.Right, Keys.Up, Keys.Down,Keys.W, Keys.S, Keys.A, Keys.D };
             if (movKeys.Contains(keyData))
             {
                 if (pohyb(keyData))
@@ -258,13 +258,17 @@ namespace Quadrax
                 case Keys.Down:
                 case Keys.Left:
                 case Keys.Right:
+                case Keys.A:
+                case Keys.W:
+                case Keys.S:
+                case Keys.D:
                     break;
                 default:
                     return false;
             }
             foreach (var obj in objects)
             {
-                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.X : activeCharacter.Location.Y, key == Keys.Up || key == Keys.Down ? obj.Location.X : obj.Location.Y))
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down  || key == Keys.W || key == Keys.S ? activeCharacter.Location.X : activeCharacter.Location.Y, key == Keys.Up || key == Keys.Down || key == Keys.W || key == Keys.S ? obj.Location.X : obj.Location.Y))
                 {
                     if (Overlap(key == Keys.Up || key == Keys.Down ? activeCharacter.Location.Y : activeCharacter.Location.X, key == Keys.Up || key == Keys.Down ? obj.Location.Y : obj.Location.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
@@ -289,7 +293,7 @@ namespace Quadrax
                 {
                     if (pohybBouldra(key, obj))
                     {
-                        int where = key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU;
+                        int where = key == Keys.Left || key == Keys.A ? -VELKOSTKROKU : VELKOSTKROKU;
                         obj.Location = new Point(obj.Location.X + where, obj.Location.Y);
                         obj.Invalidate();
 
@@ -323,6 +327,10 @@ namespace Quadrax
                 case Keys.Down:
                 case Keys.Left:
                 case Keys.Right:
+                case Keys.A:
+                case Keys.W:
+                case Keys.S:
+                case Keys.D:
                     break;
                 default:
                     return false;
@@ -333,17 +341,21 @@ namespace Quadrax
                 {
                     continue;
                 }
-                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down ? currentObject.Location.X : currentObject.Location.Y, key == Keys.Up || key == Keys.Down ? obj.Location.X : obj.Location.Y))
+                if (SameRowOrColumn(key == Keys.Up || key == Keys.Down || key == Keys.W || key == Keys.S ? currentObject.Location.X : currentObject.Location.Y, key == Keys.Up || key == Keys.Down || key == Keys.W || key == Keys.S ? obj.Location.X : obj.Location.Y))
                 {
-                    if (!obj.isSolid() || Overlap(key == Keys.Up || key == Keys.Down ? currentObject.Location.Y : currentObject.Location.X, key == Keys.Up || key == Keys.Down ? obj.Location.Y : obj.Location.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
+                    if (!obj.isSolid() || Overlap(key == Keys.Up || key == Keys.Down || key == Keys.W || key == Keys.S ? currentObject.Location.Y : currentObject.Location.X, key == Keys.Up || key == Keys.Down || key == Keys.W || key == Keys.S ? obj.Location.Y : obj.Location.X, key == Keys.Up || key == Keys.Left ? -VELKOSTKROKU : VELKOSTKROKU))
                     {
                         switch (key)
                         {
                             case Keys.Up:
                             case Keys.Down:
+                            case Keys.W:
+                            case Keys.S:
                                 return false;
                             case Keys.Left:
                             case Keys.Right:
+                            case Keys.A:
+                            case Keys.D:
                                 if (obj.GetType() == typeof(Boulder))
                                 {
                                     return false;

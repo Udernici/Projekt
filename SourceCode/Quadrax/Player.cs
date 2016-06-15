@@ -97,27 +97,27 @@ namespace Quadrax
 
         public void Move(Keys key, int step, List<GameObject> ladders)
         {
-            if (key == Keys.Left || key == Keys.Right)
+            if (key == Keys.Left || key == Keys.Right || key == Keys.A || key == Keys.D)
             {
-                X = key == Keys.Left ? X - step : X + step;
-                direction = key == Keys.Left ? 'L' : 'R';
+                X = key == Keys.Left || key == Keys.A ? X - step : X + step;
+                direction = key == Keys.Left || key == Keys.A ? 'L' : 'R';
                 indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
             }
-            else if (key == Keys.Up || key == Keys.Down)
+            else if (key == Keys.Up || key == Keys.Down || key == Keys.S || key == Keys.W)
             {
                 //ak je na rebriku, moze sa hybat hore/dole
                 foreach (Ladder l in ladders)
                 {
                     if (l.IsPlayerClose(this))
                     {
-                        Y = key == Keys.Up ? Y - step : Y + step;
+                        Y = (key == Keys.Up|| key == Keys.W) ? Y - step : Y + step;
                         //ak Y - step prekroci Y suradnicu rebriku, nastavi sa na Y suradnicu rebriku -> 
                         //inak totiz dracik bugoval a nevedel zliest z rebriku
                         if (l.Location.Y > Y)
                         {
                             Y = Location.Y;
                         }
-                        direction = key == Keys.Up ? 'U' : 'D';
+                        direction = (key == Keys.Up || key == Keys.W) ? 'U' : 'D';
                     }
                 }
 
@@ -126,6 +126,7 @@ namespace Quadrax
             }
             this.Location = new Point(X, Y);
         }
+
         public void setStandingImage()
         {
             indexObrazku = 0;
