@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quadrax
 {
-    class Exit : GameObject
+    public class Exit : GameObject
     {
         public Exit(int x, int y, bool solid, int weight) : base(x, y, false, 0)
         {

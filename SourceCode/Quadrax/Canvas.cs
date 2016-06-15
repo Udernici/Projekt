@@ -27,7 +27,7 @@ namespace Quadrax
 
         LEVEL level;
         private Button restartButton;
-        Player activeCharacter;
+        public Player activeCharacter;
         
 
         public MyCanvas()
@@ -158,7 +158,7 @@ namespace Quadrax
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void SwitchPlayer()
+        public void SwitchPlayer()
         {
             if (activeCharacter.Equals(p1))
             {
