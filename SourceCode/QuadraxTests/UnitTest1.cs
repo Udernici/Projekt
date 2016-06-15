@@ -10,14 +10,14 @@ namespace QuadraxTests
         [TestMethod]
         public void PlayerLeverClose()
         {
-            Player p = new Quadrax.Player(100, 100, 100, 100);
+            Player p = new Quadrax.Player(100, 100, 100, 100, 1);
             Lever l = new Quadrax.Lever(100, 100, false, 20, null, null);
             Assert.IsTrue(l.IsPlayerClose(p));
         }
         [TestMethod]
         public void PlayerLeverNotClose()
         {
-            Player p = new Quadrax.Player(10, 100, 100, 100);
+            Player p = new Quadrax.Player(10, 100, 100, 100, 1);
             Lever l = new Quadrax.Lever(100, 100, false, 20, null, null);
             Assert.IsFalse(l.IsPlayerClose(p));
         }

@@ -15,6 +15,7 @@ namespace Quadrax
     public partial class MyCanvas : Form
     {
         Player p1;
+        Player p2;
         List<GameObject> objects = new List<GameObject>();
         List<GameObject> ladders;
 
@@ -88,7 +89,9 @@ namespace Quadrax
             //add graphic logic
             p1.Draw();
             this.Controls.Add(p1);
-            p1.Invalidate();
+
+            p2.Draw();
+            this.Controls.Add(p2);
         }
 
 
@@ -132,7 +135,7 @@ namespace Quadrax
             {
                 if (pohyb(keyData))
                 {
-                    p1.Move(keyData, VELKOSTKROKU, ladders);
+                    activeCharacter.Move(keyData, VELKOSTKROKU, ladders);
                     Redraw();
                     return true;
                 }
@@ -147,7 +150,24 @@ namespace Quadrax
                     }
                 }
             }
+            else if (keyData == Keys.Q)
+            {
+                SwitchPlayer();
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void SwitchPlayer()
+        {
+            if (activeCharacter.Equals(p1))
+            {
+                activeCharacter = p2;
+            }
+            else
+            {
+                activeCharacter = p1;
+            }
         }
 
         public List<GameObject> GetObjectsOfType(Type type)
@@ -171,7 +191,8 @@ namespace Quadrax
                 level = (LEVEL)ser.Deserialize(reader);
             }
 
-            p1 = new Player(level.SPAWN.X, level.SPAWN.Y, 20, VELKOSTCHARAKTERU);
+            p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
+            p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 20, VELKOSTCHARAKTERU, 2);
             activeCharacter = p1;
 
             foreach (var item in level.OBJEKTY.BALVAN)
@@ -284,8 +305,12 @@ namespace Quadrax
             else if (obj.GetType() == typeof(Exit))
             {
                 var x = (Exit)obj;
-                MessageBox.Show("Vyhral si!");
-                Application.Exit();
+                if (x.Escaped(p1, p2))
+                {
+                    MessageBox.Show("Vyhral si!");
+                    Application.Exit();
+                }
+
             }
             return true;
         }
@@ -384,7 +409,7 @@ namespace Quadrax
 
         private void MyCanvas_KeyUp(object sender, KeyEventArgs e)
         {
-            p1.setStandingImage();
+            activeCharacter.setStandingImage();
         }
     }
 }

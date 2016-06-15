@@ -121,11 +121,13 @@ public partial class LEVELSPAWN
 {
 
     private int xField;
+    private int xField2;
 
     private int yField;
+    private int yField2;
 
     /// <remarks/>
-    public int X
+    public int X1
     {
         get
         {
@@ -136,9 +138,20 @@ public partial class LEVELSPAWN
             this.xField = value;
         }
     }
+    public int X2
+    {
+        get
+        {
+            return this.xField2;
+        }
+        set
+        {
+            this.xField2 = value;
+        }
+    }
 
     /// <remarks/>
-    public int Y
+    public int Y1
     {
         get
         {
@@ -147,6 +160,17 @@ public partial class LEVELSPAWN
         set
         {
             this.yField = value;
+        }
+    }
+    public int Y2
+    {
+        get
+        {
+            return this.yField2;
+        }
+        set
+        {
+            this.yField2 = value;
         }
     }
 }

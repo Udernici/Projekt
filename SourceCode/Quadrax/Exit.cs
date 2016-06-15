@@ -14,10 +14,18 @@ namespace Quadrax
             this.Image = Properties.Resources.exit;
             this.Size = new Size(50, 50);
         }
-        public bool Escaped(Player player1) {
-            return (player1.Location.X > Location.X -20 && player1.Location.X < Location.X + 20 && player1.Location.Y > Location.Y - 20 && player1.Location.Y < Location.Y + 20);
-                    //&& player2.X > X && player2.X < X + 20 && player2.Y > Y-20 && player2.Y < Y + 20);
-                    //zatial zakomentovane, lebo nemame este druheho hraca
+        public bool Escaped(Player player1, Player player2)
+        {
+
+            return (player1.Location.X > Location.X - player1.Width && 
+                player1.Location.X < Location.X + player1.Width 
+                && player1.Location.Y > Location.Y - player1.Height 
+                && player1.Location.Y < Location.Y + player1.Height
+                
+                    && player2.Location.X > Location.X - player2.Width 
+                    && player2.Location.X < Location.X + player2.Width 
+                    && player2.Y > Location.Y - player2.Height 
+                    && player2.Location.Y < Location.Y + player2.Height);
         }
 
         public override void Draw()

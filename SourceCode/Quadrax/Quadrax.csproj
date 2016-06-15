@@ -124,7 +124,6 @@
     <None Include="Graphics\PlayerAnimation\PlayerR3.png" />
     <None Include="Graphics\PlayerAnimation\PlayerR4.png" />
     <None Include="Graphics\Bg.jpg" />
-    <Resource Include="level.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\level.xml" />

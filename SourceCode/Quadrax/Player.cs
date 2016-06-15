@@ -27,7 +27,7 @@ namespace Quadrax
 
         public int Strength { get { return this.strength; } set { this.strength = value; } }
 
-        public Player(int x, int y, int strength, int imageSize) : base()
+        public Player(int x, int y, int strength, int imageSize, int playerNumber) : base()
         {
             X = x;
             Y = y;
@@ -35,31 +35,59 @@ namespace Quadrax
             this.Size = new System.Drawing.Size(imageSize,imageSize);
             this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             BackColor = Color.Transparent;
-            this.Image = Properties.Resources.PlayerL1;
             this.Location = new Point(X, Y);
             this.Click += player_Click;
 
-            //left
-            Image image = Properties.Resources.PlayerL1;
-            //left.Images.Add(image);
-            left.Add(image);
-            image = Properties.Resources.PlayerL2;
-            left.Add(image);
-            image = Properties.Resources.PlayerL3;
-            left.Add(image);
-            image = Properties.Resources.PlayerL4;
-            left.Add(image);
-            //right
-            image = Properties.Resources.PlayerR1;
-            right.Add(image);
-            image = Properties.Resources.PlayerR2;
-            right.Add(image);
-            image = Properties.Resources.PlayerR3;
-            right.Add(image);
-            image = Properties.Resources.PlayerR4;
-            right.Add(image);
-            //towards
-            towards.Images.Add(image);
+            if(playerNumber == 1)
+            {
+                //left
+                Image image = Properties.Resources.PlayerL1;
+                left.Add(image);
+                image = Properties.Resources.PlayerL2;
+                left.Add(image);
+                image = Properties.Resources.PlayerL3;
+                left.Add(image);
+                image = Properties.Resources.PlayerL4;
+                left.Add(image);
+                //right
+                image = Properties.Resources.PlayerR1;
+                right.Add(image);
+                image = Properties.Resources.PlayerR2;
+                right.Add(image);
+                image = Properties.Resources.PlayerR3;
+                right.Add(image);
+                image = Properties.Resources.PlayerR4;
+                right.Add(image);
+                //towards
+                towards.Images.Add(image);
+
+            }
+            else if (playerNumber == 2)
+            {
+                //left
+                Image image = Properties.Resources.Player2L1;
+                left.Add(image);
+                image = Properties.Resources.Player2L2;
+                left.Add(image);
+                image = Properties.Resources.Player2L3;
+                left.Add(image);
+                image = Properties.Resources.Player2L4;
+                left.Add(image);
+                //right
+                image = Properties.Resources.Player2R1;
+                right.Add(image);
+                image = Properties.Resources.Player2R2;
+                right.Add(image);
+                image = Properties.Resources.Player2R3;
+                right.Add(image);
+                image = Properties.Resources.Player2R4;
+                right.Add(image);
+                //towards
+                towards.Images.Add(Properties.Resources.Player2R4);
+
+            }
+            this.Image = right[0];
+
         }
 
         private void player_Click(object sender, EventArgs e)
