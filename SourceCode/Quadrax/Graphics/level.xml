@@ -20,9 +20,12 @@
     </BALVAN>
 		<REBRIK>
 			<SURADNICE>
-				<X>10</X>
-				<Y>10</Y>
+				<X>200</X>
+				<Y>150</Y>
 			</SURADNICE>
+      <VELKOST>
+        <VYSKA>10</VYSKA>
+      </VELKOST>
 			<SOLID>true</SOLID>
 			<WEIGHT>60</WEIGHT>
 		</REBRIK>
@@ -34,6 +37,18 @@
 			<SOLID>true</SOLID>
 			<WEIGHT>9999</WEIGHT>
 		</STENA>
+    <STENY>
+      <SURADNICE>
+        <X>0</X>
+        <Y>450</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>1</VYSKA>
+        <SIRKA>10</SIRKA>
+      </VELKOST>
+      <SOLID>true</SOLID>
+      <WEIGHT>9999</WEIGHT>
+    </STENY>
     <STENA>
       <SURADNICE>
         <X>0</X>

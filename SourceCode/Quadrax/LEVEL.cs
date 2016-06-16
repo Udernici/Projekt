@@ -190,6 +190,8 @@ public partial class LEVELOBJEKTY
 
     private LEVELOBJEKTYSTENA[] sTENAField;
 
+    private LEVELOBJEKTYSTENY[] sTENYField;
+
     private LEVELOBJEKTYVYCHOD[] vYCHODField;
 
     private LEVELOBJEKTYPICHLIACE[] pICHLIACEField;
@@ -238,6 +240,19 @@ public partial class LEVELOBJEKTY
         }
     }
 
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("STENY")]
+    public LEVELOBJEKTYSTENY[] STENY
+    {
+        get
+        {
+            return this.sTENYField;
+        }
+        set
+        {
+            this.sTENYField = value;
+        }
+    }
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("VYCHOD")]
     public LEVELOBJEKTYVYCHOD[] VYCHOD
@@ -387,6 +402,8 @@ public partial class LEVELOBJEKTYREBRIK
 
     private LEVELOBJEKTYREBRIKSURADNICE sURADNICEField;
 
+    private LEVELOBJEKTYREBRIKVELKOST vELKOSTField;
+
     private bool sOLIDField;
 
     private int wEIGHTField;
@@ -401,6 +418,20 @@ public partial class LEVELOBJEKTYREBRIK
         set
         {
             this.sURADNICEField = value;
+        }
+    }
+
+    /// <remarks/>
+
+    public LEVELOBJEKTYREBRIKVELKOST VELKOST
+    {
+        get
+        {
+            return this.vELKOSTField;
+        }
+        set
+        {
+            this.vELKOSTField = value;
         }
     }
 
@@ -437,6 +468,154 @@ public partial class LEVELOBJEKTYREBRIK
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class LEVELOBJEKTYSTENY
+{
+
+    private LEVELOBJEKTYSTENYSURADNICE sURADNICEField;
+
+    private LEVELOBJEKTYSTENYVELKOST vELKOSTField;
+
+    private bool sOLIDField;
+
+    private int wEIGHTField;
+
+    /// <remarks/>
+    public LEVELOBJEKTYSTENYSURADNICE SURADNICE
+    {
+        get
+        {
+            return this.sURADNICEField;
+        }
+        set
+        {
+            this.sURADNICEField = value;
+        }
+    }
+
+    /// <remarks/>
+
+    public LEVELOBJEKTYSTENYVELKOST VELKOST
+    {
+        get
+        {
+            return this.vELKOSTField;
+        }
+        set
+        {
+            this.vELKOSTField = value;
+        }
+    }
+
+    /// <remarks/>
+    public bool SOLID
+    {
+        get
+        {
+            return this.sOLIDField;
+        }
+        set
+        {
+            this.sOLIDField = value;
+        }
+    }
+
+    /// <remarks/>
+    public int WEIGHT
+    {
+        get
+        {
+            return this.wEIGHTField;
+        }
+        set
+        {
+            this.wEIGHTField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.18020")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class LEVELOBJEKTYSTENYSURADNICE
+{
+
+    private int xField;
+
+    private int yField;
+
+    /// <remarks/>
+    public int X
+    {
+        get
+        {
+            return this.xField;
+        }
+        set
+        {
+            this.xField = value;
+        }
+    }
+
+    /// <remarks/>
+    public int Y
+    {
+        get
+        {
+            return this.yField;
+        }
+        set
+        {
+            this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.18020")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class LEVELOBJEKTYSTENYVELKOST
+{
+
+    private int vYSKAField;
+
+    private int sIRKAField;
+
+    /// <remarks/>
+    public int VYSKA
+    {
+        get
+        {
+            return this.vYSKAField;
+        }
+        set
+        {
+            this.vYSKAField = value;
+        }
+    }
+    public int SIRKA
+    {
+        get
+        {
+            return this.sIRKAField;
+        }
+        set
+        {
+            this.sIRKAField = value;
+        }
+    }
+}
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.18020")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
 public partial class LEVELOBJEKTYREBRIKSURADNICE
 {
 
@@ -467,6 +646,31 @@ public partial class LEVELOBJEKTYREBRIKSURADNICE
         set
         {
             this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.18020")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class LEVELOBJEKTYREBRIKVELKOST
+{
+
+    private int vYSKAField;
+
+    /// <remarks/>
+    public int VYSKA
+    {
+        get
+        {
+            return this.vYSKAField;
+        }
+        set
+        {
+            this.vYSKAField = value;
         }
     }
 }
@@ -769,6 +973,8 @@ public partial class LEVELOBJEKTYPREPINAC
 
     private bool sOLIDField;
 
+    private LEVELOBJEKTYPREPINACOVLADA oVLADAField;
+
     private int wEIGHTField;
 
     /// <remarks/>
@@ -784,6 +990,18 @@ public partial class LEVELOBJEKTYPREPINAC
         }
     }
 
+    /// <remarks/>
+    public LEVELOBJEKTYPREPINACOVLADA OVLADA
+    {
+        get
+        {
+            return this.oVLADAField;
+        }
+        set
+        {
+            this.oVLADAField = value;
+        }
+    }
     /// <remarks/>
     public bool SOLID
     {
@@ -847,6 +1065,74 @@ public partial class LEVELOBJEKTYPREPINACSURADNICE
         set
         {
             this.yField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.18020")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class LEVELOBJEKTYPREPINACOVLADA
+{
+
+    private int xJEDNAField;
+
+    private int yJEDNAField;
+
+    private int xDVAField;
+
+    private int yDVAField;
+
+    /// <remarks/>
+    public int XJEDNA
+    {
+        get
+        {
+            return this.xJEDNAField;
+        }
+        set
+        {
+            this.xJEDNAField = value;
+        }
+    }
+
+    /// <remarks/>
+    public int YJEDNA
+    {
+        get
+        {
+            return this.yJEDNAField;
+        }
+        set
+        {
+            this.yJEDNAField = value;
+        }
+    }
+    public int XDVA
+    {
+        get
+        {
+            return this.xDVAField;
+        }
+        set
+        {
+            this.xDVAField = value;
+        }
+    }
+
+    /// <remarks/>
+    public int YDVA
+    {
+        get
+        {
+            return this.yDVAField;
+        }
+        set
+        {
+            this.yDVAField = value;
         }
     }
 }

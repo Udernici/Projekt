@@ -9,24 +9,29 @@ namespace Quadrax
 {
     class Wall : GameObject
     {
-        public Brick[][] Bricks { get; set; }
+        List<Brick> brickPieces = new List<Brick>();
         //constructor
-        public Wall(int x, int y, int width, int height, bool solid, int weight) : base(x, y, solid, weight)
+        public Wall(int x, int y, bool solid, int weight, int width, int height, MyCanvas canvasRef)
+            : base(x, y, solid, weight)
         {
-            /*Bricks = new Brick[width][];
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < height; i++)
             {
-                Bricks[i] = new Brick[height];
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < width; j++)
                 {
-                    Bricks[i][j] = new Brick
-                    {
-                        X = i,
-                        Y = j
-                    };
+                    Brick l = new Brick(x + j * 25, y + i * 25, solid, weight);
+                    brickPieces.Add(l);
+                    this.Controls.Add(l);
                 }
-            }*/
+            }
+            AddObjects(canvasRef);
+        }
 
+        void AddObjects(MyCanvas canvasRef)
+        {
+            foreach (Brick p in brickPieces)
+            {
+                canvasRef.AddObject(p);
+            }
         }
 
 

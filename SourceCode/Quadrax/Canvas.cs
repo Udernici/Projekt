@@ -22,7 +22,7 @@ namespace Quadrax
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
         int VELKOSTCHARAKTERU = 50;
-        int VELKOSTOBJEKTU = 30;
+        int VELKOSTOBJEKTU = 25;
         int VELKOSTKROKU = 5;
 
         LEVEL level;
@@ -40,25 +40,10 @@ namespace Quadrax
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
 
-            Load(Properties.Resources.level);
+            Load(Properties.Resources.level2);
 
             //
             //testing space
-
-            Ladder l = new Ladder(200, 200, true, 999, 10, this);
-            AddObject(l);
-
-            Brick b = new Brick(100, 100, true, 50);
-            AddObject(b);
-            List<GameObject> add = new List<GameObject>();
-            add.Add(b);
-
-            Brick k = new Brick(200, 100, true, 50);
-            List<GameObject> rem = new List<GameObject>();
-            rem.Add(k);
-
-            Lever tmp = new Lever(200, 450, true, 500, add, rem);
-            AddObject(tmp);
 
             //
             Redraw();
@@ -192,12 +177,12 @@ namespace Quadrax
             }
 
             p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
-            p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 20, VELKOSTCHARAKTERU, 2);
+            p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
             activeCharacter = p1;
 
             foreach (var item in level.OBJEKTY.BALVAN)
             {
-                Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT,VELKOSTOBJEKTU);
+                Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, VELKOSTOBJEKTU);
                 AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.PICHLIACE)
@@ -208,21 +193,40 @@ namespace Quadrax
             }
             foreach (var item in level.OBJEKTY.PREPINAC)
             {
-                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, new List<GameObject>(), new List<GameObject>());
+                Brick b = new Brick(item.OVLADA.XJEDNA, item.OVLADA.YJEDNA, true, 9999);
+                AddObject(b);
+                List<GameObject> add = new List<GameObject>();
+                add.Add(b);
+
+                Brick k = new Brick(item.OVLADA.XDVA, item.OVLADA.YDVA, true, 9999);
+                List<GameObject> rem = new List<GameObject>();
+                rem.Add(k);
+
+                Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, add, rem);
                 AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.REBRIK)
             {
-                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //arrayGameObjects.Add(tmp);
+                Ladder tmp = new Ladder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.VYSKA, this);
+                AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.STENA)
             {
-                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
                 Brick tmp = new Brick(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
                 AddObject(tmp);
+            }
+            foreach (var item in level.OBJEKTY.STENY)
+            {
+                for (int i = 0; i < item.VELKOST.VYSKA; i++)
+                {
+                    for (int j = 0; j < item.VELKOST.SIRKA; j++)
+                    {
+                        Brick l = new Brick(item.SURADNICE.X + j * 25, item.SURADNICE.Y + i * 25, item.SOLID, item.WEIGHT);
+                        AddObject(l);
+                    }
+                }
+                Wall tmp = new Wall(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.SIRKA, item.VELKOST.VYSKA, this);
+                //AddObject(tmp);
             }
             foreach (var item in level.OBJEKTY.VYCHOD)
             {
