@@ -140,7 +140,9 @@ namespace Quadrax.Properties {
         ///        &lt;VYSKA&gt;10&lt;/VYSKA&gt;
         ///      &lt;/VELKOST&gt;
         ///			&lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///			&lt;WEIGHT&gt;6 [rest of string was truncated]&quot;;.
+        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
+        ///		&lt;/REBRIK&gt;
+        ///		&lt;STE [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level {
             get {
@@ -180,7 +182,10 @@ namespace Quadrax.Properties {
         ///			&lt;SOLID&gt;false&lt;/SOLID&gt;
         ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
         ///			&lt;/REBRIK&gt;
-        ///		&lt;STEN [rest of string was truncated]&quot;;.
+        ///		&lt;STENY&gt;
+        ///		  &lt;SURADNICE&gt;
+        ///			&lt;X&gt;0&lt;/X&gt;
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level1 {
             get {
@@ -190,37 +195,34 @@ namespace Quadrax.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;LEVEL&gt;
-        ///	&lt;ROZMERY&gt;
-        ///		&lt;SIRKA&gt;500&lt;/SIRKA&gt;
-        ///		&lt;VYSKA&gt;225&lt;/VYSKA&gt;
-        ///	&lt;/ROZMERY&gt;
-        ///	&lt;SPAWN&gt;
-        ///		&lt;X1&gt;75&lt;/X1&gt;
-        ///		&lt;Y1&gt;400&lt;/Y1&gt;
-        ///		&lt;X2&gt;150&lt;/X2&gt;
-        ///		&lt;Y2&gt;400&lt;/Y2&gt;
-        ///	&lt;/SPAWN&gt;
-        ///	&lt;OBJEKTY&gt;
-        ///		&lt;BALVAN&gt;
-        ///		  &lt;SURADNICE&gt;
-        ///			&lt;X&gt;450&lt;/X&gt;
-        ///			&lt;Y&gt;125&lt;/Y&gt;
-        ///		  &lt;/SURADNICE&gt;
-        ///		  &lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///		  &lt;WEIGHT&gt;50&lt;/WEIGHT&gt;
-        ///		&lt;/BALVAN&gt;
-        ///		&lt;REBRIK&gt;
-        ///			&lt;SURADNICE&gt;
-        ///				&lt;X&gt;280&lt;/X&gt;
-        ///				&lt;Y&gt;50&lt;/Y&gt;
-        ///			&lt;/SURADNICE&gt;
-        ///			&lt;VELKOST&gt;
-        ///				&lt;VYSKA&gt;16&lt;/VYSKA&gt;
-        ///			&lt;/VELKOST&gt;
-        ///			&lt;SOLID&gt;false&lt;/SOLID&gt;
-        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
-        ///			&lt;/REBRIK&gt;
-        ///		&lt;STEN [rest of string was truncated]&quot;;.
+        ///  &lt;ROZMERY&gt;
+        ///    &lt;SIRKA&gt;500&lt;/SIRKA&gt;
+        ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
+        ///  &lt;/ROZMERY&gt;
+        ///  &lt;SPAWN&gt;
+        ///    &lt;X1&gt;75&lt;/X1&gt;
+        ///    &lt;Y1&gt;400&lt;/Y1&gt;
+        ///    &lt;X2&gt;150&lt;/X2&gt;
+        ///    &lt;Y2&gt;400&lt;/Y2&gt;
+        ///  &lt;/SPAWN&gt;
+        ///  &lt;OBJEKTY&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;450&lt;/X&gt;
+        ///        &lt;Y&gt;125&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;50&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///    &lt;REBRIK&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;280&lt;/X&gt;
+        ///        &lt;Y&gt;50&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;VELKOST&gt;
+        ///        &lt;VYSKA&gt;16&lt;/VYSKA&gt;
+        ///      &lt;/VELKOST&gt;
+        ///      [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level2 {
             get {
@@ -405,6 +407,47 @@ namespace Quadrax.Properties {
             get {
                 object obj = ResourceManager.GetObject("PlayerR4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;LEVEL&gt;
+        ///	&lt;ROZMERY&gt;
+        ///		&lt;SIRKA&gt;500&lt;/SIRKA&gt;
+        ///		&lt;VYSKA&gt;225&lt;/VYSKA&gt;
+        ///	&lt;/ROZMERY&gt;
+        ///	&lt;SPAWN&gt;
+        ///		&lt;X1&gt;75&lt;/X1&gt;
+        ///		&lt;Y1&gt;400&lt;/Y1&gt;
+        ///		&lt;X2&gt;450&lt;/X2&gt;
+        ///		&lt;Y2&gt;400&lt;/Y2&gt;
+        ///	&lt;/SPAWN&gt;
+        ///	&lt;OBJEKTY&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;130&lt;/X&gt;
+        ///        &lt;Y&gt;450&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;50&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///    &lt;REBRIK&gt;
+        ///			&lt;SURADNICE&gt;
+        ///				&lt;X&gt;-280&lt;/X&gt;
+        ///				&lt;Y&gt;-50&lt;/Y&gt;
+        ///			&lt;/SURADNICE&gt;
+        ///			&lt;VELKOST&gt;
+        ///				&lt;VYSKA&gt;16&lt;/VYSKA&gt;
+        ///			&lt;/VELKOST&gt;
+        ///			&lt;SOLID&gt;false&lt;/SOLID&gt;
+        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
+        ///			&lt;/REBRIK&gt;
+        ///		&lt;STENY&gt;
+        ///		 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TestLevel {
+            get {
+                return ResourceManager.GetString("TestLevel", resourceCulture);
             }
         }
         

@@ -53,9 +53,7 @@
     <Compile Include="GameObjects\Brick.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Canvas.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Canvas.cs" />
     <Compile Include="Exit.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -180,7 +178,12 @@
     <None Include="Resources\level1.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\level2.xml" />
+    <None Include="Resources\level2.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TestLevel.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
