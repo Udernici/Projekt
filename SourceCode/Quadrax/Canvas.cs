@@ -32,8 +32,8 @@ namespace Quadrax
         Player p1;
         Player p2;
         List<GameObject> objects = new List<GameObject>();
-        List<GameObject> ladders;
-        
+        List<Ladder> ladders;
+
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
         int VELKOSTCHARAKTERU = 50;
@@ -66,7 +66,7 @@ namespace Quadrax
             Refresh();
 
             //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
-            ladders = GetObjectsOfType(typeof(Ladder));
+            ladders = objects.OfType<Ladder>().ToList();
         }
 
         public void AddObject(GameObject o)
@@ -136,22 +136,19 @@ namespace Quadrax
                 if (pohyb(keyData))
                 {
                     activeCharacter.Move(keyData, VELKOSTKROKU, ladders);
-                    
+
                     PlayerGravity();
-                    
+
                     Redraw();
                     return true;
                 }
             }
             else if (keyData == Keys.E)
             {
-                List<GameObject> levers = GetObjectsOfType(typeof(Lever));
-                foreach (Lever l in levers) {
-                    if (l.IsPlayerClose(activeCharacter))
-                    {
-                        l.ActivateLever(this);
-                    }
-                }
+                objects.OfType<Lever>()
+                    .Where(l => l.IsPlayerClose(activeCharacter))
+                    .ToList()
+                    .ForEach(l => l.ActivateLever(this));
             }
             else if (keyData == Keys.Q)
             {
@@ -160,17 +157,16 @@ namespace Quadrax
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        
+
         private void PlayerGravity()
         {
             bool falling = true;
             while (falling)
             {
-                falling = !objects.Any(obj
-                            => playerIntersectsObject(obj));
+                falling = !objects.Any(playerIntersectsObject);
                 if (falling)
                 {
-                    activeCharacter.Location = new Point(activeCharacter.Location.X, activeCharacter.Location.Y +1);
+                    activeCharacter.Location = new Point(activeCharacter.Location.X, activeCharacter.Location.Y + 1);
                     Redraw();
                 }
 
@@ -180,7 +176,7 @@ namespace Quadrax
 
         private bool playerIntersectsObject(GameObject obj)
         {
-            Rectangle actorRect = new Rectangle(new Point(activeCharacter.Location.X, activeCharacter.Location.Y+1), new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU));
+            Rectangle actorRect = new Rectangle(new Point(activeCharacter.Location.X, activeCharacter.Location.Y + 1), new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU));
             Rectangle targetRect = new Rectangle(obj.Location, new Size(VELKOSTOBJEKTU, VELKOSTOBJEKTU));
             return (actorRect.IntersectsWith(targetRect));
         }
@@ -197,19 +193,6 @@ namespace Quadrax
             }
         }
 
-        public List<GameObject> GetObjectsOfType(Type type)
-        {
-            List<GameObject> res = new List<GameObject>();
-            foreach (var obj in objects)
-            {
-                if (obj.GetType() == type)
-                {
-                    res.Add(obj);
-                }
-            }
-            return res;
-        }
-
         public void Load(string content)
         {
             XmlSerializer ser = new XmlSerializer(typeof(LEVEL));
@@ -221,7 +204,7 @@ namespace Quadrax
             p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
             p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
             activeCharacter = p1;
-            
+
             foreach (var item in level.OBJEKTY.BALVAN)
             {
                 Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, VELKOSTOBJEKTU);
@@ -286,8 +269,10 @@ namespace Quadrax
             activeCharacter = p1;
             PlayerGravity();
 
-            foreach (GameObject obj in objects){
-                if (obj is Boulder) {
+            foreach (GameObject obj in objects)
+            {
+                if (obj is Boulder)
+                {
                     BoulderGravity(obj);
                 }
             }
@@ -311,7 +296,8 @@ namespace Quadrax
 
             }
         }
-        private Point getNewPosition(Keys key,Point point) {
+        private Point getNewPosition(Keys key, Point point)
+        {
             int newX = point.X;
             int newY = point.Y;
 
@@ -324,21 +310,14 @@ namespace Quadrax
         }
         public bool pohyb(Keys key)
         {
-            if (!key.IsMovement()){return false;}
-            var newPos = getNewPosition(key,activeCharacter.Location); 
+            if (!key.IsMovement()) { return false; }
+            var newPos = getNewPosition(key, activeCharacter.Location);
 
-            foreach (var obj in objects)
-            {
-                if (colision(newPos, obj.Location)) {
-                    if (!resolveAdjacent(obj, key)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
+            return objects.Where(obj => colision(newPos, obj.Location))
+                .All(obj => resolveAdjacent(obj, key));
         }
 
-        private bool colision(Point actor, Point target,bool isTargetCharacter=true)
+        private bool colision(Point actor, Point target, bool isTargetCharacter = true)
         {
             var actorSize = isTargetCharacter ? new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU) : new Size(VELKOSTOBJEKTU, VELKOSTOBJEKTU);
             Rectangle actorRect = new Rectangle(actor, actorSize);
@@ -349,30 +328,24 @@ namespace Quadrax
 
         private bool resolveAdjacent(GameObject obj, Keys key)
         {
-            if (obj is Brick) {
+            if (obj is Brick)
+            {
                 return false;
             }
             else if (obj is Boulder)
             {
-                if (obj.canPush(activeCharacter.Strength))
-                {
-                    if (pohybBouldra(key, obj))
-                    {
-                        int where = key.IsLeft() ? -VELKOSTKROKU : VELKOSTKROKU;
-                        obj.Location = new Point(obj.Location.X + where, obj.Location.Y);
-                        BoulderGravity(obj);
-                        obj.Invalidate();
-
-                    }
-                    return false;
-                }
-                else
+                if (!obj.canPush(activeCharacter.Strength)|| !pohybBouldra(key, obj))
                 {
                     return false;
                 }
+                int where = key.IsLeft() ? -VELKOSTKROKU : VELKOSTKROKU;
+                obj.Location = new Point(obj.Location.X + @where, obj.Location.Y);
+                BoulderGravity(obj);
+                obj.Invalidate();
+                return false;
             }
 
-            else if (obj is Exit)
+            if (obj is Exit)
             {
                 var x = (Exit)obj;
                 if (x.Escaped(p1, p2))
@@ -389,7 +362,8 @@ namespace Quadrax
         {
             if (!key.IsMovement() || key.IsVertical()) { return false; }
             var newPos = getNewPosition(key, currentObject.Location);
-            if (BoulderPlayerColision(currentObject)) {
+            if (BoulderPlayerColision(currentObject))
+            {
                 return false;
             }
             return !objects.Any(obj => colision(newPos, obj.Location, isTargetCharacter: false) && !obj.Equals(currentObject));
@@ -397,7 +371,7 @@ namespace Quadrax
 
         private bool BoulderPlayerColision(GameObject obj)
         {
-            Rectangle p1 = new Rectangle(this.p1.Location,new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU));
+            Rectangle p1 = new Rectangle(this.p1.Location, new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU));
             Rectangle p2 = new Rectangle(this.p2.Location, new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU));
             Rectangle objRect = new Rectangle(obj.Location, new Size(VELKOSTOBJEKTU, VELKOSTOBJEKTU));
             return (p1.IntersectsWith(objRect) || p2.IntersectsWith(objRect));
@@ -415,7 +389,7 @@ namespace Quadrax
                             && boulder.Location.X >= obj.Location.X);
                 if (falling)
                 {
-                    boulder.Location=new Point(boulder.Location.X, boulder.Location.Y+1);
+                    boulder.Location = new Point(boulder.Location.X, boulder.Location.Y + 1);
                     Redraw();
                 }
 
@@ -439,14 +413,15 @@ namespace Quadrax
             Invalidate();
             Refresh();
         }
-        public void setRestartButton(int x,int y) {
-            restartButton.Location=new Point(x,y);
+        public void setRestartButton(int x, int y)
+        {
+            restartButton.Location = new Point(x, y);
             restartButton.Visible = false;
         }
 
         private void MyCanvas_Click(object sender, EventArgs e)
         {
-           // MessageBox.Show("Events? pls?");
+            // MessageBox.Show("Events? pls?");
         }
 
         private void MyCanvas_KeyUp(object sender, KeyEventArgs e)

@@ -90,7 +90,7 @@ namespace Quadrax
             MessageBox.Show(this.Location.ToString());
         }
 
-        public void Move(Keys key, int step, List<GameObject> ladders)
+        public void Move(Keys key, int step, List<Ladder> ladders)
         {
             if (key.IsHorizotal())
             {
