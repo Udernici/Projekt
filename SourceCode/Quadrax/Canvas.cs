@@ -55,7 +55,7 @@ namespace Quadrax
             this.Width = 800;
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
-            this.levelName = Properties.Resources.TestLevel;
+            this.levelName = Properties.Resources.level2;
             Load(levelName);
 
             //
@@ -137,7 +137,12 @@ namespace Quadrax
                 if (pohyb(keyData))
                 {
                     activeCharacter.Move(keyData, VELKOSTKROKU, ladders);
-                    PlayerGravity();
+                    if (!ladders.Any(ladder =>
+                        ((Ladder)ladder).IsPlayerClose(activeCharacter)
+                    ))
+                    {
+                        PlayerGravity();
+                    }
                     Redraw();
                     return true;
                 }
@@ -165,13 +170,12 @@ namespace Quadrax
             while (falling)
             {
                 falling = !objects.Any(obj
-                            => activeCharacter.Y + VELKOSTCHARAKTERU  == obj.Location.Y
-                            && activeCharacter.X <= obj.Location.X + VELKOSTOBJEKTU
-                            && activeCharacter.X >= obj.Location.X);
+                            => activeCharacter.Location.Y + VELKOSTCHARAKTERU  == obj.Location.Y
+                            && activeCharacter.Location.X <= obj.Location.X + VELKOSTOBJEKTU
+                            && activeCharacter.Location.X >= obj.Location.X);
                 if (falling)
                 {
-                    activeCharacter.Y++;
-                    activeCharacter.Location = new Point(activeCharacter.X, activeCharacter.Y);
+                    activeCharacter.Location = new Point(activeCharacter.X, activeCharacter.Y+1);
                     Redraw();
                 }
 

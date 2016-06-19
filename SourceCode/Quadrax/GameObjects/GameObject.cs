@@ -10,8 +10,6 @@ namespace Quadrax
 {
     public abstract class GameObject : PictureBox
     {
-        int x;
-        int y;
         bool solid;
         int weight;
         public GameObject(int x, int y, bool solid, int weight) : base()
