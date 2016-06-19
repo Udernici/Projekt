@@ -11,7 +11,6 @@ namespace Quadrax
     public class Player : PictureBox
     {
         int strength = -9999;
-        int x, y = -9999;
         List<Image> left = new List<Image>();
         List<Image> right = new List<Image>();
         ImageList up = new ImageList();
@@ -22,20 +21,16 @@ namespace Quadrax
         bool active = false;
         int POCETOBRAZKOV = 4;
 
-        public int X { get { return this.x; } set { this.x = value; } }
-        public int Y { get { return this.y; } set { this.y = value; } }
-
         public int Strength { get { return this.strength; } set { this.strength = value; } }
 
         public Player(int x, int y, int strength, int imageSize, int playerNumber) : base()
         {
-            X = x;
-            Y = y;
+
             this.strength = strength;
             this.Size = new System.Drawing.Size(imageSize,imageSize);
             this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             BackColor = Color.Transparent;
-            this.Location = new Point(X, Y);
+            this.Location = new Point(x, y);
             this.Click += player_Click;
 
             if(playerNumber == 1)
@@ -97,34 +92,35 @@ namespace Quadrax
 
         public void Move(Keys key, int step, List<GameObject> ladders)
         {
-            if (key == Keys.Left || key == Keys.Right || key == Keys.A || key == Keys.D)
+            if (key.IsHorizotal())
             {
-                X = key == Keys.Left || key == Keys.A ? X - step : X + step;
-                direction = key == Keys.Left || key == Keys.A ? 'L' : 'R';
+                Location = new Point(key.IsLeft() ? Location.X - step : Location.X + step, Location.Y);
+                direction = key.IsLeft() ? 'L' : 'R';
                 indexObrazku = (indexObrazku + 1) % POCETOBRAZKOV;
             }
-            else if (key == Keys.Up || key == Keys.Down || key == Keys.S || key == Keys.W)
+            else if (key.IsVertical())
             {
                 //ak je na rebriku, moze sa hybat hore/dole
                 foreach (Ladder l in ladders)
                 {
                     if (l.IsPlayerClose(this))
                     {
-                        Y = (key == Keys.Up|| key == Keys.W) ? Y - step : Y + step;
+                        Location=new Point(Location.X,key.IsUp() ? Location.Y - step : Location.Y + step);
                         //ak Y - step prekroci Y suradnicu rebriku, nastavi sa na Y suradnicu rebriku -> 
                         //inak totiz dracik bugoval a nevedel zliest z rebriku
-                        if (l.Location.Y > Y)
-                        {
-                            Y = Location.Y;
-                        }
-                        direction = (key == Keys.Up || key == Keys.W) ? 'U' : 'D';
+
+                        //if (l.Location.Y > Location.Y)
+                        //{
+                        //    this.Location = new Point(Location.X, l.Location.Y);
+                        //}
+
+                        direction = (key.IsDown()) ? 'U' : 'D';
                     }
                 }
 
                 //ak je pred nim len jeden brick/boulder vysky jedna, moze sa hybat hore/dole
                 //TODO
             }
-            this.Location = new Point(X, Y);
         }
 
         public void setStandingImage()

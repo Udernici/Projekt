@@ -95,25 +95,25 @@ namespace QuadraxTests
         [TestMethod]
         public void TestMoveLeft()
         {
-            int povodneX = p1.X;
+            int povodneX = p1.Location.X;
             p1.Move(System.Windows.Forms.Keys.A, 10,new List<GameObject>());
-            Assert.IsTrue(povodneX == p1.X + 10);
+            Assert.IsTrue(povodneX == p1.Location.X + 10);
 
-            povodneX = p1.X;
+            povodneX = p1.Location.X;
             p1.Move(System.Windows.Forms.Keys.Left, 10, new List<GameObject>());
-            Assert.IsTrue(povodneX == p1.X + 10);
+            Assert.IsTrue(povodneX == p1.Location.X + 10);
         }
 
         [TestMethod]
         public void TestMoveRight()
         {
-            int povodneX = p1.X;
+            int povodneX = p1.Location.X;
             p1.Move(System.Windows.Forms.Keys.D, 10, new List<GameObject>());
-            Assert.IsTrue(povodneX == p1.X - 10);
+            Assert.IsTrue(povodneX == p1.Location.X - 10);
 
-            povodneX = p1.X;
+            povodneX = p1.Location.X;
             p1.Move(System.Windows.Forms.Keys.Right, 10, new List<GameObject>());
-            Assert.IsTrue(povodneX == p1.X - 10);
+            Assert.IsTrue(povodneX == p1.Location.X - 10);
         }
 
         [TestMethod]

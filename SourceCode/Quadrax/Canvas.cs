@@ -127,22 +127,18 @@ namespace Quadrax
         private void MyCanvas_Paint(object sender, PaintEventArgs e)
         {
         }
-        
+
         //z nejakeho dovodu nefungoval KeyDown na sipky -> fix (nahrada za MyCanvas_KeyDown)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            List<Keys> movKeys = new List<Keys>() { Keys.Left, Keys.Right, Keys.Up, Keys.Down,Keys.W, Keys.S, Keys.A, Keys.D };
-            if (movKeys.Contains(keyData))
+            if (keyData.IsMovement())
             {
                 if (pohyb(keyData))
                 {
                     activeCharacter.Move(keyData, VELKOSTKROKU, ladders);
-                    if (!ladders.Any(ladder =>
-                        ((Ladder)ladder).IsPlayerClose(activeCharacter)
-                    ))
-                    {
-                        PlayerGravity();
-                    }
+                    
+                    PlayerGravity();
+                    
                     Redraw();
                     return true;
                 }
@@ -164,23 +160,29 @@ namespace Quadrax
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+        
         private void PlayerGravity()
         {
             bool falling = true;
             while (falling)
             {
                 falling = !objects.Any(obj
-                            => activeCharacter.Location.Y + VELKOSTCHARAKTERU  == obj.Location.Y
-                            && activeCharacter.Location.X <= obj.Location.X + VELKOSTOBJEKTU
-                            && activeCharacter.Location.X >= obj.Location.X);
+                            => playerIntersectsObject(obj));
                 if (falling)
                 {
-                    activeCharacter.Location = new Point(activeCharacter.X, activeCharacter.Y+1);
+                    activeCharacter.Location = new Point(activeCharacter.Location.X, activeCharacter.Location.Y +1);
                     Redraw();
                 }
 
             }
 
+        }
+
+        private bool playerIntersectsObject(GameObject obj)
+        {
+            Rectangle actorRect = new Rectangle(new Point(activeCharacter.Location.X, activeCharacter.Location.Y+1), new Size(VELKOSTCHARAKTERU, VELKOSTCHARAKTERU));
+            Rectangle targetRect = new Rectangle(obj.Location, new Size(VELKOSTOBJEKTU, VELKOSTOBJEKTU));
+            return (actorRect.IntersectsWith(targetRect));
         }
 
         public void SwitchPlayer()
@@ -427,7 +429,8 @@ namespace Quadrax
         private void restartButton_click(object sender, EventArgs e)
         {
             this.Controls.Remove(p1);
-            while(objects.Count > 0)
+            this.Controls.Remove(p2);
+            while (objects.Count > 0)
             {
                 RemoveObject(objects[0]);
             }

@@ -24,7 +24,7 @@ namespace Quadrax
                 
                     && player2.Location.X > Location.X - player2.Width 
                     && player2.Location.X < Location.X + player2.Width 
-                    && player2.Y > Location.Y - player2.Height 
+                    && player2.Location.Y > Location.Y - player2.Height 
                     && player2.Location.Y < Location.Y + player2.Height);
         }
 

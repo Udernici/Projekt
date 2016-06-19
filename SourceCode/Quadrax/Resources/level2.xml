@@ -4,8 +4,8 @@
     <VYSKA>225</VYSKA>
   </ROZMERY>
   <SPAWN>
-    <X1>75</X1>
-    <Y1>400</Y1>
+    <X1>330</X1>
+    <Y1>50</Y1>
     <X2>150</X2>
     <Y2>400</Y2>
   </SPAWN>
@@ -20,7 +20,7 @@
     </BALVAN>
     <REBRIK>
       <SURADNICE>
-        <X>280</X>
+        <X>290</X>
         <Y>50</Y>
       </SURADNICE>
       <VELKOST>
