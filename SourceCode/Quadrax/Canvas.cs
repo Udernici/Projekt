@@ -32,7 +32,7 @@ namespace Quadrax
         Player p1;
         Player p2;
         List<GameObject> objects = new List<GameObject>();
-        List<Ladder> ladders;
+        
 
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
@@ -55,7 +55,7 @@ namespace Quadrax
             this.Width = 800;
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
-            this.levelName = Properties.Resources.TestLevel;
+            this.levelName = Properties.Resources.level2;
             Load(levelName);
 
             //
@@ -197,18 +197,22 @@ namespace Quadrax
             p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
             p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
             activeCharacter = p1;
-
-            foreach (var item in level.OBJEKTY.BALVAN)
-            {
-                Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, VELKOSTOBJEKTU);
-                AddObject(tmp);
+            if (level.OBJEKTY.BALVAN != null) {
+                foreach (var item in level.OBJEKTY.BALVAN)
+                {
+                    Boulder tmp = new Boulder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, VELKOSTOBJEKTU);
+                    AddObject(tmp);
+                }
             }
-            foreach (var item in level.OBJEKTY.PICHLIACE)
-            {
-                //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
-                //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                //arrayGameObjects.Add(tmp);
+            if (level.OBJEKTY.PICHLIACE != null) {
+                foreach (var item in level.OBJEKTY.PICHLIACE)
+                {
+                    //TODO nastavit na balvany, rebriky, atd., nie na gameObjecty
+                    //GameObject tmp = new GameObject(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                    //arrayGameObjects.Add(tmp);
+                }
             }
+            if (level.OBJEKTY.PREPINAC != null) { 
             foreach (var item in level.OBJEKTY.PREPINAC)
             {
                 Brick b = new Brick(item.OVLADA.XJEDNA, item.OVLADA.YJEDNA, true, 9999);
@@ -223,16 +227,22 @@ namespace Quadrax
                 Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, add, rem);
                 AddObject(tmp);
             }
+            }
+            if (level.OBJEKTY.REBRIK != null) { 
             foreach (var item in level.OBJEKTY.REBRIK)
             {
                 Ladder tmp = new Ladder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.VYSKA, this);
                 AddObject(tmp);
             }
+            }
+            if (level.OBJEKTY.STENA != null) { 
             foreach (var item in level.OBJEKTY.STENA)
             {
                 Brick tmp = new Brick(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
                 AddObject(tmp);
             }
+            }
+            if (level.OBJEKTY.STENY != null) { 
             foreach (var item in level.OBJEKTY.STENY)
             {
                 for (int i = 0; i < item.VELKOST.VYSKA; i++)
@@ -246,10 +256,13 @@ namespace Quadrax
                 Wall tmp = new Wall(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.SIRKA, item.VELKOST.VYSKA, this);
                 //AddObject(tmp);
             }
+            }
+            if (level.OBJEKTY.VYCHOD != null) { 
             foreach (var item in level.OBJEKTY.VYCHOD)
             {
                 Exit ex = new Exit(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
                 AddObject(ex);
+            }
             }
             applyGravity();
 
