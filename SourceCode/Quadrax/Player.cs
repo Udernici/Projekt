@@ -13,8 +13,7 @@ namespace Quadrax
         int strength = -9999;
         List<Image> left = new List<Image>();
         List<Image> right = new List<Image>();
-        ImageList up = new ImageList();
-        ImageList down = new ImageList();
+        List<Image> updown = new List<Image>();
         ImageList towards = new ImageList();
         char direction = 'q';
         int indexObrazku = 0;
@@ -53,6 +52,13 @@ namespace Quadrax
                 right.Add(image);
                 image = Properties.Resources.PlayerR4;
                 right.Add(image);
+                //up/down
+                image = Properties.Resources.P2CL1;
+                updown.Add(image);
+                image = Properties.Resources.P2CL2;
+                updown.Add(image);
+                image = Properties.Resources.P2CL3;
+                updown.Add(image);
                 //towards
                 towards.Images.Add(image);
 
@@ -77,6 +83,13 @@ namespace Quadrax
                 right.Add(image);
                 image = Properties.Resources.Player2R4;
                 right.Add(image);
+                //up/down
+                image = Properties.Resources.P2CL1;
+                updown.Add(image);
+                image = Properties.Resources.P2CL2;
+                updown.Add(image);
+                image = Properties.Resources.P2CL3;
+                updown.Add(image);
                 //towards
                 towards.Images.Add(Properties.Resources.Player2R4);
 
@@ -106,18 +119,16 @@ namespace Quadrax
                 {
                     Location = new Point(Location.X, key.IsUp() ? Location.Y - step : Location.Y + step);
                     direction = (key.IsDown()) ? 'U' : 'D';
+                    indexObrazku = (indexObrazku + 1) % (POCETOBRAZKOV-1);
                 }
-                else {
+                else
+                {
                     var sideObjects = objects.Where(obj => playerIntersectsObject(obj, step)).ToList();
-                    if (sideObjects.Count() >0 && !objects.Any(obj=>climbIntersects(obj,step,sideObjects.First().Height))) {
+                    if (sideObjects.Count() >0 && !objects.Any(obj=>climbIntersects(obj,step,sideObjects.First().Height)))
+                    {
                         Location = new Point((direction == 'R' ? Location.X + step : Location.X - step), Location.Y - sideObjects.First().Height);
                     }
-
                 }
-               
-
-                //ak je pred nim len jeden brick/boulder vysky jedna, moze sa hybat hore/dole
-                //TODO
             }
         }
 
@@ -167,9 +178,11 @@ namespace Quadrax
                     {
                         case 'U':
                             //up.Draw(g, new Point(X, Y), indexObrazku);
+                            this.Image = updown[indexObrazku];
                             break;
                         case 'D':
                             //down.Draw(g, new Point(X, Y), indexObrazku);
+                            this.Image = updown[indexObrazku];
                             break;
                         case 'L':
                             this.Image = left[indexObrazku];
@@ -183,8 +196,7 @@ namespace Quadrax
                 {
                     //towards.Draw(g, new Point(X, Y), 0);
                 }
-
-                // Call Application.DoEvents to force a repaint of the form.
+                BackColor = Color.Transparent;
                 this.Invalidate();
                 Application.DoEvents();
             }

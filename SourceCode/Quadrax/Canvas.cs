@@ -293,6 +293,8 @@ namespace Quadrax
         public void SwitchPlayer()
         {
             activeCharacter = activeCharacter.Equals(p1) ? p2 : p1;
+
+            activeCharacter.BringToFront();
         }
 
         public void Load(string content)
@@ -303,9 +305,6 @@ namespace Quadrax
                 level = (LEVEL)ser.Deserialize(reader);
             }
 
-            p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
-            p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
-            activeCharacter = p1;
             if (level.OBJEKTY.BALVAN != null) {
                 foreach (var item in level.OBJEKTY.BALVAN)
                 {
@@ -321,58 +320,67 @@ namespace Quadrax
                     //arrayGameObjects.Add(tmp);
                 }
             }
-            if (level.OBJEKTY.PREPINAC != null) { 
-            foreach (var item in level.OBJEKTY.PREPINAC)
-            {
-                Brick b = new Brick(item.OVLADA.XJEDNA, item.OVLADA.YJEDNA, true, 9999);
-                AddObject(b);
-                List<GameObject> add = new List<GameObject>();
-                add.Add(b);
-
-                Brick k = new Brick(item.OVLADA.XDVA, item.OVLADA.YDVA, true, 9999);
-                List<GameObject> rem = new List<GameObject>();
-                rem.Add(k);
-
-                Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, add, rem);
-                AddObject(tmp);
-            }
-            }
-            if (level.OBJEKTY.REBRIK != null) { 
-            foreach (var item in level.OBJEKTY.REBRIK)
-            {
-                Ladder tmp = new Ladder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.VYSKA, this);
-                AddObject(tmp);
-            }
-            }
-            if (level.OBJEKTY.STENA != null) { 
-            foreach (var item in level.OBJEKTY.STENA)
-            {
-                Brick tmp = new Brick(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                AddObject(tmp);
-            }
-            }
-            if (level.OBJEKTY.STENY != null) { 
-            foreach (var item in level.OBJEKTY.STENY)
-            {
-                for (int i = 0; i < item.VELKOST.VYSKA; i++)
+            if (level.OBJEKTY.PREPINAC != null)
+            { 
+                foreach (var item in level.OBJEKTY.PREPINAC)
                 {
-                    for (int j = 0; j < item.VELKOST.SIRKA; j++)
-                    {
-                        Brick l = new Brick(item.SURADNICE.X + j * 25, item.SURADNICE.Y + i * 25, item.SOLID, item.WEIGHT);
-                        AddObject(l);
-                    }
+                    Brick b = new Brick(item.OVLADA.XJEDNA, item.OVLADA.YJEDNA, true, 9999);
+                    AddObject(b);
+                    List<GameObject> add = new List<GameObject>();
+                    add.Add(b);
+
+                    Brick k = new Brick(item.OVLADA.XDVA, item.OVLADA.YDVA, true, 9999);
+                    List<GameObject> rem = new List<GameObject>();
+                    rem.Add(k);
+
+                    Lever tmp = new Lever(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, add, rem);
+                    AddObject(tmp);
                 }
-                Wall tmp = new Wall(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.SIRKA, item.VELKOST.VYSKA, this);
-                //AddObject(tmp);
             }
+            if (level.OBJEKTY.REBRIK != null)
+            { 
+                foreach (var item in level.OBJEKTY.REBRIK)
+                {
+                    Ladder tmp = new Ladder(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.VYSKA, this);
+                    AddObject(tmp);
+                }
             }
-            if (level.OBJEKTY.VYCHOD != null) { 
-            foreach (var item in level.OBJEKTY.VYCHOD)
-            {
-                Exit ex = new Exit(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
-                AddObject(ex);
+            if (level.OBJEKTY.STENA != null)
+            { 
+                foreach (var item in level.OBJEKTY.STENA)
+                {
+                    Brick tmp = new Brick(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                    AddObject(tmp);
+                }
             }
+            if (level.OBJEKTY.STENY != null)
+            { 
+                foreach (var item in level.OBJEKTY.STENY)
+                {
+                    for (int i = 0; i < item.VELKOST.VYSKA; i++)
+                    {
+                        for (int j = 0; j < item.VELKOST.SIRKA; j++)
+                        {
+                            Brick l = new Brick(item.SURADNICE.X + j * 25, item.SURADNICE.Y + i * 25, item.SOLID, item.WEIGHT);
+                            AddObject(l);
+                        }
+                    }
+                    Wall tmp = new Wall(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.SIRKA, item.VELKOST.VYSKA, this);
+                    //AddObject(tmp);
+                }
             }
+            if (level.OBJEKTY.VYCHOD != null)
+            { 
+                foreach (var item in level.OBJEKTY.VYCHOD)
+                {
+                    Exit ex = new Exit(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT);
+                    AddObject(ex);
+                }
+            }
+
+            p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
+            p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
+            activeCharacter = p1;
             applyGravity();
 
         }

@@ -140,9 +140,7 @@ namespace Quadrax.Properties {
         ///        &lt;VYSKA&gt;10&lt;/VYSKA&gt;
         ///      &lt;/VELKOST&gt;
         ///			&lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
-        ///		&lt;/REBRIK&gt;
-        ///		&lt;STE [rest of string was truncated]&quot;;.
+        ///			&lt;WEIGHT&gt;6 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level {
             get {
@@ -182,10 +180,7 @@ namespace Quadrax.Properties {
         ///			&lt;SOLID&gt;false&lt;/SOLID&gt;
         ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
         ///			&lt;/REBRIK&gt;
-        ///		&lt;STENY&gt;
-        ///		  &lt;SURADNICE&gt;
-        ///			&lt;X&gt;0&lt;/X&gt;
-        /// [rest of string was truncated]&quot;;.
+        ///		&lt;STEN [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level1 {
             get {
@@ -200,8 +195,8 @@ namespace Quadrax.Properties {
         ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
         ///  &lt;/ROZMERY&gt;
         ///  &lt;SPAWN&gt;
-        ///    &lt;X1&gt;75&lt;/X1&gt;
-        ///    &lt;Y1&gt;400&lt;/Y1&gt;
+        ///    &lt;X1&gt;330&lt;/X1&gt;
+        ///    &lt;Y1&gt;50&lt;/Y1&gt;
         ///    &lt;X2&gt;150&lt;/X2&gt;
         ///    &lt;Y2&gt;400&lt;/Y2&gt;
         ///  &lt;/SPAWN&gt;
@@ -216,11 +211,11 @@ namespace Quadrax.Properties {
         ///    &lt;/BALVAN&gt;
         ///    &lt;REBRIK&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;280&lt;/X&gt;
+        ///        &lt;X&gt;290&lt;/X&gt;
         ///        &lt;Y&gt;50&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;VELKOST&gt;
-        ///        &lt;VYSKA&gt;16&lt;/VYSKA&gt;
+        ///        &lt;VYSKA&gt;17&lt;/VYSKA&gt;
         ///      &lt;/VELKOST&gt;
         ///      [rest of string was truncated]&quot;;.
         /// </summary>
@@ -246,6 +241,36 @@ namespace Quadrax.Properties {
         internal static System.Drawing.Bitmap Lever_2 {
             get {
                 object obj = ResourceManager.GetObject("Lever_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap P2CL1 {
+            get {
+                object obj = ResourceManager.GetObject("P2CL1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap P2CL2 {
+            get {
+                object obj = ResourceManager.GetObject("P2CL2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap P2CL3 {
+            get {
+                object obj = ResourceManager.GetObject("P2CL3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -417,15 +442,15 @@ namespace Quadrax.Properties {
         ///		&lt;VYSKA&gt;225&lt;/VYSKA&gt;
         ///	&lt;/ROZMERY&gt;
         ///	&lt;SPAWN&gt;
-        ///		&lt;X1&gt;75&lt;/X1&gt;
-        ///		&lt;Y1&gt;400&lt;/Y1&gt;
+        ///		&lt;X1&gt;100&lt;/X1&gt;
+        ///		&lt;Y1&gt;100&lt;/Y1&gt;
         ///		&lt;X2&gt;450&lt;/X2&gt;
         ///		&lt;Y2&gt;400&lt;/Y2&gt;
         ///	&lt;/SPAWN&gt;
         ///	&lt;OBJEKTY&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;130&lt;/X&gt;
+        ///        &lt;X&gt;350&lt;/X&gt;
         ///        &lt;Y&gt;450&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
@@ -433,17 +458,14 @@ namespace Quadrax.Properties {
         ///    &lt;/BALVAN&gt;
         ///    &lt;REBRIK&gt;
         ///			&lt;SURADNICE&gt;
-        ///				&lt;X&gt;-280&lt;/X&gt;
-        ///				&lt;Y&gt;-50&lt;/Y&gt;
+        ///				&lt;X&gt;280&lt;/X&gt;
+        ///				&lt;Y&gt;50&lt;/Y&gt;
         ///			&lt;/SURADNICE&gt;
         ///			&lt;VELKOST&gt;
         ///				&lt;VYSKA&gt;16&lt;/VYSKA&gt;
         ///			&lt;/VELKOST&gt;
         ///			&lt;SOLID&gt;false&lt;/SOLID&gt;
-        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
-        ///			&lt;/REBRIK&gt;
-        ///		&lt;STENY&gt;
-        ///		 [rest of string was truncated]&quot;;.
+        ///			&lt;WEIGHT&gt;60&lt;/WEIGH [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string TestLevel {
             get {
