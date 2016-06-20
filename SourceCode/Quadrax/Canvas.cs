@@ -55,7 +55,7 @@ namespace Quadrax
             this.Width = 800;
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
-            this.levelName = Properties.Resources.level2;
+            this.levelName = Properties.Resources.TestLevel;
             Load(levelName);
 
             //
@@ -66,7 +66,7 @@ namespace Quadrax
             Refresh();
 
             //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
-            ladders = objects.OfType<Ladder>().ToList();
+            //ladders = objects.OfType<Ladder>().ToList();
         }
 
         public void AddObject(GameObject o)
@@ -135,7 +135,7 @@ namespace Quadrax
             {
                 if (pohyb(keyData))
                 {
-                    activeCharacter.Move(keyData, VELKOSTKROKU, ladders);
+                    activeCharacter.Move(keyData, VELKOSTKROKU, objects);
 
                     PlayerGravity();
 
@@ -183,14 +183,7 @@ namespace Quadrax
 
         public void SwitchPlayer()
         {
-            if (activeCharacter.Equals(p1))
-            {
-                activeCharacter = p2;
-            }
-            else
-            {
-                activeCharacter = p1;
-            }
+            activeCharacter = activeCharacter.Equals(p1) ? p2 : p1;
         }
 
         public void Load(string content)

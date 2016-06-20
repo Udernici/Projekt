@@ -12,7 +12,7 @@
 	<OBJEKTY>
     <BALVAN>
       <SURADNICE>
-        <X>130</X>
+        <X>350</X>
         <Y>450</Y>
       </SURADNICE>
       <SOLID>true</SOLID>
@@ -32,8 +32,8 @@
 
     <STENY>
       <SURADNICE>
-        <X>100</X>
-        <Y>100</Y>
+        <X>200</X>
+        <Y>425</Y>
       </SURADNICE>
       <VELKOST>
         <VYSKA>1</VYSKA>

@@ -90,8 +90,9 @@ namespace Quadrax
             MessageBox.Show(this.Location.ToString());
         }
 
-        public void Move(Keys key, int step, List<Ladder> ladders)
+        public void Move(Keys key, int step, List<GameObject> objects)
         {
+            List<Ladder> ladders = objects.OfType<Ladder>().ToList();
             if (key.IsHorizotal())
             {
                 Location = new Point(key.IsLeft() ? Location.X - step : Location.X + step, Location.Y);
@@ -101,27 +102,41 @@ namespace Quadrax
             else if (key.IsVertical())
             {
                 //ak je na rebriku, moze sa hybat hore/dole
-                foreach (Ladder l in ladders)
+                if (ladders.Where(l => l.IsPlayerClose(this)).Count() > 0)
                 {
-                    if (l.IsPlayerClose(this))
-                    {
-                        Location=new Point(Location.X,key.IsUp() ? Location.Y - step : Location.Y + step);
-                        //ak Y - step prekroci Y suradnicu rebriku, nastavi sa na Y suradnicu rebriku -> 
-                        //inak totiz dracik bugoval a nevedel zliest z rebriku
-
-                        //if (l.Location.Y > Location.Y)
-                        //{
-                        //    this.Location = new Point(Location.X, l.Location.Y);
-                        //}
-
-                        direction = (key.IsDown()) ? 'U' : 'D';
-                    }
+                    Location = new Point(Location.X, key.IsUp() ? Location.Y - step : Location.Y + step);
+                    direction = (key.IsDown()) ? 'U' : 'D';
                 }
+                else {
+                    var sideObjects = objects.Where(obj => playerIntersectsObject(obj, step)).ToList();
+                    if (sideObjects.Count() >0 && !objects.Any(obj=>climbIntersects(obj,step,sideObjects.First().Height))) {
+                        Location = new Point((direction == 'R' ? Location.X + step : Location.X - step), Location.Y - sideObjects.First().Height);
+                    }
+
+                }
+               
 
                 //ak je pred nim len jeden brick/boulder vysky jedna, moze sa hybat hore/dole
                 //TODO
             }
         }
+
+        private bool climbIntersects(GameObject obj,int step,int height)
+        {
+            Rectangle actorRect = new Rectangle(new Point((direction == 'R' ? Location.X + step: Location.X - step), Location.Y -height), Size);
+            Rectangle targetRect = new Rectangle(obj.Location, obj.Size);
+            return (actorRect.IntersectsWith(targetRect));
+        }
+
+
+        private bool playerIntersectsObject(GameObject obj, int step)
+        {
+            Rectangle actorRect = new Rectangle(new Point((direction=='R' ? Location.X + step :Location.X - step), Location.Y), Size);
+            Rectangle targetRect = new Rectangle(obj.Location, obj.Size);
+            return (actorRect.IntersectsWith(targetRect));
+        }
+
+
 
         public void setStandingImage()
         {
