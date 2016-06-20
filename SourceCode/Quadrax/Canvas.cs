@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -43,11 +44,20 @@ namespace Quadrax
         LEVEL level;
         private Button restartButton;
         public Player activeCharacter;
-
-
-
+        private Button leftButton;
+        private Button rightButton;
+        private Button selectButton;
+        private Button menuButton;
+        private TextBox text;
+        private List<KeyValuePair<string,string>> menuLevels;
+        private int index;
         public MyCanvas()
         {
+            menuLevels = new List<KeyValuePair<string, string>>();
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 2"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.TestLevel, "Testovaci Level"));
+            index = 0;
+            this.levelName = menuLevels[0].Key;
             InitializeComponent();
             BackgroundImage = BACKGROUND;
             DoubleBuffered = true;
@@ -55,15 +65,15 @@ namespace Quadrax
             this.Width = 800;
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
-            this.levelName = Properties.Resources.level2;
-            Load(levelName);
-
+            
             //
             //testing space
 
+
             //
-            Redraw();
-            Refresh();
+            //Load(levelName);
+            //Redraw();
+            //Refresh();
 
             //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
             //ladders = objects.OfType<Ladder>().ToList();
@@ -110,6 +120,7 @@ namespace Quadrax
             this.restartButton.Text = "Restart Level";
             this.restartButton.UseVisualStyleBackColor = true;
             this.restartButton.Click += new System.EventHandler(this.restartButton_click);
+            restartButton.Visible = false;
             // 
             // MyCanvas
             // 
@@ -121,8 +132,106 @@ namespace Quadrax
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MyCanvas_Paint);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MyCanvas_KeyUp);
             this.ResumeLayout(false);
+            //MENU
+            leftButton = new System.Windows.Forms.Button();
+            leftButton.Name = "leftButton";
+            leftButton.Text = "Left";
+            leftButton.Location = new Point(100, 100);
+            leftButton.Click += new System.EventHandler(this.leftButton_click);
+            Controls.Add(leftButton);
+
+            rightButton = new System.Windows.Forms.Button();
+            rightButton.Name = "rightButton";
+            rightButton.Text = "Right";
+            rightButton.Location = new Point(400, 100);
+            rightButton.Click += new System.EventHandler(this.rightButton_click);
+            Controls.Add(rightButton);
+
+
+            selectButton = new System.Windows.Forms.Button();
+            selectButton.Name = "selectButton";
+            selectButton.Text = "Select Level";
+            selectButton.Location = new Point(260, 125);
+            selectButton.Click += new System.EventHandler(this.selectButton_click);
+            Controls.Add(selectButton);
+
+            menuButton = new System.Windows.Forms.Button();
+            menuButton.Name = "menuButton";
+            menuButton.Text = "To Menu";
+            menuButton.Location = new Point(625, 42);
+            menuButton.Click += new System.EventHandler(this.menuButton_click);
+            Controls.Add(menuButton);
+            menuButton.Visible = false;
+
+            text = new TextBox();
+            text.Location = new Point(200, 100);
+            text.Width = 175;
+            text.Text = menuLevels[0].Value;
+            text.TextAlign = HorizontalAlignment.Center;
+            text.BackColor = Color.LightGray;
+            Controls.Add(text);
+            //KONIEC MENU
 
         }
+
+        
+        //MENU - button f-cie
+        private void menuButton_click(object sender, EventArgs e)
+        {
+            this.Controls.Remove(p1);
+            this.Controls.Remove(p2);
+            while (objects.Count > 0)
+            {
+                RemoveObject(objects[0]);
+            }
+            showMenu();
+        }
+
+        private void showMenu()
+        {
+            text.Visible = true;
+            selectButton.Visible = true;
+            rightButton.Visible = true;
+            leftButton.Visible = true;
+            restartButton.Visible = false;
+            menuButton.Visible = false;
+        }
+
+        private void selectButton_click(object sender, EventArgs e)
+        {
+            text.Visible = false;
+            selectButton.Visible = false;
+            rightButton.Visible = false;
+            leftButton.Visible = false;
+            restartButton.Visible = true;
+            menuButton.Visible = true;
+            Load(levelName);
+            Redraw();
+            Refresh();
+        }
+
+        private void leftButton_click(object sender, EventArgs e)
+        {
+            if (index == 0)
+            {
+                index = menuLevels.Count - 1;
+            }
+            else {
+                index--;
+            }
+            levelName = menuLevels[index].Key;
+            text.Text = menuLevels[index].Value;
+        }
+
+        private void rightButton_click(object sender, EventArgs e)
+        {
+            index = (index + 1) % menuLevels.Count;
+            levelName = menuLevels[index].Key;
+            text.Text = menuLevels[index].Value;
+        }
+
+
+        //KONIEC MENU - button f-cie
 
         private void MyCanvas_Paint(object sender, PaintEventArgs e)
         {
