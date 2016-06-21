@@ -115,13 +115,22 @@ namespace Quadrax
             else if (key.IsVertical())
             {
                 //ak je na rebriku, moze sa hybat hore/dole
-                if (ladders.Where(l => l.IsPlayerClose(this)).Count() > 0)
+                bool OnLadder = false;
+                foreach (Ladder l in ladders)
                 {
-                    Location = new Point(Location.X, key.IsUp() ? Location.Y - step : Location.Y + step);
-                    direction = (key.IsDown()) ? 'U' : 'D';
-                    indexObrazku = (indexObrazku + 1) % (POCETOBRAZKOV-1);
+                    if (l.IsPlayerClose(this))
+                    {
+                        OnLadder = true;
+                        Location = new Point(Location.X, key.IsUp() ? Location.Y - step : Location.Y + step);
+                        direction = (key.IsDown()) ? 'U' : 'D';
+                        if (l.Location.Y > Location.Y)
+                        {
+                            Location = new Point(Location.X, l.Location.Y);
+                        }
+                        indexObrazku = (indexObrazku + 1) % (POCETOBRAZKOV - 1);
+                    }
                 }
-                else
+                if (!OnLadder)
                 {
                     var sideObjects = objects.Where(obj => playerIntersectsObject(obj, step)).ToList();
                     if (sideObjects.Count() >0 && !objects.Any(obj=>climbIntersects(obj,step,sideObjects.First().Height)))
