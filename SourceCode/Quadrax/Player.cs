@@ -121,6 +121,7 @@ namespace Quadrax
                     if (l.IsPlayerClose(this))
                     {
                         OnLadder = true;
+
                         Location = new Point(Location.X, key.IsUp() ? Location.Y - step : Location.Y + step);
                         direction = (key.IsDown()) ? 'U' : 'D';
                         if (l.Location.Y > Location.Y)

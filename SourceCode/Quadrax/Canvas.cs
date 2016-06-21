@@ -86,6 +86,7 @@ namespace Quadrax
             this.Controls.Add(o);
             Invalidate();
             o.Invalidate();
+            o.SendToBack();
         }
 
         public void RemoveObject(GameObject o)
@@ -101,9 +102,11 @@ namespace Quadrax
             //add graphic logic
             p1.Draw();
             this.Controls.Add(p1);
+            p1.BringToFront();
 
             p2.Draw();
             this.Controls.Add(p2);
+            p2.BringToFront();
         }
 
 
