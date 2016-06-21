@@ -33,7 +33,6 @@ namespace Quadrax
         Player p1;
         Player p2;
         List<GameObject> objects = new List<GameObject>();
-        
 
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
@@ -76,7 +75,11 @@ namespace Quadrax
             //Refresh();
 
             //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
-            //ladders = objects.OfType<Ladder>().ToList();
+        }
+
+        public void LoadTest()
+        {
+            Load(Properties.Resources.TestLevel);
         }
 
         public void AddObject(GameObject o)
@@ -380,9 +383,9 @@ namespace Quadrax
 
             p1 = new Player(level.SPAWN.X1, level.SPAWN.Y1, 20, VELKOSTCHARAKTERU, 1);
             p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
+            
             activeCharacter = p1;
             applyGravity();
-
         }
 
         private void applyGravity()

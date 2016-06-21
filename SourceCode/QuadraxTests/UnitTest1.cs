@@ -15,7 +15,6 @@ namespace QuadraxTests
         [TestMethod]
         public void PlayerLeverClose()
         {
-
             Lever l = new Quadrax.Lever(100, 100, false, 20, null, null);
             Assert.IsTrue(l.IsPlayerClose(p1));
         }
@@ -45,6 +44,7 @@ namespace QuadraxTests
         public void SwitchPlayer()
         {
             MyCanvas c = new MyCanvas();
+            c.LoadTest();
             Player prvy = c.activeCharacter;
             c.SwitchPlayer();
             Assert.IsFalse(prvy.Equals(c.activeCharacter));
@@ -54,6 +54,7 @@ namespace QuadraxTests
         public void SwitchPlayer2()
         {
             MyCanvas c = new MyCanvas();
+            c.LoadTest();
             Player prvy = c.activeCharacter;
             c.SwitchPlayer();
             c.SwitchPlayer();
