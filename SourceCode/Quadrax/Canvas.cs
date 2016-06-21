@@ -261,6 +261,7 @@ namespace Quadrax
                     .Where(l => l.IsPlayerClose(activeCharacter))
                     .ToList()
                     .ForEach(l => l.ActivateLever(this));
+                applyGravity();
             }
             else if (keyData == Keys.Q)
             {
@@ -390,10 +391,11 @@ namespace Quadrax
 
         private void applyGravity()
         {
-            activeCharacter = p2;
+
             PlayerGravity();
-            activeCharacter = p1;
+            SwitchPlayer();
             PlayerGravity();
+            SwitchPlayer();
 
             foreach (GameObject obj in objects)
             {
