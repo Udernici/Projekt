@@ -50,12 +50,14 @@ namespace Quadrax
         private TextBox text;
         private List<KeyValuePair<string,string>> menuLevels;
         private int index;
+        private bool presielLevel;
         public MyCanvas()
         {
             menuLevels = new List<KeyValuePair<string, string>>();
             menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 2"));
             menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.TestLevel, "Testovaci Level"));
             index = 0;
+            presielLevel = false;
             this.levelName = menuLevels[0].Key;
             InitializeComponent();
             BackgroundImage = BACKGROUND;
@@ -208,6 +210,7 @@ namespace Quadrax
             leftButton.Visible = false;
             restartButton.Visible = true;
             menuButton.Visible = true;
+            presielLevel = false;
             Load(levelName);
             Redraw();
             Refresh();
@@ -243,6 +246,7 @@ namespace Quadrax
         //z nejakeho dovodu nefungoval KeyDown na sipky -> fix (nahrada za MyCanvas_KeyDown)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (selectButton.Visible) return false;
             if (keyData.IsMovement())
             {
                 if (pohyb(keyData))
@@ -252,6 +256,7 @@ namespace Quadrax
                     PlayerGravity();
 
                     Redraw();
+                    if (presielLevel) menuButton_click(null,null);
                     return true;
                 }
             }
@@ -480,7 +485,7 @@ namespace Quadrax
                 if (x.Escaped(p1, p2))
                 {
                     MessageBox.Show("Vyhral si!");
-                    Application.Exit();
+                    presielLevel = true;
                 }
 
             }
@@ -553,6 +558,7 @@ namespace Quadrax
 
         private void MyCanvas_KeyUp(object sender, KeyEventArgs e)
         {
+            if (selectButton.Visible) return;
             activeCharacter.setStandingImage();
         }
     }
