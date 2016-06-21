@@ -494,7 +494,7 @@ namespace Quadrax
             {
                 return false;
             }
-            return !objects.Any(obj => colision(newPos, obj.Location, isTargetCharacter: false) && !obj.Equals(currentObject));
+            return !objects.Where(obj => obj.GetType() != typeof(LadderPiece) && obj.GetType() != typeof(Ladder)).Any(obj => colision(newPos, obj.Location, isTargetCharacter: false) && !obj.Equals(currentObject));
         }
 
         private bool BoulderPlayerColision(GameObject obj)
@@ -510,11 +510,9 @@ namespace Quadrax
             bool falling = true;
             while (falling)
             {
-                falling = !objects.Any(obj
+                falling = !objects.Where(obj=>obj.GetType()!=typeof(LadderPiece)&& obj.GetType() != typeof(Ladder)).Any(obj
                             => !boulder.Equals(obj)
-                            && boulder.Location.Y + VELKOSTOBJEKTU == obj.Location.Y
-                            && boulder.Location.X <= obj.Location.X + VELKOSTOBJEKTU
-                            && boulder.Location.X >= obj.Location.X);
+                            && colision(obj.Location, new Point(boulder.Location.X,boulder.Location.Y+1),false));
                 if (falling)
                 {
                     boulder.Location = new Point(boulder.Location.X, boulder.Location.Y + 1);
