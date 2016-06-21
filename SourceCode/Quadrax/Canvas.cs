@@ -266,6 +266,7 @@ namespace Quadrax
             else if (keyData == Keys.Q)
             {
                 SwitchPlayer();
+                applyGravity();
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
