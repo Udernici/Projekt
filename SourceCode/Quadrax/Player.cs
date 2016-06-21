@@ -53,11 +53,11 @@ namespace Quadrax
                 image = Properties.Resources.PlayerR4;
                 right.Add(image);
                 //up/down
-                image = Properties.Resources.P2CL1;
+                image = Properties.Resources.P1CL1;
                 updown.Add(image);
-                image = Properties.Resources.P2CL2;
+                image = Properties.Resources.P1CL2;
                 updown.Add(image);
-                image = Properties.Resources.P2CL3;
+                image = Properties.Resources.P1CL3;
                 updown.Add(image);
                 //towards
                 towards.Images.Add(image);
