@@ -51,12 +51,14 @@ namespace Quadrax
         private TextBox text;
         private List<KeyValuePair<string,string>> menuLevels;
         private int index;
+        private bool presielLevel;
         public MyCanvas()
         {
             menuLevels = new List<KeyValuePair<string, string>>();
             menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 2"));
             menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.TestLevel, "Testovaci Level"));
             index = 0;
+            presielLevel = false;
             this.levelName = menuLevels[0].Key;
             InitializeComponent();
             BackgroundImage = BACKGROUND;
@@ -204,6 +206,7 @@ namespace Quadrax
             leftButton.Visible = false;
             restartButton.Visible = true;
             menuButton.Visible = true;
+            presielLevel = false;
             Load(levelName);
             Redraw();
             Refresh();
@@ -239,6 +242,7 @@ namespace Quadrax
         //z nejakeho dovodu nefungoval KeyDown na sipky -> fix (nahrada za MyCanvas_KeyDown)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
+            if (selectButton.Visible) return false;
             if (keyData.IsMovement())
             {
                 if (pohyb(keyData))
@@ -248,6 +252,7 @@ namespace Quadrax
                     PlayerGravity();
 
                     Redraw();
+                    if (presielLevel) menuButton_click(null,null);
                     return true;
                 }
             }
@@ -262,6 +267,7 @@ namespace Quadrax
             else if (keyData == Keys.Q)
             {
                 SwitchPlayer();
+                applyGravity();
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
@@ -482,7 +488,7 @@ namespace Quadrax
                 if (x.Escaped(p1, p2))
                 {
                     MessageBox.Show("Vyhral si!");
-                    Application.Exit();
+                    presielLevel = true;
                 }
 
             }
@@ -497,7 +503,7 @@ namespace Quadrax
             {
                 return false;
             }
-            return !objects.Any(obj => colision(newPos, obj.Location, isTargetCharacter: false) && !obj.Equals(currentObject));
+            return !objects.Where(obj => obj.GetType() != typeof(LadderPiece) && obj.GetType() != typeof(Ladder)).Any(obj => colision(newPos, obj.Location, isTargetCharacter: false) && !obj.Equals(currentObject));
         }
 
         private bool BoulderPlayerColision(GameObject obj)
@@ -513,11 +519,9 @@ namespace Quadrax
             bool falling = true;
             while (falling)
             {
-                falling = !objects.Any(obj
+                falling = !objects.Where(obj=>obj.GetType()!=typeof(LadderPiece)&& obj.GetType() != typeof(Ladder)).Any(obj
                             => !boulder.Equals(obj)
-                            && boulder.Location.Y + VELKOSTOBJEKTU == obj.Location.Y
-                            && boulder.Location.X <= obj.Location.X + VELKOSTOBJEKTU
-                            && boulder.Location.X >= obj.Location.X);
+                            && colision(obj.Location, new Point(boulder.Location.X,boulder.Location.Y+1),false));
                 if (falling)
                 {
                     boulder.Location = new Point(boulder.Location.X, boulder.Location.Y + 1);
@@ -557,6 +561,7 @@ namespace Quadrax
 
         private void MyCanvas_KeyUp(object sender, KeyEventArgs e)
         {
+            if (selectButton.Visible) return;
             activeCharacter.setStandingImage();
         }
     }
