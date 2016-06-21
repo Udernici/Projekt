@@ -8,10 +8,10 @@ namespace QuadraxTests
     [TestClass]
     public class UnitTest1
     {
+        MyCanvas mc = new MyCanvas();
         Player p1 = new Quadrax.Player(100, 100, 100, 100, 1);
         Player p2 = new Quadrax.Player(10, 100, 100, 100, 2);
 
-        
         [TestMethod]
         public void PlayerLeverClose()
         {
@@ -43,22 +43,20 @@ namespace QuadraxTests
         [TestMethod]
         public void SwitchPlayer()
         {
-            MyCanvas c = new MyCanvas();
-            c.LoadTest();
-            Player prvy = c.activeCharacter;
-            c.SwitchPlayer();
-            Assert.IsFalse(prvy.Equals(c.activeCharacter));
+            mc.Load(mc.TestLevelString);
+            Player prvy = mc.activeCharacter;
+            mc.SwitchPlayer();
+            Assert.IsFalse(prvy.Equals(mc.activeCharacter));
         }
 
         [TestMethod]
         public void SwitchPlayer2()
         {
-            MyCanvas c = new MyCanvas();
-            c.LoadTest();
-            Player prvy = c.activeCharacter;
-            c.SwitchPlayer();
-            c.SwitchPlayer();
-            Assert.IsTrue(prvy.Equals(c.activeCharacter));
+            mc.Load(mc.TestLevelString);
+            Player prvy = mc.activeCharacter;
+            mc.SwitchPlayer();
+            mc.SwitchPlayer();
+            Assert.IsTrue(prvy.Equals(mc.activeCharacter));
         }
 
         [TestMethod]
@@ -78,7 +76,6 @@ namespace QuadraxTests
         [TestMethod]
         public void LeverSwitch()
         {
-            MyCanvas mc = new MyCanvas();
             List<GameObject> act = new List<GameObject>();
             Brick b = new Brick(10, 10, false, 10);
             act.Add(b);
@@ -115,6 +112,104 @@ namespace QuadraxTests
             povodneX = p1.Location.X;
             p1.Move(System.Windows.Forms.Keys.Right, 10, new List<GameObject>());
             Assert.IsTrue(povodneX == p1.Location.X - 10);
+        }
+
+        [TestMethod]
+        public void TestPlayerGravity()
+        {
+            mc.Load(mc.TestLevelString);
+
+            LEVEL lvl = mc.ParseLevel(mc.TestLevelString);
+            int povodneY = lvl.SPAWN.X1;
+
+            Assert.IsTrue(povodneY != mc.activeCharacter.Location.Y);
+        }
+        
+        [TestMethod]
+        public void TestBoulderGravitye()
+        {
+            mc.Load(mc.TestLevelString);
+            Boulder b = new Boulder(100,100,true,10,10);
+            int povodneY = b.Location.Y;
+            mc.BoulderGravity(b);
+            
+            Assert.IsTrue(povodneY != b.Location.Y);
+        }
+
+        [TestMethod]
+        public void PlayerLadderClose()
+        {
+            Ladder l = new Quadrax.Ladder(100, 100, false, 20, 5, mc);
+            Assert.IsFalse(l.IsPlayerClose(p2));
+        }
+
+        [TestMethod]
+        public void PlayerLadderNOTClose()
+        {
+            Ladder l = new Quadrax.Ladder(200, 100, false, 20, 5, mc);
+            Assert.IsFalse(l.IsPlayerClose(p2));
+        }
+
+        [TestMethod]
+        public void TestLadderClimbUp()
+        {
+            int povodneY = p1.Location.Y;
+            MyCanvas c = new MyCanvas();
+            Ladder l = new Ladder(150, 70, true, 10, 5, c);
+
+            List<GameObject> obj = new List<GameObject>();
+            obj.Add(l);
+
+            p1.Move(System.Windows.Forms.Keys.Up, 10, obj);
+            Assert.IsTrue(povodneY == p1.Location.Y + 10);
+
+            p1.Move(System.Windows.Forms.Keys.W, 10, obj);
+            Assert.IsTrue(povodneY == p1.Location.Y + 20);
+
+        }
+
+        [TestMethod]
+        public void TestLadderClimbUpOverTheEdge()
+        {
+            int povodneY = p1.Location.Y;
+            Ladder l = new Ladder(150, 100, true, 10, 5, mc);
+
+            List<GameObject> obj = new List<GameObject>();
+            obj.Add(l);
+
+            p1.Move(System.Windows.Forms.Keys.Up, 10, obj);
+            Assert.IsTrue(povodneY == p1.Location.Y);
+            
+        }
+
+        [TestMethod]
+        public void TestLadderClimbDown()
+        {
+            int povodneY = p1.Location.Y;
+            Ladder l = new Ladder(150, 100, true, 10, 5, mc);
+
+            List<GameObject> obj = new List<GameObject>();
+            obj.Add(l);
+
+            p1.Move(System.Windows.Forms.Keys.Down, 10, obj);
+            Assert.IsTrue(povodneY == p1.Location.Y - 10);
+
+            p1.Move(System.Windows.Forms.Keys.S, 10, obj);
+            Assert.IsTrue(povodneY == p1.Location.Y - 20);
+        }
+
+        [TestMethod]
+        public void PlayerStrongEnoughToMoveBoulder()
+        {
+            Boulder b = new Boulder(p1.Location.X + 10, p1.Location.Y, true, p1.Strength - 5, 10);
+            Assert.IsTrue(b.canPush(p1.Strength));
+        }
+
+        [TestMethod]
+        public void PlayerNOTStrongEnoughToMoveBoulder()
+        {
+            Boulder b = new Boulder(p1.Location.X + 10, p1.Location.Y, true, p1.Strength + 5, 10);
+            Assert.IsFalse(b.canPush(p1.Strength));
         }
 
         [TestMethod]

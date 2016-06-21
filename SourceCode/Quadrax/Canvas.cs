@@ -33,6 +33,7 @@ namespace Quadrax
         Player p1;
         Player p2;
         List<GameObject> objects = new List<GameObject>();
+        public string TestLevelString = Properties.Resources.TestLevel;
 
         Image BACKGROUND = Properties.Resources.bg1;
         Timer gameTimer = new Timer();
@@ -76,12 +77,7 @@ namespace Quadrax
 
             //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
         }
-
-        public void LoadTest()
-        {
-            Load(Properties.Resources.TestLevel);
-        }
-
+        
         public void AddObject(GameObject o)
         {
             objects.Add(o);
@@ -301,13 +297,20 @@ namespace Quadrax
             activeCharacter.BringToFront();
         }
 
-        public void Load(string content)
+        public LEVEL ParseLevel(string content)
         {
             XmlSerializer ser = new XmlSerializer(typeof(LEVEL));
+            LEVEL l;
             using (TextReader reader = new StringReader(content))
             {
-                level = (LEVEL)ser.Deserialize(reader);
+                l = (LEVEL)ser.Deserialize(reader);
             }
+            return l;
+        }
+
+        public void Load(string content)
+        {
+            level = ParseLevel(content);
 
             if (level.OBJEKTY.BALVAN != null) {
                 foreach (var item in level.OBJEKTY.BALVAN)
@@ -505,7 +508,7 @@ namespace Quadrax
             return (p1.IntersectsWith(objRect) || p2.IntersectsWith(objRect));
         }
 
-        private void BoulderGravity(GameObject boulder)
+        public void BoulderGravity(GameObject boulder)
         {
             bool falling = true;
             while (falling)

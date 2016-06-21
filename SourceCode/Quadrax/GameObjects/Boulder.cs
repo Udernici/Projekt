@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quadrax
 {
-    class Boulder : GameObject
+    public class Boulder : GameObject
     {
         //constructor
         public Boulder(int x, int y, bool solid, int weight, int size) : base(x, y, true, weight)
