@@ -124,7 +124,7 @@
         <XDVA>350</XDVA>
         <YDVA>400</YDVA>
       </OVLADA>
-      <SOLID>true</SOLID>
+      <SOLID>false</SOLID>
       <WEIGHT>60</WEIGHT>
     </PREPINAC>
   </OBJEKTY>

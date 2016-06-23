@@ -286,7 +286,28 @@ namespace Quadrax
             bool falling = true;
             while (falling)
             {
-                falling = !objects.Any(playerIntersectsObject);
+                foreach (GameObject go in objects)
+                {
+                    if (go is Ladder || go is LadderPiece)
+                    {
+                        if (playerIntersectsObject(go))
+                        {
+                            falling = false;
+                            break;
+                        }
+                        continue;
+                    }
+                    if (go.isSolid())
+                    {
+
+                        if (playerIntersectsObject(go))
+                        {
+                            falling = false;
+                            break;
+                        }
+                    }
+                }
+             //   falling = !objects.Where(obj=> !(obj is LadderPiece) && obj.isSolid()).Any(playerIntersectsObject);
                 if (falling)
                 {
                     activeCharacter.Location = new Point(activeCharacter.Location.X, activeCharacter.Location.Y + 1);
@@ -527,7 +548,7 @@ namespace Quadrax
             bool falling = true;
             while (falling)
             {
-                falling = !objects.Where(obj=>obj.GetType()!=typeof(LadderPiece)&& obj.GetType() != typeof(Ladder)).Any(obj
+                falling = !objects.Where(obj=>obj.isSolid()).Any(obj
                             => !boulder.Equals(obj)
                             && colision(obj.Location, new Point(boulder.Location.X,boulder.Location.Y+1),false));
                 if (falling)

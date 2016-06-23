@@ -22,7 +22,7 @@ namespace Quadrax
 
         public bool IsPlayerClose(Player p)
         {
-            if (Enumerable.Range(Location.X - 70, Location.X + 70).Contains(p.Location.X) && Enumerable.Range(Location.Y - 30, Location.Y + 30).Contains(p.Location.Y))
+            if (Enumerable.Range(Location.X - p.Width/2, Width + p.Width/2).Contains(p.Location.X) && Enumerable.Range(Location.Y - 30, Location.Y + 30).Contains(p.Location.Y))
             {
                 return true;
             }

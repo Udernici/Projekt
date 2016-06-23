@@ -213,6 +213,44 @@ namespace QuadraxTests
         }
 
         [TestMethod]
+        public void TwoBoulders()
+        {
+            mc.Load(mc.TestLevelString);
+            Boulder b = new Boulder(100, 100, true, 30, 25);
+            Boulder b1 = new Boulder(100, 125, true, 20, 25);
+            int povodnyX1 = b1.Location.X;
+            int povodnyX = b.Location.X;
+            Player tmp = new Player(85, 125, 25, 40, 1);
+            mc.activeCharacter = tmp;
+            mc.AddObject(b);
+            mc.AddObject(b1);
+
+            bool res = mc.pohyb(System.Windows.Forms.Keys.D);
+            Assert.IsTrue(b1.Location.X == povodnyX1 + 5); //VELKOSTKROKU
+            Assert.IsTrue(b.Location.X == povodnyX);
+        }
+
+        [TestMethod]
+        public void TwoBoulders2()
+        {
+            mc.Load(mc.TestLevelString);
+            Boulder b = new Boulder(425, 425, true, 30, 25);
+            Boulder b1 = new Boulder(425, 450, true, 20, 25);
+            int povodnyX1 = b1.Location.X;
+            int povodnyX = b.Location.X;
+            Player tmp = new Player(375, 425, 500, 40, 1);
+            mc.activeCharacter = tmp;
+            mc.AddObject(b);
+            mc.AddObject(b1);
+
+            mc.pohyb(System.Windows.Forms.Keys.D);
+            Assert.IsTrue(tmp.Location == tmp.Location);
+            Assert.IsTrue(b1.Location.X == povodnyX1 + 5); //VELKOSTKROKU
+            bool r = mc.pohyb(System.Windows.Forms.Keys.D);
+            Assert.IsTrue(b.Location.X == povodnyX + 5);
+        }
+
+        [TestMethod]
         public void TestTemplate()
         {
             Assert.IsTrue(true);
