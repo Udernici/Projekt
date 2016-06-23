@@ -97,7 +97,7 @@ namespace Quadrax
             o.Invalidate();
         }
 
-        public void Redraw()
+        public void RedrawPlayers()
         {
             //add graphic logic
             p1.Draw();
@@ -188,6 +188,11 @@ namespace Quadrax
             {
                 RemoveObject(objects[0]);
             }
+            p1.Invalidate();
+            p2.Invalidate();
+            //RedrawPlayers();
+            Invalidate();
+            Refresh();
             showMenu();
         }
 
@@ -211,7 +216,7 @@ namespace Quadrax
             menuButton.Visible = true;
             presielLevel = false;
             Load(levelName);
-            Redraw();
+            RedrawPlayers();
             Refresh();
         }
 
@@ -254,7 +259,7 @@ namespace Quadrax
 
                     PlayerGravity();
 
-                    Redraw();
+                    RedrawPlayers();
                     if (presielLevel) menuButton_click(null,null);
                     return true;
                 }
@@ -285,7 +290,7 @@ namespace Quadrax
                 if (falling)
                 {
                     activeCharacter.Location = new Point(activeCharacter.Location.X, activeCharacter.Location.Y + 1);
-                    Redraw();
+                    RedrawPlayers();
                 }
 
             }
@@ -528,7 +533,7 @@ namespace Quadrax
                 if (falling)
                 {
                     boulder.Location = new Point(boulder.Location.X, boulder.Location.Y + 1);
-                    Redraw();
+                    RedrawPlayers();
                 }
 
             }
@@ -547,7 +552,7 @@ namespace Quadrax
                 RemoveObject(objects[0]);
             }
             Load(this.levelName);
-            Redraw();
+            RedrawPlayers();
             Invalidate();
             Refresh();
         }
