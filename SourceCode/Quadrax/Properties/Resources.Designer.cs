@@ -184,30 +184,29 @@ namespace Quadrax.Properties {
         ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
         ///  &lt;/ROZMERY&gt;
         ///  &lt;SPAWN&gt;
-        ///    &lt;X1&gt;350&lt;/X1&gt;
-        ///    &lt;Y1&gt;150&lt;/Y1&gt;
-        ///    &lt;X2&gt;25&lt;/X2&gt;
-        ///    &lt;Y2&gt;150&lt;/Y2&gt;
+        ///    &lt;X1&gt;75&lt;/X1&gt;
+        ///    &lt;Y1&gt;400&lt;/Y1&gt;
+        ///    &lt;X2&gt;50&lt;/X2&gt;
+        ///    &lt;Y2&gt;300&lt;/Y2&gt;
         ///  &lt;/SPAWN&gt;
         ///  &lt;OBJEKTY&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;200&lt;/X&gt;
-        ///        &lt;Y&gt;175&lt;/Y&gt;
+        ///        &lt;X&gt;260&lt;/X&gt;
+        ///        &lt;Y&gt;400&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
         ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
         ///    &lt;/BALVAN&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;500&lt;/X&gt;
-        ///        &lt;Y&gt;175&lt;/Y&gt;
+        ///        &lt;X&gt;325&lt;/X&gt;
+        ///        &lt;Y&gt;50&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
         ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
         ///    &lt;/BALVAN&gt;
-        ///    &lt;STENY&gt;
-        ///      &lt;SURADNIC [rest of string was truncated]&quot;;.
+        ///  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level2 {
             get {
@@ -243,8 +242,7 @@ namespace Quadrax.Properties {
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
         ///      &lt;WEIGHT&gt;50&lt;/WEIGHT&gt;
-        ///    &lt;/BALVAN&gt;
-        /// [rest of string was truncated]&quot;;.
+        ///    &lt;/BALVAN&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level3 {
             get {
@@ -259,29 +257,28 @@ namespace Quadrax.Properties {
         ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
         ///  &lt;/ROZMERY&gt;
         ///  &lt;SPAWN&gt;
-        ///    &lt;X1&gt;75&lt;/X1&gt;
-        ///    &lt;Y1&gt;400&lt;/Y1&gt;
-        ///    &lt;X2&gt;75&lt;/X2&gt;
-        ///    &lt;Y2&gt;400&lt;/Y2&gt;
+        ///    &lt;X1&gt;360&lt;/X1&gt;
+        ///    &lt;Y1&gt;150&lt;/Y1&gt;
+        ///    &lt;X2&gt;25&lt;/X2&gt;
+        ///    &lt;Y2&gt;150&lt;/Y2&gt;
         ///  &lt;/SPAWN&gt;
         ///  &lt;OBJEKTY&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;260&lt;/X&gt;
-        ///        &lt;Y&gt;400&lt;/Y&gt;
+        ///        &lt;X&gt;200&lt;/X&gt;
+        ///        &lt;Y&gt;175&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
         ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
         ///    &lt;/BALVAN&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;325&lt;/X&gt;
-        ///        &lt;Y&gt;50&lt;/Y&gt;
+        ///        &lt;X&gt;500&lt;/X&gt;
+        ///        &lt;Y&gt;175&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
         ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
-        ///    &lt;/BALVAN&gt;
-        ///  [rest of string was truncated]&quot;;.
+        ///    &lt;/BALVAN&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string level4 {
             get {

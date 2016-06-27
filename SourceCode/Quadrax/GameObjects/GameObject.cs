@@ -20,7 +20,6 @@ namespace Quadrax
             DoubleBuffered = true;
             BackColor = Color.Transparent;
             this.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Click += GameObject_Click;
         }
 
         private void GameObject_Click(object sender, EventArgs e)

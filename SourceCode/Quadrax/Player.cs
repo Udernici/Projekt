@@ -202,13 +202,8 @@ namespace Quadrax
                             break;
                     }
                 }
-                else
-                {
-                    //towards.Draw(g, new Point(X, Y), 0);
-                }
                 BackColor = Color.Transparent;
                 this.Invalidate();
-                Application.DoEvents();
             }
             catch
             {

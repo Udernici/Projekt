@@ -48,7 +48,7 @@ namespace Quadrax
         private Button rightButton;
         private Button selectButton;
         private Button menuButton;
-        private TextBox text;
+        private Label text;
         private List<KeyValuePair<string,string>> menuLevels;
         private int index;
         private bool presielLevel;
@@ -56,9 +56,9 @@ namespace Quadrax
         {
             menuLevels = new List<KeyValuePair<string, string>>();
             menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level1, "Level 1"));
-            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level4, "Level 2"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 2"));
             menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level3, "Level 3"));
-            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 4"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level4, "Level 4"));
             index = 0;
             presielLevel = false;
             this.levelName = menuLevels[0].Key;
@@ -98,6 +98,7 @@ namespace Quadrax
             p2.Draw();
             this.Controls.Add(p2);
             p2.BringToFront();
+            Application.DoEvents();
         }
 
 
@@ -137,6 +138,8 @@ namespace Quadrax
             leftButton.BackgroundImageLayout = ImageLayout.Stretch;
             leftButton.BackColor = Color.Transparent;
             leftButton.FlatStyle = FlatStyle.Flat;
+            leftButton.Width = 100;
+            leftButton.Height = 28;
             Controls.Add(leftButton);
 
             rightButton = new System.Windows.Forms.Button();
@@ -147,17 +150,21 @@ namespace Quadrax
             rightButton.BackgroundImageLayout = ImageLayout.Zoom;
             rightButton.BackColor = Color.Transparent;
             rightButton.FlatStyle = FlatStyle.Flat;
+            rightButton.Width = 100;
+            rightButton.Height = 28;
             Controls.Add(rightButton);
 
 
             selectButton = new System.Windows.Forms.Button();
             selectButton.Name = "selectButton";
-            selectButton.Location = new Point(260, 125);
+            selectButton.Location = new Point(220, 130);
             selectButton.Click += new System.EventHandler(this.selectButton_click);
             selectButton.BackgroundImage = Properties.Resources.select_level;
             selectButton.BackgroundImageLayout = ImageLayout.Stretch;
             selectButton.BackColor = Color.Transparent;
             selectButton.FlatStyle = FlatStyle.Flat;
+            selectButton.Width = 150;
+            selectButton.Height = 28;
             Controls.Add(selectButton);
 
             menuButton = new System.Windows.Forms.Button();
@@ -168,13 +175,16 @@ namespace Quadrax
             Controls.Add(menuButton);
             menuButton.Visible = false;
 
-            text = new TextBox();
+            text = new Label();
+            text.Font = new Font("Arial", 12, FontStyle.Italic);
             text.Location = new Point(200, 100);
-            text.Width = 175;
+            text.Width = 200;
+            text.Height = 28;
             text.Text = menuLevels[0].Value;
-            text.TextAlign = HorizontalAlignment.Center;
-            text.BackColor = Color.LightGray;
-            text.ReadOnly = true;
+            text.TextAlign = ContentAlignment.MiddleCenter;
+            text.BackColor = Color.FromArgb(255, 255, 255, 254);
+
+            text.BorderStyle = BorderStyle.Fixed3D;
             Controls.Add(text);
             //KONIEC MENU
 
@@ -184,6 +194,7 @@ namespace Quadrax
         //MENU - button f-cie
         private void menuButton_click(object sender, EventArgs e)
         {
+            this.BackgroundImage = Properties.Resources.bcg_menu;
             this.Controls.Remove(p1);
             this.Controls.Remove(p2);
             while (objects.Count > 0)
@@ -418,14 +429,6 @@ namespace Quadrax
             { 
                 foreach (var item in level.OBJEKTY.STENY)
                 {
-                    for (int i = 0; i < item.VELKOST.VYSKA; i++)
-                    {
-                        for (int j = 0; j < item.VELKOST.SIRKA; j++)
-                        {
-                            Brick l = new Brick(item.SURADNICE.X + j * 25, item.SURADNICE.Y + i * 25, item.SOLID, item.WEIGHT);
-                            AddObject(l);
-                        }
-                    }
                     Wall tmp = new Wall(item.SURADNICE.X, item.SURADNICE.Y, item.SOLID, item.WEIGHT, item.VELKOST.SIRKA, item.VELKOST.VYSKA, this);
                     //AddObject(tmp);
                 }
@@ -443,8 +446,6 @@ namespace Quadrax
             p2 = new Player(level.SPAWN.X2, level.SPAWN.Y2, 100, VELKOSTCHARAKTERU, 2);
             
             activeCharacter = p1;
-            applyGravity();
-
             switch (index)
             {
                 case 0:
@@ -462,9 +463,10 @@ namespace Quadrax
                 default:
                     BackgroundImage = Properties.Resources.bckg_4;
                     break;
-            }   
-
-
+            }
+            presielLevel = false;
+            applyGravity();
+            
         }
 
         private void applyGravity()
