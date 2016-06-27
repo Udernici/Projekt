@@ -203,6 +203,33 @@
   <ItemGroup>
     <None Include="Graphics\PlayerAnimation\P1CL3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\menu\bcg_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\menu\next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\menu\previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\menu\select_level.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level3.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\level4.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bckg_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bckg_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bckg_3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

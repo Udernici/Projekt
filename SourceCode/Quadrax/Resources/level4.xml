@@ -4,28 +4,61 @@
     <VYSKA>225</VYSKA>
   </ROZMERY>
   <SPAWN>
-    <X1>350</X1>
-    <Y1>150</Y1>
-    <X2>25</X2>
-    <Y2>150</Y2>
+    <X1>75</X1>
+    <Y1>400</Y1>
+    <X2>75</X2>
+    <Y2>400</Y2>
   </SPAWN>
   <OBJEKTY>
     <BALVAN>
       <SURADNICE>
-        <X>200</X>
-        <Y>175</Y>
+        <X>260</X>
+        <Y>400</Y>
       </SURADNICE>
       <SOLID>true</SOLID>
       <WEIGHT>0</WEIGHT>
     </BALVAN>
     <BALVAN>
       <SURADNICE>
-        <X>500</X>
-        <Y>175</Y>
+        <X>325</X>
+        <Y>50</Y>
       </SURADNICE>
       <SOLID>true</SOLID>
       <WEIGHT>0</WEIGHT>
     </BALVAN>
+    <REBRIK>
+      <SURADNICE>
+        <X>50</X>
+        <Y>25</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>18</VYSKA>
+      </VELKOST>
+      <SOLID>false</SOLID>
+      <WEIGHT>60</WEIGHT>
+    </REBRIK>
+    <REBRIK>
+      <SURADNICE>
+        <X>375</X>
+        <Y>25</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>16</VYSKA>
+      </VELKOST>
+      <SOLID>false</SOLID>
+      <WEIGHT>60</WEIGHT>
+    </REBRIK>
+    <REBRIK>
+      <SURADNICE>
+        <X>290</X>
+        <Y>325</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>1</VYSKA>
+      </VELKOST>
+      <SOLID>false</SOLID>
+      <WEIGHT>60</WEIGHT>
+    </REBRIK>
     <STENY>
       <SURADNICE>
         <X>0</X>
@@ -33,55 +66,7 @@
       </SURADNICE>
       <VELKOST>
         <VYSKA>1</VYSKA>
-        <SIRKA>32</SIRKA>
-      </VELKOST>
-      <SOLID>true</SOLID>
-      <WEIGHT>9999</WEIGHT>
-    </STENY>
-    <STENY>
-      <SURADNICE>
-        <X>0</X>
-        <Y>200</Y>
-      </SURADNICE>
-      <VELKOST>
-        <VYSKA>8</VYSKA>
-        <SIRKA>12</SIRKA>
-      </VELKOST>
-      <SOLID>true</SOLID>
-      <WEIGHT>9999</WEIGHT>
-    </STENY>
-    <STENY>
-      <SURADNICE>
-        <X>350</X>
-        <Y>200</Y>
-      </SURADNICE>
-      <VELKOST>
-        <VYSKA>8</VYSKA>
-        <SIRKA>10</SIRKA>
-      </VELKOST>
-      <SOLID>true</SOLID>
-      <WEIGHT>9999</WEIGHT>
-    </STENY>
-    <STENY>
-      <SURADNICE>
-        <X>650</X>
-        <Y>200</Y>
-      </SURADNICE>
-      <VELKOST>
-        <VYSKA>8</VYSKA>
-        <SIRKA>6</SIRKA>
-      </VELKOST>
-      <SOLID>true</SOLID>
-      <WEIGHT>9999</WEIGHT>
-    </STENY>
-    <STENY>
-      <SURADNICE>
-        <X>760</X>
-        <Y>25</Y>
-      </SURADNICE>
-      <VELKOST>
-        <VYSKA>16</VYSKA>
-        <SIRKA>1</SIRKA>
+        <SIRKA>30</SIRKA>
       </VELKOST>
       <SOLID>true</SOLID>
       <WEIGHT>9999</WEIGHT>
@@ -92,7 +77,7 @@
         <Y>25</Y>
       </SURADNICE>
       <VELKOST>
-        <VYSKA>16</VYSKA>
+        <VYSKA>18</VYSKA>
         <SIRKA>1</SIRKA>
       </VELKOST>
       <SOLID>true</SOLID>
@@ -101,19 +86,79 @@
     <STENY>
       <SURADNICE>
         <X>0</X>
-        <Y>400</Y>
+        <Y>475</Y>
       </SURADNICE>
       <VELKOST>
         <VYSKA>1</VYSKA>
-        <SIRKA>31</SIRKA>
+        <SIRKA>30</SIRKA>
+      </VELKOST>
+      <SOLID>true</SOLID>
+      <WEIGHT>9999</WEIGHT>
+    </STENY>
+    <STENY>
+      <SURADNICE>
+        <X>725</X>
+        <Y>25</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>18</VYSKA>
+        <SIRKA>1</SIRKA>
+      </VELKOST>
+      <SOLID>true</SOLID>
+      <WEIGHT>9999</WEIGHT>
+    </STENY>
+    <STENY>
+      <SURADNICE>
+        <X>175</X>
+        <Y>400</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>3</VYSKA>
+        <SIRKA>1</SIRKA>
+      </VELKOST>
+      <SOLID>true</SOLID>
+      <WEIGHT>9999</WEIGHT>
+    </STENY>
+    <STENY>
+      <SURADNICE>
+        <X>300</X>
+        <Y>400</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>3</VYSKA>
+        <SIRKA>1</SIRKA>
+      </VELKOST>
+      <SOLID>true</SOLID>
+      <WEIGHT>9999</WEIGHT>
+    </STENY>
+    <STENY>
+      <SURADNICE>
+        <X>425</X>
+        <Y>100</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>1</VYSKA>
+        <SIRKA>7</SIRKA>
+      </VELKOST>
+      <SOLID>true</SOLID>
+      <WEIGHT>9999</WEIGHT>
+    </STENY>
+    <STENY>
+      <SURADNICE>
+        <X>300</X>
+        <Y>100</Y>
+      </SURADNICE>
+      <VELKOST>
+        <VYSKA>1</VYSKA>
+        <SIRKA>2</SIRKA>
       </VELKOST>
       <SOLID>true</SOLID>
       <WEIGHT>9999</WEIGHT>
     </STENY>
     <VYCHOD>
       <SURADNICE>
-        <X>700</X>
-        <Y>150</Y>
+        <X>675</X>
+        <Y>75</Y>
       </SURADNICE>
       <SOLID>false</SOLID>
       <WEIGHT>60</WEIGHT>
@@ -126,24 +171,16 @@
       <SOLID>true</SOLID>
       <WEIGHT>60</WEIGHT>
     </PICHLIACE>
-    <STENA>
-      <SURADNICE>
-        <X>76</X>
-        <Y>450</Y>
-      </SURADNICE>
-      <SOLID>true</SOLID>
-      <WEIGHT>9999</WEIGHT>
-    </STENA>
     <PREPINAC>
       <SURADNICE>
-        <X>410</X>
-        <Y>175</Y>
+        <X>25</X>
+        <Y>100</Y>
       </SURADNICE>
       <OVLADA>
-        <XJEDNA>600</XJEDNA>
-        <YJEDNA>250</YJEDNA>
-        <XDVA>300</XDVA>
-        <YDVA>250</YDVA>
+        <XJEDNA>647</XJEDNA>
+        <YJEDNA>0</YJEDNA>
+        <XDVA>655</XDVA>
+        <YDVA>150</YDVA>
       </OVLADA>
       <SOLID>false</SOLID>
       <WEIGHT>60</WEIGHT>

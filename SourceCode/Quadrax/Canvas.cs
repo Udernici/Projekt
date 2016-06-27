@@ -35,7 +35,7 @@ namespace Quadrax
         List<GameObject> objects = new List<GameObject>();
         public string TestLevelString = Properties.Resources.TestLevel;
 
-        Image BACKGROUND = Properties.Resources.bg1;
+        Image BACKGROUND = Properties.Resources.bckg_4;
         Timer gameTimer = new Timer();
         int VELKOSTCHARAKTERU = 50;
         int VELKOSTOBJEKTU = 25;
@@ -55,13 +55,14 @@ namespace Quadrax
         public MyCanvas()
         {
             menuLevels = new List<KeyValuePair<string, string>>();
-            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 2"));
-            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.TestLevel, "Testovaci Level"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level1, "Level 1"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level4, "Level 2"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level3, "Level 3"));
+            menuLevels.Add(new KeyValuePair<string, string>(Properties.Resources.level2, "Level 4"));
             index = 0;
             presielLevel = false;
             this.levelName = menuLevels[0].Key;
             InitializeComponent();
-            BackgroundImage = BACKGROUND;
             DoubleBuffered = true;
             this.Height = 600;
             this.Width = 800;
@@ -128,6 +129,7 @@ namespace Quadrax
             // 
             // MyCanvas
             // 
+            this.BackgroundImage = Properties.Resources.bcg_menu;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(837, 430);
             this.Controls.Add(this.restartButton);
@@ -139,24 +141,33 @@ namespace Quadrax
             //MENU
             leftButton = new System.Windows.Forms.Button();
             leftButton.Name = "leftButton";
-            leftButton.Text = "Left";
             leftButton.Location = new Point(100, 100);
             leftButton.Click += new System.EventHandler(this.leftButton_click);
+            leftButton.BackgroundImage = Properties.Resources.previous;
+            leftButton.BackgroundImageLayout = ImageLayout.Stretch;
+            leftButton.BackColor = Color.Transparent;
+            leftButton.FlatStyle = FlatStyle.Flat;
             Controls.Add(leftButton);
 
             rightButton = new System.Windows.Forms.Button();
             rightButton.Name = "rightButton";
-            rightButton.Text = "Right";
             rightButton.Location = new Point(400, 100);
             rightButton.Click += new System.EventHandler(this.rightButton_click);
+            rightButton.BackgroundImage = Properties.Resources.next;
+            rightButton.BackgroundImageLayout = ImageLayout.Zoom;
+            rightButton.BackColor = Color.Transparent;
+            rightButton.FlatStyle = FlatStyle.Flat;
             Controls.Add(rightButton);
 
 
             selectButton = new System.Windows.Forms.Button();
             selectButton.Name = "selectButton";
-            selectButton.Text = "Select Level";
             selectButton.Location = new Point(260, 125);
             selectButton.Click += new System.EventHandler(this.selectButton_click);
+            selectButton.BackgroundImage = Properties.Resources.select_level;
+            selectButton.BackgroundImageLayout = ImageLayout.Stretch;
+            selectButton.BackColor = Color.Transparent;
+            selectButton.FlatStyle = FlatStyle.Flat;
             Controls.Add(selectButton);
 
             menuButton = new System.Windows.Forms.Button();
@@ -173,6 +184,7 @@ namespace Quadrax
             text.Text = menuLevels[0].Value;
             text.TextAlign = HorizontalAlignment.Center;
             text.BackColor = Color.LightGray;
+            text.ReadOnly = true;
             Controls.Add(text);
             //KONIEC MENU
 
@@ -204,6 +216,8 @@ namespace Quadrax
             leftButton.Visible = true;
             restartButton.Visible = false;
             menuButton.Visible = false;
+            levelName = menuLevels[index].Key;
+            text.Text = menuLevels[index].Value;
         }
 
         private void selectButton_click(object sender, EventArgs e)
@@ -260,7 +274,20 @@ namespace Quadrax
                     PlayerGravity();
 
                     RedrawPlayers();
-                    if (presielLevel) menuButton_click(null,null);
+                    if (presielLevel)
+                    {
+                        index = index + 1;
+                        if (index == menuLevels.Count)
+                        {
+                            index = 0;
+                            MessageBox.Show("Gratulujeme! Vyhral si!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Bravo! Prešiel si level. Klikni na tlačidlo select na spustenie nasledujúceho levelu.");
+                        }
+                        menuButton_click(null, null);
+                    }
                     return true;
                 }
             }
@@ -425,6 +452,27 @@ namespace Quadrax
             
             activeCharacter = p1;
             applyGravity();
+
+            switch (index)
+            {
+                case 0:
+                    BackgroundImage = Properties.Resources.bckg_1;
+                    break;
+                case 1:
+                    BackgroundImage = Properties.Resources.bckg_2;
+                    break;
+                case 2:
+                    BackgroundImage = Properties.Resources.bckg_3;
+                    break;
+                case 3:
+                    BackgroundImage = Properties.Resources.bckg_4;
+                    break;
+                default:
+                    BackgroundImage = Properties.Resources.bckg_4;
+                    break;
+            }   
+
+
         }
 
         private void applyGravity()
@@ -516,7 +564,6 @@ namespace Quadrax
                 var x = (Exit)obj;
                 if (x.Escaped(p1, p2))
                 {
-                    MessageBox.Show("Vyhral si!");
                     presielLevel = true;
                 }
 

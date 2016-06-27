@@ -63,9 +63,9 @@ namespace Quadrax.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Bg {
+        internal static System.Drawing.Bitmap bcg_menu {
             get {
-                object obj = ResourceManager.GetObject("Bg", resourceCulture);
+                object obj = ResourceManager.GetObject("bcg_menu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,39 @@ namespace Quadrax.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bg1 {
+        internal static System.Drawing.Bitmap bckg_1 {
             get {
-                object obj = ResourceManager.GetObject("bg1", resourceCulture);
+                object obj = ResourceManager.GetObject("bckg_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bckg_2 {
+            get {
+                object obj = ResourceManager.GetObject("bckg_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bckg_3 {
+            get {
+                object obj = ResourceManager.GetObject("bckg_3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bckg_4 {
+            get {
+                object obj = ResourceManager.GetObject("bckg_4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -112,84 +142,6 @@ namespace Quadrax.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;LEVEL&gt;
-        ///	&lt;ROZMERY&gt;
-        ///		&lt;SIRKA&gt;10&lt;/SIRKA&gt;
-        ///		&lt;VYSKA&gt;10&lt;/VYSKA&gt;
-        ///	&lt;/ROZMERY&gt;
-        ///	&lt;SPAWN&gt;
-        ///		&lt;X1&gt;40&lt;/X1&gt;
-        ///		&lt;Y1&gt;430&lt;/Y1&gt;
-        ///    &lt;X2&gt;60&lt;/X2&gt;
-        ///    &lt;Y2&gt;430&lt;/Y2&gt;
-        ///	&lt;/SPAWN&gt;
-        ///	&lt;OBJEKTY&gt;
-        ///    &lt;BALVAN&gt;
-        ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;250&lt;/X&gt;
-        ///        &lt;Y&gt;445&lt;/Y&gt;
-        ///      &lt;/SURADNICE&gt;
-        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///      &lt;WEIGHT&gt;15&lt;/WEIGHT&gt;
-        ///    &lt;/BALVAN&gt;
-        ///		&lt;REBRIK&gt;
-        ///			&lt;SURADNICE&gt;
-        ///				&lt;X&gt;200&lt;/X&gt;
-        ///				&lt;Y&gt;150&lt;/Y&gt;
-        ///			&lt;/SURADNICE&gt;
-        ///      &lt;VELKOST&gt;
-        ///        &lt;VYSKA&gt;10&lt;/VYSKA&gt;
-        ///      &lt;/VELKOST&gt;
-        ///			&lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///			&lt;WEIGHT&gt;6 [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string level {
-            get {
-                return ResourceManager.GetString("level", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;LEVEL&gt;
-        ///	&lt;ROZMERY&gt;
-        ///		&lt;SIRKA&gt;500&lt;/SIRKA&gt;
-        ///		&lt;VYSKA&gt;225&lt;/VYSKA&gt;
-        ///	&lt;/ROZMERY&gt;
-        ///	&lt;SPAWN&gt;
-        ///		&lt;X1&gt;75&lt;/X1&gt;
-        ///		&lt;Y1&gt;400&lt;/Y1&gt;
-        ///		&lt;X2&gt;150&lt;/X2&gt;
-        ///		&lt;Y2&gt;400&lt;/Y2&gt;
-        ///	&lt;/SPAWN&gt;
-        ///	&lt;OBJEKTY&gt;
-        ///		&lt;BALVAN&gt;
-        ///		  &lt;SURADNICE&gt;
-        ///			&lt;X&gt;450&lt;/X&gt;
-        ///			&lt;Y&gt;125&lt;/Y&gt;
-        ///		  &lt;/SURADNICE&gt;
-        ///		  &lt;SOLID&gt;true&lt;/SOLID&gt;
-        ///		  &lt;WEIGHT&gt;50&lt;/WEIGHT&gt;
-        ///		&lt;/BALVAN&gt;
-        ///		&lt;REBRIK&gt;
-        ///			&lt;SURADNICE&gt;
-        ///				&lt;X&gt;280&lt;/X&gt;
-        ///				&lt;Y&gt;50&lt;/Y&gt;
-        ///			&lt;/SURADNICE&gt;
-        ///			&lt;VELKOST&gt;
-        ///				&lt;VYSKA&gt;16&lt;/VYSKA&gt;
-        ///			&lt;/VELKOST&gt;
-        ///			&lt;SOLID&gt;false&lt;/SOLID&gt;
-        ///			&lt;WEIGHT&gt;60&lt;/WEIGHT&gt;
-        ///			&lt;/REBRIK&gt;
-        ///		&lt;STEN [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string level1 {
-            get {
-                return ResourceManager.GetString("level1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &lt;LEVEL&gt;
         ///  &lt;ROZMERY&gt;
         ///    &lt;SIRKA&gt;500&lt;/SIRKA&gt;
         ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
@@ -198,12 +150,12 @@ namespace Quadrax.Properties {
         ///    &lt;X1&gt;330&lt;/X1&gt;
         ///    &lt;Y1&gt;50&lt;/Y1&gt;
         ///    &lt;X2&gt;150&lt;/X2&gt;
-        ///    &lt;Y2&gt;400&lt;/Y2&gt;
+        ///    &lt;Y2&gt;425&lt;/Y2&gt;
         ///  &lt;/SPAWN&gt;
         ///  &lt;OBJEKTY&gt;
         ///    &lt;BALVAN&gt;
         ///      &lt;SURADNICE&gt;
-        ///        &lt;X&gt;450&lt;/X&gt;
+        ///        &lt;X&gt;400&lt;/X&gt;
         ///        &lt;Y&gt;125&lt;/Y&gt;
         ///      &lt;/SURADNICE&gt;
         ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
@@ -219,9 +171,121 @@ namespace Quadrax.Properties {
         ///      &lt;/VELKOST&gt;
         ///      [rest of string was truncated]&quot;;.
         /// </summary>
+        internal static string level1 {
+            get {
+                return ResourceManager.GetString("level1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;LEVEL&gt;
+        ///  &lt;ROZMERY&gt;
+        ///    &lt;SIRKA&gt;500&lt;/SIRKA&gt;
+        ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
+        ///  &lt;/ROZMERY&gt;
+        ///  &lt;SPAWN&gt;
+        ///    &lt;X1&gt;350&lt;/X1&gt;
+        ///    &lt;Y1&gt;150&lt;/Y1&gt;
+        ///    &lt;X2&gt;25&lt;/X2&gt;
+        ///    &lt;Y2&gt;150&lt;/Y2&gt;
+        ///  &lt;/SPAWN&gt;
+        ///  &lt;OBJEKTY&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;200&lt;/X&gt;
+        ///        &lt;Y&gt;175&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;500&lt;/X&gt;
+        ///        &lt;Y&gt;175&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///    &lt;STENY&gt;
+        ///      &lt;SURADNIC [rest of string was truncated]&quot;;.
+        /// </summary>
         internal static string level2 {
             get {
                 return ResourceManager.GetString("level2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;LEVEL&gt;
+        ///  &lt;ROZMERY&gt;
+        ///    &lt;SIRKA&gt;500&lt;/SIRKA&gt;
+        ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
+        ///  &lt;/ROZMERY&gt;
+        ///  &lt;SPAWN&gt;
+        ///    &lt;X1&gt;200&lt;/X1&gt;
+        ///    &lt;Y1&gt;50&lt;/Y1&gt;
+        ///    &lt;X2&gt;250&lt;/X2&gt;
+        ///    &lt;Y2&gt;50&lt;/Y2&gt;
+        ///  &lt;/SPAWN&gt;
+        ///  &lt;OBJEKTY&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;300&lt;/X&gt;
+        ///        &lt;Y&gt;450&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;400&lt;/X&gt;
+        ///        &lt;Y&gt;200&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;50&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string level3 {
+            get {
+                return ResourceManager.GetString("level3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;LEVEL&gt;
+        ///  &lt;ROZMERY&gt;
+        ///    &lt;SIRKA&gt;500&lt;/SIRKA&gt;
+        ///    &lt;VYSKA&gt;225&lt;/VYSKA&gt;
+        ///  &lt;/ROZMERY&gt;
+        ///  &lt;SPAWN&gt;
+        ///    &lt;X1&gt;75&lt;/X1&gt;
+        ///    &lt;Y1&gt;400&lt;/Y1&gt;
+        ///    &lt;X2&gt;75&lt;/X2&gt;
+        ///    &lt;Y2&gt;400&lt;/Y2&gt;
+        ///  &lt;/SPAWN&gt;
+        ///  &lt;OBJEKTY&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;260&lt;/X&gt;
+        ///        &lt;Y&gt;400&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///    &lt;BALVAN&gt;
+        ///      &lt;SURADNICE&gt;
+        ///        &lt;X&gt;325&lt;/X&gt;
+        ///        &lt;Y&gt;50&lt;/Y&gt;
+        ///      &lt;/SURADNICE&gt;
+        ///      &lt;SOLID&gt;true&lt;/SOLID&gt;
+        ///      &lt;WEIGHT&gt;0&lt;/WEIGHT&gt;
+        ///    &lt;/BALVAN&gt;
+        ///  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string level4 {
+            get {
+                return ResourceManager.GetString("level4", resourceCulture);
             }
         }
         
@@ -241,6 +305,16 @@ namespace Quadrax.Properties {
         internal static System.Drawing.Bitmap Lever_2 {
             get {
                 object obj = ResourceManager.GetObject("Lever_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap next {
+            get {
+                object obj = ResourceManager.GetObject("next", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -461,6 +535,26 @@ namespace Quadrax.Properties {
         internal static System.Drawing.Bitmap PlayerR4 {
             get {
                 object obj = ResourceManager.GetObject("PlayerR4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap previous {
+            get {
+                object obj = ResourceManager.GetObject("previous", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap select_level {
+            get {
+                object obj = ResourceManager.GetObject("select_level", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
