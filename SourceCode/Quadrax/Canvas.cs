@@ -69,16 +69,6 @@ namespace Quadrax
             this.TransparencyKey = Color.Transparent;
             this.KeyPreview = true; //KeyDown works thnx to this
             
-            //
-            //testing space
-
-
-            //
-            //Load(levelName);
-            //Redraw();
-            //Refresh();
-
-            //init konkretnych typov objektov, aby sa neprepocitavali pri kazdom hracovom move-e v leveli
         }
         
         public void AddObject(GameObject o)
@@ -200,12 +190,9 @@ namespace Quadrax
             {
                 RemoveObject(objects[0]);
             }
-            p1.Invalidate();
-            p2.Invalidate();
-            //RedrawPlayers();
+            showMenu();
             Invalidate();
             Refresh();
-            showMenu();
         }
 
         private void showMenu()
@@ -270,10 +257,6 @@ namespace Quadrax
                 if (pohyb(keyData))
                 {
                     activeCharacter.Move(keyData, VELKOSTKROKU, objects);
-
-                    PlayerGravity();
-
-                    RedrawPlayers();
                     if (presielLevel)
                     {
                         index = index + 1;
@@ -287,7 +270,14 @@ namespace Quadrax
                             MessageBox.Show("Bravo! Prešiel si level. Klikni na tlačidlo select na spustenie nasledujúceho levelu.");
                         }
                         menuButton_click(null, null);
+                        return true;
                     }
+                    else
+                    {
+                        RedrawPlayers();
+                    }
+                    PlayerGravity();
+
                     return true;
                 }
             }
@@ -334,13 +324,15 @@ namespace Quadrax
                         }
                     }
                 }
-             //   falling = !objects.Where(obj=> !(obj is LadderPiece) && obj.isSolid()).Any(playerIntersectsObject);
+                if (presielLevel)
+                {
+                    falling = false;
+                }
                 if (falling)
                 {
                     activeCharacter.Location = new Point(activeCharacter.Location.X, activeCharacter.Location.Y + 1);
                     RedrawPlayers();
                 }
-
             }
 
         }
